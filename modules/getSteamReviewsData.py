@@ -135,5 +135,3 @@ if __name__ == '__main__':
     # print(df.head(3).T)      # First few rows, transposed
     # print(df.tail(3).T)      # Last few rows, transposed
     # # print(f"\nExported {len(df)} reviews to {output_file}")
-
-print("Not in main")

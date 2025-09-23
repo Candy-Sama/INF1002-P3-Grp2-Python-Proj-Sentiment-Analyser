@@ -1,0 +1,16 @@
+{
+  "dataset_overview": {
+    "total_reviews": 9775,
+    "overall_positive_sentiment": 0.6366240409207161,
+    "avg_playtime_hours": 19.147074168797957,
+    "avg_games_owned": 222.75375959079284,
+    "avg_funny_votes": 1.793145780051151
+  },
+  "key_insights": [
+    "Steam purchases show 63.4% positive sentiment vs 64.4% for other sources",
+    "Free games: 59.2% positive vs Paid games: 63.7% positive",
+    "High playtime (25h+): 69.5% positive vs Low playtime (\u22641h): 25.3% positive",
+    "Funny votes correlation with sentiment: -0.006",
+    "Many games owned (250+): 57.4% vs Few games (\u226450): 66.2%"
+  ]
+}
