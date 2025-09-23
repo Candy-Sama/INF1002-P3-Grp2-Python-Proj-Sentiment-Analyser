@@ -2,7 +2,8 @@ import pandas as pd
 import re
 import csv
 import os
-from getSteamReviewsData import fetch_steam_reviews, reviews_to_dataframe
+import requests
+from datetime import datetime
 
 def load_sentiment_dictionary():
     """Load sentiment dictionary from CSV file."""
@@ -34,13 +35,13 @@ def score_sentence(sentence, sentiment_dict):
         'word_count': word_count
     }
 
-def find_extreme_sentences(df, sentiment_dict, top_n=10):
+def find_extreme_sentences(reviews, sentiment_dict, top_n=10):
     """Find most positive and negative sentences."""
     all_sentences = []
     
     print("Analyzing sentences...")
-    for idx, row in df.iterrows():
-        review_text = row.get('review_text', '')
+    for i, review in enumerate(reviews):
+        review_text = review.get('review', '')
         if not review_text:
             continue
             
@@ -51,9 +52,9 @@ def find_extreme_sentences(df, sentiment_dict, top_n=10):
         for sentence in sentences:
             sentence_data = score_sentence(sentence, sentiment_dict)
             sentence_data.update({
-                'review_id': row.get('review_id'),
-                'recommended': row.get('recommended'),
-                'review_index': idx
+                'review_id': review.get('recommendationid'),
+                'recommended': review.get('voted_up'),
+                'review_index': i
             })
             all_sentences.append(sentence_data)
     
@@ -69,8 +70,52 @@ def find_extreme_sentences(df, sentiment_dict, top_n=10):
     
     return most_positive, most_negative
 
-def display_results(most_positive, most_negative):
-    """Display the results."""
+def main():
+    """Main function."""
+    print("=== STEAM REVIEW SENTIMENT ANALYSIS ===")
+    
+    app_id = 315210
+    
+    # Fetch reviews directly from Steam API
+    base_url = f"https://store.steampowered.com/appreviews/{app_id}"
+    params = {
+        'json': 1,
+        'filter': 'recent',
+        'language': 'english',
+        'day_range': 180,
+        'review_type': 'all',
+        'purchase_type': 'all',
+        'num_per_page': 100,
+        'cursor': '*'
+    }
+    
+    reviews = []
+    cursor = '*'
+    
+    while True:
+        params['cursor'] = cursor
+        resp = requests.get(base_url, params=params)
+        data = resp.json()
+        
+        batch = data.get('reviews', [])
+        if not batch:
+            break
+            
+        reviews.extend(batch)
+        cursor = data.get('cursor')
+        if not cursor or cursor == params['cursor']:
+            break
+    
+    print(f"Fetched {len(reviews)} reviews")
+    
+    # Load sentiment dictionary and analyze
+    sentiment_dict = load_sentiment_dictionary()
+    if not sentiment_dict:
+        return
+    
+    most_positive, most_negative = find_extreme_sentences(reviews, sentiment_dict, 10)
+    
+    # Display results
     print(f"\n=== TOP {len(most_positive)} MOST POSITIVE SENTENCES ===")
     for i, s in enumerate(most_positive, 1):
         print(f"{i}. Score: {s['normalized_score']:.3f} | \"{s['sentence'][:80]}...\"")
@@ -78,26 +123,6 @@ def display_results(most_positive, most_negative):
     print(f"\n=== TOP {len(most_negative)} MOST NEGATIVE SENTENCES ===")
     for i, s in enumerate(most_negative, 1):
         print(f"{i}. Score: {s['normalized_score']:.3f} | \"{s['sentence'][:80]}...\"")
-
-def main():
-    """Main function."""
-    print("=== STEAM REVIEW SENTIMENT ANALYSIS ===")
-    
-    app_id = 315210
-    
-    # Fetch and process reviews
-    raw_reviews = fetch_steam_reviews(app_id=app_id, filter_by='recent', 
-                                     language='english', num_per_page=100)
-    df = reviews_to_dataframe(raw_reviews)
-    print(f"Analyzing {len(df)} reviews")
-    
-    # Load sentiment dictionary and analyze
-    sentiment_dict = load_sentiment_dictionary()
-    if not sentiment_dict:
-        return
-    
-    most_positive, most_negative = find_extreme_sentences(df, sentiment_dict, 10)
-    display_results(most_positive, most_negative)
     
     # Save to CSV
     output_dir = os.path.join('..', 'output')
