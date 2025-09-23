@@ -9,9 +9,12 @@
     h2 { margin-top: 20px; }
     button { padding: 10px 15px; font-size: 16px; cursor: pointer; }
     ul { list-style-type: none; padding: 0; }
-    li { margin-bottom: 8px; }
+    li { margin-bottom: 12px; }
     .positive { color: green; }
     .negative { color: red; }
+    .paragraph { border-left: 3px solid #ccc; padding-left: 10px; margin-bottom: 8px; }
+    .score { font-size: 0.9em; color: #555; }
+    .expand { cursor: pointer; color: #007bff; text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -25,10 +28,8 @@
       resultsDiv.innerHTML = "⏳ Loading...";
 
       try {
-        // Fetch results from Flask server (server.py -> /analyze route)
         const response = await fetch("/analyze");
         if (!response.ok) throw new Error("Network response was not ok");
-        
         const data = await response.json();
 
         let html = `
@@ -39,25 +40,44 @@
           </p>
         `;
 
-        // Display positive sentences
-        html += "<h2>🌟 Top Positive Sentences</h2><ul>";
-        data.most_positive.forEach(s => {
-          html += `<li class="positive"><strong>Score ${s.normalized_score}:</strong> “${s.sentence.substring(0, 100)}...”</li>`;
+        // Positive paragraphs
+        html += "<h2>🌟 Top Positive Paragraphs</h2><ul>";
+        data.most_positive_paragraphs.forEach((p, idx) => {
+          html += `
+            <li class="positive paragraph">
+              <span class="score">[Score: ${p.normalised_score.toFixed(3)} | Words: ${p.word_count}]</span><br>
+              <span id="pos${idx}">${p.paragraph.substring(0, 200)}...</span>
+              <span class="expand" onclick="toggleFull('pos${idx}', '${p.paragraph.replace(/'/g,"\\'")}')">Read more</span>
+            </li>`;
         });
         html += "</ul>";
 
-        // Display negative sentences
-        html += "<h2>💔 Top Negative Sentences</h2><ul>";
-        data.most_negative.forEach(s => {
-          html += `<li class="negative"><strong>Score ${s.normalized_score}:</strong> “${s.sentence.substring(0, 100)}...”</li>`;
+        // Negative paragraphs
+        html += "<h2>💔 Top Negative Paragraphs</h2><ul>";
+        data.most_negative_paragraphs.forEach((p, idx) => {
+          html += `
+            <li class="negative paragraph">
+              <span class="score">[Score: ${p.normalised_score.toFixed(3)} | Words: ${p.word_count}]</span><br>
+              <span id="neg${idx}">${p.paragraph.substring(0, 200)}...</span>
+              <span class="expand" onclick="toggleFull('neg${idx}', '${p.paragraph.replace(/'/g,"\\'")}')">Read more</span>
+            </li>`;
         });
         html += "</ul>";
 
         resultsDiv.innerHTML = html;
 
       } catch (err) {
-        resultsDiv.innerHTML = "❌ Failed to fetch results from server.py (/analyze).";
+        resultsDiv.innerHTML = "❌ Failed to fetch results from server (/analyze).";
         console.error("Error fetching data:", err);
+      }
+    }
+
+    function toggleFull(id, fullText) {
+      const span = document.getElementById(id);
+      if (span.innerHTML.endsWith("...")) {
+        span.innerHTML = fullText;
+      } else {
+        span.innerHTML = fullText.substring(0, 200) + "...";
       }
     }
   </script>
