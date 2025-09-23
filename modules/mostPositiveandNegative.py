@@ -24,122 +24,6 @@ from datetime import datetime  # For timestamping analysis results
 import json                   # For saving analysis results to JSON files
 import re                     # For regular expressions to split text into sentences
 
-if __name__ == "__main__": 
-    """
-    Main execution block - runs when script is executed directly.
-    This block orchestrates the entire sentiment analysis workflow:
-    1. Fetches Steam reviews for a specific game
-    2. Analyzes each review individually using sliding window technique
-    3. Provides interactive menu for users to explore results
-    4. Saves detailed analysis to JSON file
-    """
-    
-    # Configuration: Steam game to analyze (Brawlhalla in this case)
-    app_id = 315210  # Steam App ID - can be changed to analyze different games
-
-    print("🎮 Fetching Steam reviews...")
-    
-    # Step 1: Fetch Steam reviews using custom API wrapper module
-    # This calls the Steam Web API to get recent English reviews
-    raw_reviews = getSteamReviewsData.fetch_steam_reviews(
-        app_id=app_id,              # Which game to analyze
-        filter_by="recent",         # Get recent reviews (not all-time)
-        language="english",         # Only English reviews for text analysis
-        day_range=30,              # Reviews from past 30 days only
-        review_type="all",         # Both positive and negative reviews
-        purchase_type="all",       # All purchase types (free, paid, etc.)
-        num_per_page=20           # Limit number of reviews to process
-    )
-
-    print(f"📊 Found {len(raw_reviews)} reviews. Analyzing individual reviews...")
-    
-    # Step 2: Load sentiment dictionary from CSV file
-    # This contains words mapped to sentiment scores (positive/negative values)
-    sentiment_dict = sentimentDictionary.wordScores()
-
-    # Step 3: Configure sliding window parameters for paragraph analysis
-    window_size = 3              # Number of sentences per paragraph window
-    step_size = 1               # How many sentences to move window each iteration
-    max_reviews_to_analyze = 10 # Limit analysis to 10 reviews for user selection
-    
-    print(f"🔍 Using sliding window: {window_size} sentences per window, step size {step_size}")
-    print(f"📝 Analyzing top {max_reviews_to_analyze} reviews for individual analysis...")
-    
-    # Step 4: Analyze each review individually to find best/worst content within each
-    # This is the core analysis function that applies sliding window technique
-    analyzed_reviews = analyze_individual_reviews(
-        raw_reviews, sentiment_dict, window_size, step_size, max_reviews_to_analyze
-    )
-    
-    # Step 5: Validate that we have results to work with
-    if not analyzed_reviews:
-        print("❌ No reviews could be analyzed. Please check your data.")
-        exit()
-    
-    print(f"✅ Successfully analyzed {len(analyzed_reviews)} reviews!")
-    
-    # Step 6: Interactive user interface loop
-    # Allows users to explore individual reviews in detail
-    while True:
-        try:
-            # Display menu of available reviews and get user choice
-            max_choice = display_review_menu(analyzed_reviews)
-            
-            # Get user input for which review to analyze
-            choice = input("\nYour choice: ").strip()
-            
-            # Process user choice
-            if choice == "0":
-                # Show summary of all analyzed reviews
-                display_summary_analysis(analyzed_reviews)
-            elif choice.isdigit() and 1 <= int(choice) <= max_choice:
-                # Show detailed analysis of selected review
-                selected_review = analyzed_reviews[int(choice) - 1]
-                display_detailed_review_analysis(selected_review)
-            elif choice.lower() in ['quit', 'exit', 'q']:
-                # User wants to exit
-                print("👋 Goodbye!")
-                break
-            else:
-                # Invalid input handling
-                print(f"❌ Invalid choice. Please enter a number between 0 and {max_choice}, or 'quit' to exit.")
-            
-            # Ask if user wants to continue analyzing
-            continue_choice = input(f"\n🔄 Continue analyzing? (y/n): ").strip().lower()
-            if continue_choice in ['n', 'no', 'quit', 'exit']:
-                print("👋 Goodbye!")
-                break
-                
-        except KeyboardInterrupt:
-            # Handle Ctrl+C gracefully
-            print("\n👋 Goodbye!")
-            break
-        except Exception as e:
-            # Handle any unexpected errors
-            print(f"❌ An error occurred: {e}")
-            continue
-    
-    # Step 7: Save comprehensive results to JSON file for later use
-    # This creates a detailed record of all analysis results
-    results = {
-        "app_id": app_id,
-        "total_reviews_fetched": len(raw_reviews),
-        "reviews_analyzed": len(analyzed_reviews),
-        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "sliding_window_config": {
-            "window_size": window_size,
-            "step_size": step_size
-        },
-        "analyzed_reviews": analyzed_reviews  # Complete analysis data
-    }
-
-    # Write results to JSON file with proper formatting
-    with open("individual_review_analysis.json", "w", encoding="utf-8") as f:
-        json.dump(results, f, indent=2)
-
-    print(f"💾 Detailed analysis saved to individual_review_analysis.json")
-
-
 def score_sentences(reviews, sentiment_dict):
     """
     Calculate sentiment scores for entire reviews (treated as single sentences).
@@ -606,3 +490,118 @@ def display_summary_analysis(analyzed_reviews):
         worst = overall_worst_paragraph["worst_paragraph"]
         print(f"   Score: {worst['normalised_score']:.3f}")
         print(f"   Text: {worst['paragraph']}")
+
+if __name__ == "__main__": 
+    """
+    Main execution block - runs when script is executed directly.
+    This block orchestrates the entire sentiment analysis workflow:
+    1. Fetches Steam reviews for a specific game
+    2. Analyzes each review individually using sliding window technique
+    3. Provides interactive menu for users to explore results
+    4. Saves detailed analysis to JSON file
+    """
+    
+    # Configuration: Steam game to analyze (Brawlhalla in this case)
+    app_id = 315210  # Steam App ID - can be changed to analyze different games
+
+    print("🎮 Fetching Steam reviews...")
+    
+    # Step 1: Fetch Steam reviews using custom API wrapper module
+    # This calls the Steam Web API to get recent English reviews
+    raw_reviews = getSteamReviewsData.fetch_steam_reviews(
+        app_id=app_id,              # Which game to analyze
+        filter_by="recent",         # Get recent reviews (not all-time)
+        language="english",         # Only English reviews for text analysis
+        day_range=30,              # Reviews from past 30 days only
+        review_type="all",         # Both positive and negative reviews
+        purchase_type="all",       # All purchase types (free, paid, etc.)
+        num_per_page=20           # Limit number of reviews to process
+    )
+
+    print(f"📊 Found {len(raw_reviews)} reviews. Analyzing individual reviews...")
+    
+    # Step 2: Load sentiment dictionary from CSV file
+    # This contains words mapped to sentiment scores (positive/negative values)
+    sentiment_dict = sentimentDictionary.wordScores()
+
+    # Step 3: Configure sliding window parameters for paragraph analysis
+    window_size = 3              # Number of sentences per paragraph window
+    step_size = 1               # How many sentences to move window each iteration
+    max_reviews_to_analyze = 10 # Limit analysis to 10 reviews for user selection
+    
+    print(f"🔍 Using sliding window: {window_size} sentences per window, step size {step_size}")
+    print(f"📝 Analyzing top {max_reviews_to_analyze} reviews for individual analysis...")
+    
+    # Step 4: Analyze each review individually to find best/worst content within each
+    # This is the core analysis function that applies sliding window technique
+    analyzed_reviews = analyze_individual_reviews(
+        raw_reviews, sentiment_dict, window_size, step_size, max_reviews_to_analyze
+    )
+    
+    # Step 5: Validate that we have results to work with
+    if not analyzed_reviews:
+        print("❌ No reviews could be analyzed. Please check your data.")
+        exit()
+    
+    print(f"✅ Successfully analyzed {len(analyzed_reviews)} reviews!")
+    
+    # Step 6: Interactive user interface loop
+    # Allows users to explore individual reviews in detail
+    while True:
+        try:
+            # Display menu of available reviews and get user choice
+            max_choice = display_review_menu(analyzed_reviews)
+            
+            # Get user input for which review to analyze
+            choice = input("\nYour choice: ").strip()
+            
+            # Process user choice
+            if choice == "0":
+                # Show summary of all analyzed reviews
+                display_summary_analysis(analyzed_reviews)
+            elif choice.isdigit() and 1 <= int(choice) <= max_choice:
+                # Show detailed analysis of selected review
+                selected_review = analyzed_reviews[int(choice) - 1]
+                display_detailed_review_analysis(selected_review)
+            elif choice.lower() in ['quit', 'exit', 'q']:
+                # User wants to exit
+                print("👋 Goodbye!")
+                break
+            else:
+                # Invalid input handling
+                print(f"❌ Invalid choice. Please enter a number between 0 and {max_choice}, or 'quit' to exit.")
+            
+            # Ask if user wants to continue analyzing
+            continue_choice = input(f"\n🔄 Continue analyzing? (y/n): ").strip().lower()
+            if continue_choice in ['n', 'no', 'quit', 'exit']:
+                print("👋 Goodbye!")
+                break
+                
+        except KeyboardInterrupt:
+            # Handle Ctrl+C gracefully
+            print("\n👋 Goodbye!")
+            break
+        except Exception as e:
+            # Handle any unexpected errors
+            print(f"❌ An error occurred: {e}")
+            continue
+    
+    # Step 7: Save comprehensive results to JSON file for later use
+    # This creates a detailed record of all analysis results
+    results = {
+        "app_id": app_id,
+        "total_reviews_fetched": len(raw_reviews),
+        "reviews_analyzed": len(analyzed_reviews),
+        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "sliding_window_config": {
+            "window_size": window_size,
+            "step_size": step_size
+        },
+        "analyzed_reviews": analyzed_reviews  # Complete analysis data
+    }
+
+    # Write results to JSON file with proper formatting
+    with open("individual_review_analysis.json", "w", encoding="utf-8") as f:
+        json.dump(results, f, indent=2)
+
+    print(f"💾 Detailed analysis saved to individual_review_analysis.json")
