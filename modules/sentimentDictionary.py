@@ -1,8 +1,8 @@
 import csv
 import os
 
-os.chdir(r'.\data')
-file_path = r'sentiment_dictionary.csv'
+# os.chdir(r'.\data')
+file_path = r'INT1002-P3-Grp2-Python-Proj-Sentiment-Analyser\data\sentiment_dictionary.csv'
 
 def wordScores():
     try:

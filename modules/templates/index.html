@@ -1,45 +1,65 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Steam Sentiment Analysis</title>
+  <meta charset="UTF-8">
+  <title>Steam Sentiment Analysis</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { color: #2c3e50; }
+    h2 { margin-top: 20px; }
+    button { padding: 10px 15px; font-size: 16px; cursor: pointer; }
+    ul { list-style-type: none; padding: 0; }
+    li { margin-bottom: 8px; }
+    .positive { color: green; }
+    .negative { color: red; }
+  </style>
 </head>
 <body>
-    <h1>🎮 Steam Review Sentiment Analysis</h1>
-    <button onclick="loadResults()">Load Latest Results</button>
-    <div id="results"></div>
+  <h1>🎮 Steam Review Sentiment Analysis</h1>
+  <button onclick="loadResults()">🔄 Load Latest Results</button>
+  <div id="results"></div>
 
-    <script>
-        async function loadResults() {
-            const resultsDiv = document.getElementById("results");
-            resultsDiv.innerHTML = "⏳ Loading...";
+  <script>
+    async function loadResults() {
+      const resultsDiv = document.getElementById("results");
+      resultsDiv.innerHTML = "⏳ Loading...";
 
-            try {
-                const response = await fetch("/analyze");
-                const data = await response.json();
+      try {
+        // Fetch results from Flask server (server.py -> /analyze route)
+        const response = await fetch("/analyze");
+        if (!response.ok) throw new Error("Network response was not ok");
+        
+        const data = await response.json();
 
-                let html = `<p><strong>App ID:</strong> ${data.app_id} | <strong>Total Reviews:</strong> ${data.total_reviews} | <strong>Time:</strong> ${data.timestamp}</p>`;
+        let html = `
+          <p>
+            <strong>App ID:</strong> ${data.app_id} | 
+            <strong>Total Reviews:</strong> ${data.total_reviews} | 
+            <strong>Time:</strong> ${data.timestamp}
+          </p>
+        `;
 
-                html += "<h2>🌟 Top Positive Sentences</h2><ul>";
-                data.most_positive.forEach(s => {
-                    html += `<li><strong>Score ${s.normalized_score}:</strong> "${s.sentence.substring(0, 100)}..."</li>`;
-                });
-                html += "</ul>";
+        // Display positive sentences
+        html += "<h2>🌟 Top Positive Sentences</h2><ul>";
+        data.most_positive.forEach(s => {
+          html += `<li class="positive"><strong>Score ${s.normalized_score}:</strong> “${s.sentence.substring(0, 100)}...”</li>`;
+        });
+        html += "</ul>";
 
-                html += "<h2>💔 Top Negative Sentences</h2><ul>";
-                data.most_negative.forEach(s => {
-                    html += `<li><strong>Score ${s.normalized_score}:</strong> "${s.sentence.substring(0, 100)}..."</li>`;
-                });
-                html += "</ul>";
+        // Display negative sentences
+        html += "<h2>💔 Top Negative Sentences</h2><ul>";
+        data.most_negative.forEach(s => {
+          html += `<li class="negative"><strong>Score ${s.normalized_score}:</strong> “${s.sentence.substring(0, 100)}...”</li>`;
+        });
+        html += "</ul>";
 
-                resultsDiv.innerHTML = html;
+        resultsDiv.innerHTML = html;
 
-            } catch (err) {
-                resultsDiv.innerHTML = "❌ Failed to fetch results.";
-                console.error(err);
-            }
-        }
-    </script>
+      } catch (err) {
+        resultsDiv.innerHTML = "❌ Failed to fetch results from server.py (/analyze).";
+        console.error("Error fetching data:", err);
+      }
+    }
+  </script>
 </body>
 </html>
