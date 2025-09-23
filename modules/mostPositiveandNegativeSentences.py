@@ -6,7 +6,7 @@ import requests
 from datetime import datetime
 
 def load_sentiment_dictionary():
-    """Load sentiment dictionary from CSV file."""
+    # Load sentiment dictionary from CSV file.
     sentiment_dict = {}
     file_path = os.path.join('..', 'data', 'sentiment_dictionary.csv')
     
@@ -23,7 +23,7 @@ def load_sentiment_dictionary():
     return sentiment_dict
 
 def score_sentence(sentence, sentiment_dict):
-    """Calculate sentiment score for a sentence."""
+    # Calculate sentiment score for a sentence.
     words = re.sub(r'[^a-zA-Z\s]', '', sentence.lower()).split()
     total_score = sum(sentiment_dict.get(word, 0) for word in words)
     word_count = len(words)
@@ -36,7 +36,7 @@ def score_sentence(sentence, sentiment_dict):
     }
 
 def find_extreme_sentences(reviews, sentiment_dict, top_n=10):
-    """Find most positive and negative sentences."""
+    # Find most positive and negative sentences.
     all_sentences = []
     
     print("Analyzing sentences...")
@@ -71,7 +71,7 @@ def find_extreme_sentences(reviews, sentiment_dict, top_n=10):
     return most_positive, most_negative
 
 def main():
-    """Main function."""
+    # Main function.
     print("=== STEAM REVIEW SENTIMENT ANALYSIS ===")
     
     app_id = 315210
