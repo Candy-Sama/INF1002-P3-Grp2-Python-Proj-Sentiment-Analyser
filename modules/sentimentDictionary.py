@@ -1,21 +1,22 @@
 import csv
 import os
 
-os.chdir('..\data')
+os.chdir(r'.\data')
 file_path = r'sentiment_dictionary.csv'
 
-try:
-    with open(file_path, 'r', newline='', encoding='utf-8-sig') as csvfile:
-        csv_reader = csv.reader(csvfile)
+def wordScores():
+    try:
+        with open(file_path, 'r', newline='', encoding='utf-8-sig') as csvfile:
+            csv_reader = csv.reader(csvfile)
 
-        sentimentDict = {
+            sentimentDict = {
 
-        }
+            }
 
-        for row in csv_reader:
-            sentimentDict[row[0]] = float(row[1])
+            for row in csv_reader:
+                sentimentDict[row[0]] = float(row[1])
 
-        print(sentimentDict)
+    except Exception as e:
+        print(e)
 
-except Exception as e:
-    print(e)
+    return sentimentDict
