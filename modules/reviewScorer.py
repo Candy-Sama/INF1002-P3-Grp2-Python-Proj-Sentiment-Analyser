@@ -12,7 +12,7 @@ def sentence_score_calculator(review_to_be_scored):
     for sentence in cleanedSentence:
         for word in sentence.split():
             if word in sentimentDictionary.wordScores().keys():
-                score += float(sentimentDictionary.wordScores()[word])
+                score =+ float(sentimentDictionary.wordScores()[word])
             else:
                 pass
         sentenceScore.append(score)
