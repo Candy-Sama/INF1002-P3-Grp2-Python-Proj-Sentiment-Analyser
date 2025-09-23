@@ -2,15 +2,8 @@
 Steam Review Sentiment Analysis with Sliding Window Technique
 ============================================================
 
-This module analyzes Steam game reviews to find the most positive and negative 
+This module analyzes the given to find the most positive and negative 
 paragraphs within each individual review using a sliding window approach.
-
-Key Features:
-- Fetches Steam reviews for a specific game (app_id)
-- Uses sliding window technique to analyze paragraph-level sentiment
-- Finds best/worst content within each individual review
-- Interactive menu system for detailed review exploration
-- Exports results to JSON for further analysis
 
 Author: Group 2 - INT1002-P3
 Date: September 2025
@@ -24,7 +17,7 @@ from datetime import datetime  # For timestamping analysis results
 import json                   # For saving analysis results to JSON files
 import re                     # For regular expressions to split text into sentences
 
-def score_sentences(reviews, sentiment_dict):
+def score_sentences(reviews, sentiment_dict): #Ethel's code
     """
     Calculate sentiment scores for entire reviews (treated as single sentences).
     
@@ -78,7 +71,7 @@ def score_sentences(reviews, sentiment_dict):
 
     return scored_sentences
 
-def score_paragraphs(reviews, sentiment_dict, window_size=5, step_size=1): 
+def score_paragraphs_SlidingWindow(reviews, sentiment_dict, window_size=5, step_size=1): 
     """
     Core sliding window function for sentiment analysis of paragraphs.
     
@@ -87,7 +80,7 @@ def score_paragraphs(reviews, sentiment_dict, window_size=5, step_size=1):
     sentiment scores for each window, allowing us to find the most positive 
     and negative content within reviews.
     
-    Args:
+    Args to take in:
         reviews (list): List of review dictionaries containing review text
         sentiment_dict (dict): Dictionary mapping words to sentiment scores
         window_size (int): Number of sentences per window (default: 5)
@@ -119,8 +112,7 @@ def score_paragraphs(reviews, sentiment_dict, window_size=5, step_size=1):
         if not text:
             continue
             
-        # Clean the review text using custom formatter
-        # reviewFormatter returns a list of cleaned sentences
+        # Clean the review text using reviewCleaner
         cleaned_sentences = reviewCleaner.reviewFormatter(text)
         
         # Filter out empty sentences and ensure we have clean data
@@ -131,7 +123,6 @@ def score_paragraphs(reviews, sentiment_dict, window_size=5, step_size=1):
         for i in range(0, len(sentences) - window_size + 1, step_size):
             
             # Extract current window of sentences
-            # This creates a slice from position i to i+window_size
             window_sentences = sentences[i:i + window_size]
             
             # Join sentences into a single paragraph with proper punctuation
