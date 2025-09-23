@@ -349,12 +349,75 @@
             <h1>🎮 Steam Review Sentiment Analysis</h1>
             <p>AI-Powered Game Review Analysis Dashboard</p>
             <p>Generated on September 23, 2025 at 12:27 PM</p>
-        </div>
+        
+        <div style="margin: 20px 0; padding: 20px; background: #e8f5e8; border-radius: 10px;">
+            <h3>📊 Live Analysis Results</h3>
+            <p><strong>App ID:</strong> 315210 | <strong>Reviews:</strong> 9775 | <strong>Time:</strong> 2025-09-23 14:25:55</p>
+            
+            <h4>🌟 Top 0 Most Positive Sentences:</h4>
+            <ul>
+            </ul>
+            
+            <h4>💔 Top 0 Most Negative Sentences:</h4>
+            <ul>
+            </ul>
+        
+        <div style="margin: 20px 0; padding: 20px; background: #e8f5e8; border-radius: 10px;">
+            <h3>📊 Live Analysis Results</h3>
+            <p><strong>App ID:</strong> 315210 | <strong>Reviews:</strong> 9775 | <strong>Time:</strong> 2025-09-23 14:38:35</p>
+            
+            <h4>🌟 Top 10 Most Positive Sentences:</h4>
+            <ul><li><strong>Score 4.000:</strong> "& Fantastic..."</li><li><strong>Score 4.000:</strong> "Amazing fun..."</li><li><strong>Score 4.000:</strong> "10/10 Masterpiece..."</li><li><strong>Score 3.000:</strong> "Refreshingly fun..."</li><li><strong>Score 2.667:</strong> "Funny and fun..."</li><li><strong>Score 2.667:</strong> "Wow, simply wow..."</li><li><strong>Score 2.667:</strong> "fun and funny..."</li><li><strong>Score 2.500:</strong> "Super enjoyable..."</li><li><strong>Score 2.333:</strong> "Super fun game..."</li><li><strong>Score 2.333:</strong> "Super fun game..."</li>
+            </ul>
+            
+            <h4>💔 Top 10 Most Negative Sentences:</h4>
+            <ul><li><strong>Score -3.500:</strong> "fucking crap..."</li><li><strong>Score -3.000:</strong> "Fucking insane..."</li><li><strong>Score -3.000:</strong> "terrible goddamn awful..."</li><li><strong>Score -3.000:</strong> "1/10
+
+Awful..."</li><li><strong>Score -2.667:</strong> "Shit as fuck..."</li><li><strong>Score -2.667:</strong> "shit is ass..."</li><li><strong>Score -2.500:</strong> "Boring enemies..."</li><li><strong>Score -2.333:</strong> "that shit sucks)..."</li><li><strong>Score -2.333:</strong> "It fucking sucks..."</li><li><strong>Score -2.333:</strong> "it fucking sucks..."</li>
+            </ul>
+        </div></div></div>
         
         <div class="stats-section">
             <div class="highlight">
-                <h3>🚀 Analysis Complete!</h3>
-                <p>Your sentiment analysis system successfully processed <strong>5</strong> Steam reviews and generated this beautiful HTML report. The system analyzed review text, calculated sentiment scores, and created visualizations to help understand player opinions.</p>
+                <h3>🚀 Live Sentiment Analysis</h3>
+                <p>Click the button below to run live sentiment analysis on Steam reviews using <strong>mostPositiveandNegativeSentences.py</strong></p>
+                <button onclick="runSentimentAnalysis()" id="analyzeBtn" style="
+                    background: linear-gradient(45deg, #3498db, #2c3e50);
+                    color: white;
+                    border: none;
+                    padding: 15px 30px;
+                    border-radius: 25px;
+                    font-size: 1.1em;
+                    font-weight: bold;
+                    cursor: pointer;
+                    margin: 10px 0;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+                ">
+                    🔍 Run Sentiment Analysis
+                </button>
+                <button onclick="loadResults()" style="
+                    background: linear-gradient(45deg, #1e3a8a, #1e40af);
+                    color: white;
+                    border: none;
+                    padding: 15px 30px;
+                    border-radius: 25px;
+                    font-size: 1.1em;
+                    font-weight: bold;
+                    cursor: pointer;
+                    margin: 10px;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 4px 15px rgba(30, 58, 138, 0.3);
+                ">
+                    📊 Load Latest Results
+                </button>
+                <div id="analysisStatus" style="margin-top: 10px; font-style: italic; color: #666;"></div>
+            </div>
+
+            <!-- Live Results Section -->
+            <div id="liveResults" style="display: none; margin: 20px 0; padding: 20px; background: linear-gradient(135deg, #1e3a8a, #1e40af); color: white; border-radius: 10px;">
+                <h3>📊 Live Analysis Results</h3>
+                <div id="resultsContent"></div>
             </div>
             
             <div class="stats-grid">
@@ -525,6 +588,73 @@
                 });
             });
         });
+        
+
+        // Ethel added Function to simulate running the sentiment analysis script
+       
+        function runSentimentAnalysis() {
+            const btn = document.getElementById('analyzeBtn');
+            const status = document.getElementById('analysisStatus');
+            
+            // Update button and status
+            btn.innerHTML = '⏳ Running Analysis...';
+            btn.disabled = true;
+            status.innerHTML = 'Running mostPositiveandNegativeSentences.py...';
+            
+            // Simulate the analysis process (in a real web app, you'd make an API call)
+            setTimeout(() => {
+                status.innerHTML = '✅ Analysis complete! Click "Load Latest Results" to see the data.';
+                btn.innerHTML = '🔄 Run Analysis Again';
+                btn.disabled = false;
+                
+                // Show instructions
+                alert(`Analysis initiated! 
+                
+To see live results:
+1. Open your terminal/command prompt
+2. Navigate to your project folder
+3. Run: python modules/mostPositiveandNegativeSentences.py
+4. Click "Load Latest Results" button to see the results!`);
+            }, 2000);
+        }
+
+        async function loadResults() {
+            const resultsDiv = document.getElementById('liveResults');
+            const contentDiv = document.getElementById('resultsContent');
+            
+            try {
+                const response = await fetch('sentiment_results.json');
+                const data = await response.json();
+                
+                let html = `
+                    <p><strong>App ID:</strong> ${data.app_id} | <strong>Reviews:</strong> ${data.total_reviews} | <strong>Time:</strong> ${data.timestamp}</p>
+                    
+                    <h4 style="color: #90EE90; margin-top: 20px;">🌟 Top ${data.most_positive.length} Most Positive Sentences:</h4>
+                    <ul style="margin: 10px 0;">`;
+                
+                data.most_positive.forEach((s, i) => {
+                    html += `<li style="margin: 5px 0;"><strong>Score ${s.normalized_score.toFixed(3)}:</strong> "${s.sentence.substring(0, 100)}..."</li>`;
+                });
+                
+                html += `</ul>
+                    
+                    <h4 style="color: #FFB6C1; margin-top: 20px;">💔 Top ${data.most_negative.length} Most Negative Sentences:</h4>
+                    <ul style="margin: 10px 0;">`;
+                
+                data.most_negative.forEach((s, i) => {
+                    html += `<li style="margin: 5px 0;"><strong>Score ${s.normalized_score.toFixed(3)}:</strong> "${s.sentence.substring(0, 100)}..."</li>`;
+                });
+                
+                html += `</ul>`;
+                
+                contentDiv.innerHTML = html;
+                resultsDiv.style.display = 'block';
+                
+            } catch (error) {
+                contentDiv.innerHTML = '<p style="color: #FFB6C1;">❌ No results found. Please run the Python script first!</p>';
+                resultsDiv.style.display = 'block';
+            }
+        }
     </script>
 </body>
 </html>

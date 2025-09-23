@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Steam Sentiment Analysis</title>
+</head>
+<body>
+    <h1>🎮 Steam Review Sentiment Analysis</h1>
+    <button onclick="loadResults()">Load Latest Results</button>
+    <div id="results"></div>
+
+    <script>
+        async function loadResults() {
+            const resultsDiv = document.getElementById("results");
+            resultsDiv.innerHTML = "⏳ Loading...";
+
+            try {
+                const response = await fetch("/analyze");
+                const data = await response.json();
+
+                let html = `<p><strong>App ID:</strong> ${data.app_id} | <strong>Total Reviews:</strong> ${data.total_reviews} | <strong>Time:</strong> ${data.timestamp}</p>`;
+
+                html += "<h2>🌟 Top Positive Sentences</h2><ul>";
+                data.most_positive.forEach(s => {
+                    html += `<li><strong>Score ${s.normalized_score}:</strong> "${s.sentence.substring(0, 100)}..."</li>`;
+                });
+                html += "</ul>";
+
+                html += "<h2>💔 Top Negative Sentences</h2><ul>";
+                data.most_negative.forEach(s => {
+                    html += `<li><strong>Score ${s.normalized_score}:</strong> "${s.sentence.substring(0, 100)}..."</li>`;
+                });
+                html += "</ul>";
+
+                resultsDiv.innerHTML = html;
+
+            } catch (err) {
+                resultsDiv.innerHTML = "❌ Failed to fetch results.";
+                console.error(err);
+            }
+        }
+    </script>
+</body>
+</html>
