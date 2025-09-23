@@ -4,34 +4,17 @@ import csv
 import os
 import requests
 from datetime import datetime
-
-def load_sentiment_dictionary():
-    """Load sentiment dictionary from CSV file."""
-    sentiment_dict = {}
-    file_path = os.path.join('..', 'data', 'sentiment_dictionary.csv')
-    
-    try:
-        with open(file_path, 'r', newline='', encoding='utf-8-sig') as csvfile:
-            for row in csv.reader(csvfile):
-                if len(row) >= 2:
-                    sentiment_dict[row[0].lower()] = float(row[1])
-        print(f"Loaded {len(sentiment_dict)} sentiment words")
-    except Exception as e:
-        print(f"Error loading sentiment dictionary: {e}")
-        return {}
-    
-    return sentiment_dict
+import sentimentDictionary
 
 def score_sentence(sentence, sentiment_dict):
     """Calculate sentiment score for a sentence."""
     words = re.sub(r'[^a-zA-Z\s]', '', sentence.lower()).split()
-    total_score = sum(sentiment_dict.get(word, 0) for word in words)
     word_count = len(words)
     
     return {
         'sentence': sentence.strip(),
-        'score': total_score,
-        'normalized_score': total_score / max(word_count, 1),
+        'score': 0,
+        'normalized_score': 0,
         'word_count': word_count
     }
 
@@ -108,10 +91,8 @@ def main():
     
     print(f"Fetched {len(reviews)} reviews")
     
-    # Load sentiment dictionary and analyze
-    sentiment_dict = load_sentiment_dictionary()
-    if not sentiment_dict:
-        return
+    # Get sentiment dictionary from sentimentDictionary.py
+    sentiment_dict = sentimentDictionary.sentimentDict
     
     most_positive, most_negative = find_extreme_sentences(reviews, sentiment_dict, 10)
     
