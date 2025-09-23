@@ -19,22 +19,22 @@ def score_sentence(sentence, sentiment_dict):
         'word_count': word_count
     }
 
-def find_extreme_sentences(reviews, sentiment_dict, top_n=10):
-    # Find most positive and negative sentences.
+def find_extreme_sentences(reviews, sentiment_dict, top_n=10): # method to find most positive and negative sentences and return it
+    
     all_sentences = []
     
     print("Analyzing sentences...")
-    for i, review in enumerate(reviews):
+    for i, review in enumerate(reviews): #for each review in the reviews
         review_text = review.get('review', '')
         if not review_text:
             continue
             
-        # Split into sentences
+        # Split into a list sentences
         sentences = [s.strip() for s in re.split(r'[.!?]+', review_text) 
                     if s.strip() and len(s.strip()) > 10]
         
-        for sentence in sentences:
-            sentence_data = score_sentence(sentence, sentiment_dict)
+        for sentence in sentences: #for each sentence in the sentences list
+            sentence_data = score_sentence(sentence, sentiment_dict) #score the sentence according to the sentiment dictionary
             sentence_data.update({
                 'review_id': review.get('recommendationid'),
                 'recommended': review.get('voted_up'),
