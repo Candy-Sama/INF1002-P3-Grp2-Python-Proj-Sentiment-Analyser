@@ -5,7 +5,7 @@ from flask import Flask, jsonify, render_template
 import getSteamReviewsData
 import reviewCleaner
 import sentimentDictionary
-import mostpositiveandnegative  # new module for sliding window scoring
+import mostPositiveandNegative  # new module for sliding window scoring
 from datetime import datetime
 import os
 
@@ -47,7 +47,7 @@ def analyze():
     reviews_list = df.to_dict(orient="records")
 
     # 5) Run sliding window analysis on each review
-    analyzed_reviews = mostpositiveandnegative.analyse_individual_reviews(
+    analyzed_reviews = mostPositiveandNegative.analyse_individual_reviews(
         reviews_list,
         sentiment_dict,
         window_size=3,  # number of sentences per window
