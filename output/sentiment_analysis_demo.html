@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,341 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Steam Review Sentiment Analysis Demo</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-            overflow: hidden;
-            animation: slideUp 0.8s ease-out;
-        }
-        
-        @keyframes slideUp {
-            from {
-                transform: translateY(30px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-        
-        .header {
-            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
-            color: white;
-            padding: 40px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>') repeat;
-            animation: float 20s linear infinite;
-        }
-        
-        @keyframes float {
-            0% { transform: translateX(-50px) translateY(-50px); }
-            100% { transform: translateX(50px) translateY(50px); }
-        }
-        
-        .header h1 {
-            font-size: 3em;
-            font-weight: 300;
-            margin-bottom: 10px;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .header p {
-            font-size: 1.2em;
-            opacity: 0.9;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .stats-section {
-            padding: 40px;
-            background: #f8f9fa;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-        
-        .stat-card {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            text-align: center;
-            transition: all 0.3s ease;
-            border-top: 4px solid transparent;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-        
-        .stat-card.total { border-top-color: #3498db; }
-        .stat-card.positive { border-top-color: #27ae60; }
-        .stat-card.negative { border-top-color: #e74c3c; }
-        .stat-card.sentiment { border-top-color: #f39c12; }
-        
-        .stat-number {
-            font-size: 3em;
-            font-weight: bold;
-            margin: 15px 0;
-            background: linear-gradient(45deg, #3498db, #2c3e50);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .positive .stat-number {
-            background: linear-gradient(45deg, #27ae60, #2ecc71);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .negative .stat-number {
-            background: linear-gradient(45deg, #e74c3c, #c0392b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .sentiment .stat-number {
-            background: linear-gradient(45deg, #f39c12, #e67e22);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .stat-label {
-            color: #666;
-            font-size: 1.1em;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 600;
-        }
-        
-        .progress-bar {
-            background: #ecf0f1;
-            border-radius: 10px;
-            height: 8px;
-            margin: 15px 0;
-            overflow: hidden;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            border-radius: 10px;
-            transition: width 1.5s ease-out;
-        }
-        
-        .content {
-            padding: 40px;
-        }
-        
-        .section-title {
-            font-size: 2.5em;
-            color: #2c3e50;
-            margin-bottom: 30px;
-            text-align: center;
-            position: relative;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(90deg, #3498db, #2c3e50);
-            border-radius: 2px;
-        }
-        
-        .reviews-container {
-            display: grid;
-            gap: 25px;
-        }
-        
-        .review-card {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            border-left: 5px solid #3498db;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .review-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #3498db, transparent);
-        }
-        
-        .review-card:hover {
-            transform: translateX(10px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-        }
-        
-        .review-card.positive {
-            border-left-color: #27ae60;
-        }
-        
-        .review-card.negative {
-            border-left-color: #e74c3c;
-        }
-        
-        .review-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        
-        .review-status {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: bold;
-            font-size: 1.1em;
-        }
-        
-        .review-status.recommended {
-            color: #27ae60;
-        }
-        
-        .review-status.not-recommended {
-            color: #e74c3c;
-        }
-        
-        .sentiment-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            padding: 8px 16px;
-            border-radius: 25px;
-            color: white;
-            font-weight: bold;
-            font-size: 0.9em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .sentiment-badge.positive {
-            background: linear-gradient(45deg, #27ae60, #2ecc71);
-            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
-        }
-        
-        .sentiment-badge.negative {
-            background: linear-gradient(45deg, #e74c3c, #c0392b);
-            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
-        }
-        
-        .review-text {
-            line-height: 1.8;
-            font-size: 1.1em;
-            color: #444;
-            margin: 15px 0;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border-left: 3px solid #3498db;
-            font-style: italic;
-        }
-        
-        .review-date {
-            color: #888;
-            font-size: 0.95em;
-            text-align: right;
-            margin-top: 10px;
-        }
-        
-        .footer {
-            background: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 30px;
-            font-size: 1.1em;
-        }
-        
-        .emoji {
-            font-size: 1.2em;
-            margin-right: 5px;
-        }
-        
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2em;
-            }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .review-meta {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .container {
-                margin: 10px;
-                border-radius: 15px;
-            }
-        }
-        
-        .highlight {
-            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            border-left: 4px solid #3498db;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-        }
+        /* Keep all your original styling (container, header, stats-section, review-card, etc.) */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; border-radius: 20px; box-shadow: 0 25px 50px rgba(0,0,0,0.15); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%); color: white; padding: 40px; text-align: center; position: relative; overflow: hidden; }
+        h1, h2, h3, h4 { margin-bottom: 15px; }
+        .review-card { background: white; border-radius: 15px; padding: 25px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); border-left: 5px solid #3498db; margin-bottom: 20px; }
+        .review-card.positive { border-left-color: #27ae60; }
+        .review-card.negative { border-left-color: #e74c3c; }
+        .review-text { line-height: 1.8; font-size: 1.1em; color: #444; margin: 15px 0; padding: 20px; background: #f8f9fa; border-radius: 10px; border-left: 3px solid #3498db; font-style: italic; }
+        .review-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .sentiment-badge.positive { background: linear-gradient(45deg, #27ae60, #2ecc71); color: white; padding: 5px 12px; border-radius: 20px; }
+        .sentiment-badge.negative { background: linear-gradient(45deg, #e74c3c, #c0392b); color: white; padding: 5px 12px; border-radius: 20px; }
+        button { padding: 12px 25px; font-size: 1em; margin: 10px 5px; cursor: pointer; border: none; border-radius: 25px; color: white; }
+        #runBtn { background: linear-gradient(45deg, #3498db, #2c3e50); }
+        #loadBtn { background: linear-gradient(45deg, #1e3a8a, #1e40af); }
     </style>
 </head>
 <body>
@@ -348,314 +27,81 @@
         <div class="header">
             <h1>🎮 Steam Review Sentiment Analysis</h1>
             <p>AI-Powered Game Review Analysis Dashboard</p>
-            <p>Generated on September 23, 2025 at 12:27 PM</p>
-        
-        <div style="margin: 20px 0; padding: 20px; background: #e8f5e8; border-radius: 10px;">
-            <h3>📊 Live Analysis Results</h3>
-            <p><strong>App ID:</strong> 315210 | <strong>Reviews:</strong> 9775 | <strong>Time:</strong> 2025-09-23 14:25:55</p>
-            
-            <h4>🌟 Top 0 Most Positive Sentences:</h4>
-            <ul>
-            </ul>
-            
-            <h4>💔 Top 0 Most Negative Sentences:</h4>
-            <ul>
-            </ul>
-        
-        <div style="margin: 20px 0; padding: 20px; background: #e8f5e8; border-radius: 10px;">
-            <h3>📊 Live Analysis Results</h3>
-            <p><strong>App ID:</strong> 315210 | <strong>Reviews:</strong> 9775 | <strong>Time:</strong> 2025-09-23 14:38:35</p>
-            
-            <h4>🌟 Top 10 Most Positive Sentences:</h4>
-            <ul><li><strong>Score 4.000:</strong> "& Fantastic..."</li><li><strong>Score 4.000:</strong> "Amazing fun..."</li><li><strong>Score 4.000:</strong> "10/10 Masterpiece..."</li><li><strong>Score 3.000:</strong> "Refreshingly fun..."</li><li><strong>Score 2.667:</strong> "Funny and fun..."</li><li><strong>Score 2.667:</strong> "Wow, simply wow..."</li><li><strong>Score 2.667:</strong> "fun and funny..."</li><li><strong>Score 2.500:</strong> "Super enjoyable..."</li><li><strong>Score 2.333:</strong> "Super fun game..."</li><li><strong>Score 2.333:</strong> "Super fun game..."</li>
-            </ul>
-            
-            <h4>💔 Top 10 Most Negative Sentences:</h4>
-            <ul><li><strong>Score -3.500:</strong> "fucking crap..."</li><li><strong>Score -3.000:</strong> "Fucking insane..."</li><li><strong>Score -3.000:</strong> "terrible goddamn awful..."</li><li><strong>Score -3.000:</strong> "1/10
-
-Awful..."</li><li><strong>Score -2.667:</strong> "Shit as fuck..."</li><li><strong>Score -2.667:</strong> "shit is ass..."</li><li><strong>Score -2.500:</strong> "Boring enemies..."</li><li><strong>Score -2.333:</strong> "that shit sucks)..."</li><li><strong>Score -2.333:</strong> "It fucking sucks..."</li><li><strong>Score -2.333:</strong> "it fucking sucks..."</li>
-            </ul>
-        </div></div></div>
-        
-        <div class="stats-section">
-            <div class="highlight">
-                <h3>🚀 Live Sentiment Analysis</h3>
-                <p>Click the button below to run live sentiment analysis on Steam reviews using <strong>mostPositiveandNegativeSentences.py</strong></p>
-                <button onclick="runSentimentAnalysis()" id="analyzeBtn" style="
-                    background: linear-gradient(45deg, #3498db, #2c3e50);
-                    color: white;
-                    border: none;
-                    padding: 15px 30px;
-                    border-radius: 25px;
-                    font-size: 1.1em;
-                    font-weight: bold;
-                    cursor: pointer;
-                    margin: 10px 0;
-                    transition: all 0.3s ease;
-                    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
-                ">
-                    🔍 Run Sentiment Analysis
-                </button>
-                <button onclick="loadResults()" style="
-                    background: linear-gradient(45deg, #1e3a8a, #1e40af);
-                    color: white;
-                    border: none;
-                    padding: 15px 30px;
-                    border-radius: 25px;
-                    font-size: 1.1em;
-                    font-weight: bold;
-                    cursor: pointer;
-                    margin: 10px;
-                    transition: all 0.3s ease;
-                    box-shadow: 0 4px 15px rgba(30, 58, 138, 0.3);
-                ">
-                    📊 Load Latest Results
-                </button>
-                <div id="analysisStatus" style="margin-top: 10px; font-style: italic; color: #666;"></div>
-            </div>
-
-            <!-- Live Results Section -->
-            <div id="liveResults" style="display: none; margin: 20px 0; padding: 20px; background: linear-gradient(135deg, #1e3a8a, #1e40af); color: white; border-radius: 10px;">
-                <h3>📊 Live Analysis Results</h3>
-                <div id="resultsContent"></div>
-            </div>
-            
-            <div class="stats-grid">
-                <div class="stat-card total">
-                    <div class="stat-number">5</div>
-                    <div class="stat-label">Total Reviews</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 100%; background: #3498db;"></div>
-                    </div>
-                </div>
-                
-                <div class="stat-card positive">
-                    <div class="stat-number">3</div>
-                    <div class="stat-label">👍 Recommended</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 60.0%; background: #27ae60;"></div>
-                    </div>
-                </div>
-                
-                <div class="stat-card negative">
-                    <div class="stat-number">2</div>
-                    <div class="stat-label">👎 Not Recommended</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 40.0%; background: #e74c3c;"></div>
-                    </div>
-                </div>
-                
-                <div class="stat-card sentiment">
-                    <div class="stat-number">0.12</div>
-                    <div class="stat-label">🧠 Avg Sentiment</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 55.8%; background: #f39c12;"></div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="stats-grid">
-                <div class="stat-card positive">
-                    <div class="stat-number">3</div>
-                    <div class="stat-label">😊 Positive Sentiment</div>
-                </div>
-                <div class="stat-card negative">
-                    <div class="stat-number">2</div>
-                    <div class="stat-label">😞 Negative Sentiment</div>
-                </div>
-            </div>
         </div>
-        
-        <div class="content">
-            <h2 class="section-title">📝 Sample Review Analysis</h2>
-            
-            <div class="reviews-container">
-    
-                <div class="review-card positive">
-                    <div class="review-meta">
-                        <div class="review-status recommended">
-                            👍 Recommended
-                        </div>
-                        <div class="sentiment-badge positive">
-                            😊 Positive: 0.85
-                        </div>
-                    </div>
-                    <div class="review-text">
-                        "This game is absolutely amazing! Love the graphics and gameplay mechanics. Highly recommended!"
-                    </div>
-                    <div class="review-date">
-                        📅 September 20, 2025
-                    </div>
-                </div>
-        
-                <div class="review-card negative">
-                    <div class="review-meta">
-                        <div class="review-status not-recommended">
-                            👎 Not Recommended
-                        </div>
-                        <div class="sentiment-badge negative">
-                            😞 Negative: -0.92
-                        </div>
-                    </div>
-                    <div class="review-text">
-                        "Terrible game, complete waste of money. Buggy, unplayable, and poor design choices throughout."
-                    </div>
-                    <div class="review-date">
-                        📅 September 19, 2025
-                    </div>
-                </div>
-        
-                <div class="review-card positive">
-                    <div class="review-meta">
-                        <div class="review-status recommended">
-                            👍 Recommended
-                        </div>
-                        <div class="sentiment-badge positive">
-                            😊 Positive: 0.35
-                        </div>
-                    </div>
-                    <div class="review-text">
-                        "Pretty decent game overall. Has some issues but still enjoyable. Could use some improvements."
-                    </div>
-                    <div class="review-date">
-                        📅 September 18, 2025
-                    </div>
-                </div>
-        
-                <div class="review-card positive">
-                    <div class="review-meta">
-                        <div class="review-status recommended">
-                            👍 Recommended
-                        </div>
-                        <div class="sentiment-badge positive">
-                            😊 Positive: 0.95
-                        </div>
-                    </div>
-                    <div class="review-text">
-                        "Excellent game with fantastic storyline! Best purchase I've made this year. Perfect in every way!"
-                    </div>
-                    <div class="review-date">
-                        📅 September 17, 2025
-                    </div>
-                </div>
-        
-                <div class="review-card negative">
-                    <div class="review-meta">
-                        <div class="review-status not-recommended">
-                            👎 Not Recommended
-                        </div>
-                        <div class="sentiment-badge negative">
-                            😞 Negative: -0.65
-                        </div>
-                    </div>
-                    <div class="review-text">
-                        "Not worth the price. Too many technical issues and gameplay feels repetitive and boring."
-                    </div>
-                    <div class="review-date">
-                        📅 September 16, 2025
-                    </div>
-                </div>
-        
-            </div>
+
+        <div style="padding: 20px;">
+            <button id="runBtn" onclick="runSentimentAnalysis()">🔍 Run Sentiment Analysis</button>
+            <button id="loadBtn" onclick="loadResults()">📊 Load Latest Results</button>
+            <div id="analysisStatus" style="margin-top: 10px; font-style: italic; color: #666;"></div>
         </div>
-        
-        <div class="footer">
-            <p>🎯 Powered by Python Steam Review Sentiment Analyzer | 🚀 Ready for your real Steam data!</p>
-            <p style="margin-top: 10px; opacity: 0.8;">Change the app_id in your Python script to analyze any Steam game!</p>
+
+        <div id="liveResults" style="display:none; padding: 20px;">
+            <h2>📊 Live Results</h2>
+            <div id="resultsContent"></div>
         </div>
     </div>
-    
-    <script>
-        // Add some interactive animations
-        document.addEventListener('DOMContentLoaded', function() {
-            // Animate progress bars
-            const progressBars = document.querySelectorAll('.progress-fill');
-            progressBars.forEach((bar, index) => {
-                setTimeout(() => {
-                    bar.style.width = bar.style.width;
-                }, index * 200);
-            });
-            
-            // Add hover effects to cards
-            const cards = document.querySelectorAll('.stat-card, .review-card');
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = this.classList.contains('stat-card') ? 'translateY(-10px)' : 'translateX(10px)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'none';
-                });
-            });
-        });
-        
 
-        // Ethel added Function to simulate running the sentiment analysis script
-       
+    <script>
+        // Trigger Python server analysis simulation
         function runSentimentAnalysis() {
-            const btn = document.getElementById('analyzeBtn');
             const status = document.getElementById('analysisStatus');
+            status.innerHTML = '⏳ Running sentiment analysis on server...';
             
-            // Update button and status
-            btn.innerHTML = '⏳ Running Analysis...';
-            btn.disabled = true;
-            status.innerHTML = 'Running mostPositiveandNegativeSentences.py...';
-            
-            // Simulate the analysis process (in a real web app, you'd make an API call)
-            setTimeout(() => {
-                status.innerHTML = '✅ Analysis complete! Click "Load Latest Results" to see the data.';
-                btn.innerHTML = '🔄 Run Analysis Again';
-                btn.disabled = false;
-                
-                // Show instructions
-                alert(`Analysis initiated! 
-                
-To see live results:
-1. Open your terminal/command prompt
-2. Navigate to your project folder
-3. Run: python modules/mostPositiveandNegativeSentences.py
-4. Click "Load Latest Results" button to see the results!`);
-            }, 2000);
+            fetch('/analyze')
+                .then(response => response.json())
+                .then(data => {
+                    status.innerHTML = '✅ Analysis complete! Click "Load Latest Results" to view.';
+                    console.log('Live analysis data:', data);
+                })
+                .catch(err => {
+                    status.innerHTML = '❌ Error running analysis!';
+                    console.error(err);
+                });
         }
 
+        // Load results from server.py dynamically
         async function loadResults() {
             const resultsDiv = document.getElementById('liveResults');
             const contentDiv = document.getElementById('resultsContent');
             
+            resultsDiv.style.display = 'block';
+            contentDiv.innerHTML = '⏳ Loading...';
+
             try {
-                const response = await fetch('sentiment_results.json');
+                const response = await fetch('/analyze');
                 const data = await response.json();
-                
-                let html = `
-                    <p><strong>App ID:</strong> ${data.app_id} | <strong>Reviews:</strong> ${data.total_reviews} | <strong>Time:</strong> ${data.timestamp}</p>
-                    
-                    <h4 style="color: #90EE90; margin-top: 20px;">🌟 Top ${data.most_positive.length} Most Positive Sentences:</h4>
-                    <ul style="margin: 10px 0;">`;
-                
-                data.most_positive.forEach((s, i) => {
-                    html += `<li style="margin: 5px 0;"><strong>Score ${s.normalized_score.toFixed(3)}:</strong> "${s.sentence.substring(0, 100)}..."</li>`;
+
+                let html = `<p><strong>App ID:</strong> ${data.app_id} | <strong>Total Reviews:</strong> ${data.total_reviews} | <strong>Timestamp:</strong> ${data.timestamp}</p>`;
+
+                // Most positive paragraphs
+                html += `<h3 style="color: #27ae60;">🌟 Top Positive Paragraphs</h3>`;
+                data.most_positive.forEach((p, idx) => {
+                    html += `<div class="review-card positive">
+                                <div class="review-meta">
+                                    <span class="sentiment-badge positive">😊 ${p.normalized_score.toFixed(3)}</span>
+                                </div>
+                                <div class="review-text">${p.sentence}</div>
+                            </div>`;
                 });
-                
-                html += `</ul>
-                    
-                    <h4 style="color: #FFB6C1; margin-top: 20px;">💔 Top ${data.most_negative.length} Most Negative Sentences:</h4>
-                    <ul style="margin: 10px 0;">`;
-                
-                data.most_negative.forEach((s, i) => {
-                    html += `<li style="margin: 5px 0;"><strong>Score ${s.normalized_score.toFixed(3)}:</strong> "${s.sentence.substring(0, 100)}..."</li>`;
+
+                // Most negative paragraphs
+                html += `<h3 style="color: #e74c3c;">💔 Top Negative Paragraphs</h3>`;
+                data.most_negative.forEach((p, idx) => {
+                    html += `<div class="review-card negative">
+                                <div class="review-meta">
+                                    <span class="sentiment-badge negative">😞 ${p.normalized_score.toFixed(3)}</span>
+                                </div>
+                                <div class="review-text">${p.sentence}</div>
+                            </div>`;
                 });
-                
-                html += `</ul>`;
-                
+
                 contentDiv.innerHTML = html;
-                resultsDiv.style.display = 'block';
-                
+
             } catch (error) {
-                contentDiv.innerHTML = '<p style="color: #FFB6C1;">❌ No results found. Please run the Python script first!</p>';
-                resultsDiv.style.display = 'block';
+                contentDiv.innerHTML = '<p style="color: #e74c3c;">❌ Failed to load results. Make sure server.py is running!</p>';
+                console.error(error);
             }
         }
     </script>
 </body>
 </html>
-    

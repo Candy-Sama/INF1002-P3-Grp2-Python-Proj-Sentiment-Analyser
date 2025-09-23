@@ -1,10 +1,13 @@
 import csv
 import os
 
-# os.chdir(r'.\data')
-file_path = r'INT1002-P3-Grp2-Python-Proj-Sentiment-Analyser\data\sentiment_dictionary.csv'
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+file_path = os.path.join(BASE_DIR, "..", "data", "sentiment_dictionary.csv")
 
 def wordScores():
+    # Always initialize sentimentDict, so it exists even if file fails
+    sentimentDict = {}
     try:
         with open(file_path, 'r', newline='', encoding='utf-8-sig') as csvfile:
             csv_reader = csv.reader(csvfile)
