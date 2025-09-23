@@ -1,6 +1,7 @@
 import requests
 import pandas as pd
 from datetime import datetime
+import time
 
 def fetch_steam_reviews(app_id,
                         filter_by='all',
@@ -11,8 +12,9 @@ def fetch_steam_reviews(app_id,
                         num_per_page=100):
     """
     Fetches all Steam reviews for a given app_id, paging through cursors.
-    Returns a list of raw review dicts.
+    Returns a list of raw review dicts and also times how long it takes 
     """
+    start = time.time()
     reviews = []
     cursor = '*'
 
@@ -43,7 +45,9 @@ def fetch_steam_reviews(app_id,
         # When Steam returns the same cursor twice or no cursor, we stop
         if not cursor or cursor == params['cursor']:
             break
-
+        
+    end = time.time()
+    print("Time taken to fetch:", end - start)
     return reviews
 
 
