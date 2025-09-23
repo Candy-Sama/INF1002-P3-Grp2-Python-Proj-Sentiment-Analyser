@@ -1,6 +1,8 @@
 import csv
+import os
 
-file_path = r'.\sentiment_dictionary.csv'
+os.chdir('..\data')
+file_path = r'sentiment_dictionary.csv'
 
 try:
     with open(file_path, 'r', newline='', encoding='utf-8-sig') as csvfile:
