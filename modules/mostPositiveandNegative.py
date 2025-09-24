@@ -166,30 +166,6 @@ def analyse_individual_reviews(reviews, sentiment_dict, window_size=3, step_size
     Analyze each review individually to find most positive/negative content within each review.
     This is the core function for individual review analysis, identifying the best and worst
     sentiment content within each review using sliding window technique.
-    
-    Args:
-        reviews (list): List of review dictionaries containing 'review' text field
-        sentiment_dict (dict): Dictionary mapping words to sentiment scores
-        window_size (int): Number of sentences per sliding window (default: 3)
-        step_size (int): How many sentences to move window each step (default: 1)
-        max_reviews (int): Maximum number of reviews to analyze (default: 10)
-        
-    Returns:
-        list: List of analyzed review dictionaries, each containing:
-              - Original review data
-              - best_paragraph: Most positive paragraph data
-              - worst_paragraph: Most negative paragraph data  
-              - best_sentence: Most positive sentence data
-              - worst_sentence: Most negative sentence data
-              - total_paragraphs: Number of paragraphs analyzed
-              - total_sentences: Number of sentences analyzed
-    
-    Process:
-        1. Iterates through each review up to max_reviews limit
-        2. Applies sliding window analysis to each review individually
-        3. Scores both paragraphs (windows) and individual sentences
-        4. Identifies best/worst content within each review
-        5. Compiles comprehensive analysis results for each review
     """
     analysed_reviews = []
     
