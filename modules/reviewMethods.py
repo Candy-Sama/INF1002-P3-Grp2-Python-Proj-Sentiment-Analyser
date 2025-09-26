@@ -48,7 +48,9 @@ def findReviewLengths(reviews): #Get the PD dataframe of reviews
     #create a list to store the lengths of each review
     review_lengths = []
 
-    for eachReview in reviews['review_text']:
+    df = pd.read_excel(os.path.join(sentimentDictionary.BASE_DIR, "..", "data/steam_reviews_315210.xlsx"))
+
+    for eachReview in df['review_text']:
         review_lengths.append(len(eachReview.split())) # Get lengths of each review via word count
     review_lengths.sort() # Sort the lengths in ascending order
 
