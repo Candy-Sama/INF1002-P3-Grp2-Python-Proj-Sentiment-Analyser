@@ -142,16 +142,16 @@ def analyse_individual_reviews(reviews, sentiment_dict, window_size=3, step_size
     analysed_reviews = []
     
     # Process each review individually
-    for review_idx, review in enumerate(reviews):
-        text = review.get("review", "")
+    for review_idx in range(len(reviews)):
+        text = reviews[review_idx].get("review", "")
         if not text:
             continue  # Skip reviews with no text content
             
         
         # Apply sliding window analysis to this specific review
-        review_paragraphs = score_paragraphs_SlidingWindow([review], sentiment_dict, window_size, step_size)
-        review_sentences = sentence_score_calculator([review], sentiment_dict)
-        
+        review_paragraphs = score_paragraphs_SlidingWindow([reviews[review_idx]], sentiment_dict, window_size, step_size)
+        review_sentences = sentence_score_calculator([reviews[review_idx]], sentiment_dict)
+
         # Skip review if analysis failed
         if not review_paragraphs or not review_sentences:
             continue
@@ -165,9 +165,9 @@ def analyse_individual_reviews(reviews, sentiment_dict, window_size=3, step_size
         sentence_scores = [s["normalised_score"] for s in review_sentences] # List of sentence scores
         
 
-        analysed_review = { #create a dictionary to hold all the analysed data for this review
+        analysed_review = {
             "review_index": review_idx,                    # Review position in original list
-            "original_review": review,                     # Complete original review data
+            "original_review": reviews[review_idx],                     # Complete original review data
             "review_text_preview": text[:200] + "..." if len(text) > 200 else text,  # Preview for display
             "statistics": {
                 "total_paragraphs": len(review_paragraphs),      # Number of sliding windows created
@@ -177,8 +177,6 @@ def analyse_individual_reviews(reviews, sentiment_dict, window_size=3, step_size
             },
             "best_paragraph": best_paragraph,              # Most positive paragraph data
             "worst_paragraph": worst_paragraph,            # Most negative paragraph data
-            "best_sentence": best_sentence,                # Most positive sentence data
-            "worst_sentence": worst_sentence,              # Most negative sentence data
             "all_paragraphs": review_paragraphs,           # Complete paragraph analysis
             "all_sentences": review_sentences              # Complete sentence analysis
         }
