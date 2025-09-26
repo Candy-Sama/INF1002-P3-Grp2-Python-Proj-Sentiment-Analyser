@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Steam Review Sentiment Analysis Demo</title>
+    <title>Steam Review Sentiment Analysis</title>
     <style>
-        /* Keep all your original styling (container, header, stats-section, review-card, etc.) */
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; }
         .container { max-width: 1200px; margin: 0 auto; background: white; border-radius: 20px; box-shadow: 0 25px 50px rgba(0,0,0,0.15); overflow: hidden; }
         .header { background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%); color: white; padding: 40px; text-align: center; position: relative; overflow: hidden; }
@@ -26,12 +25,12 @@
     <div class="container">
         <div class="header">
             <h1>🎮 Steam Review Sentiment Analysis</h1>
-            <p>AI-Powered Game Review Analysis Dashboard</p>
+            <p>Game Review Analysis Dashboard</p>
         </div>
 
         <div style="padding: 20px;">
+            <input type="text" id="gameNameInput" placeholder="Enter game name" style="padding:10px; font-size:1em; width: 300px;">
             <button id="runBtn" onclick="runSentimentAnalysis()">🔍 Run Sentiment Analysis</button>
-            <button id="loadBtn" onclick="loadResults()">📊 Load Latest Results</button>
             <div id="analysisStatus" style="margin-top: 10px; font-style: italic; color: #666;"></div>
         </div>
 
@@ -42,40 +41,36 @@
     </div>
 
     <script>
-        // Trigger Python server analysis simulation
-        function runSentimentAnalysis() {
+        async function runSentimentAnalysis() {
             const status = document.getElementById('analysisStatus');
-            status.innerHTML = '⏳ Running sentiment analysis on server...';
-            
-            fetch('/analyze')
-                .then(response => response.json())
-                .then(data => {
-                    status.innerHTML = '✅ Analysis complete! Click "Load Latest Results" to view.';
-                    console.log('Live analysis data:', data);
-                })
-                .catch(err => {
-                    status.innerHTML = '❌ Error running analysis!';
-                    console.error(err);
-                });
-        }
+            const gameName = document.getElementById('gameNameInput').value.trim();
+            if (!gameName) {
+                status.innerHTML = '❌ Please enter a game name!';
+                return;
+            }
 
-        // Load results from server.py dynamically
-        async function loadResults() {
-            const resultsDiv = document.getElementById('liveResults');
-            const contentDiv = document.getElementById('resultsContent');
-            
-            resultsDiv.style.display = 'block';
-            contentDiv.innerHTML = '⏳ Loading...';
+            status.innerHTML = '⏳ Running sentiment analysis on server...';
 
             try {
-                const response = await fetch('/analyze');
+                const response = await fetch(`/analyze?game_name=${encodeURIComponent(gameName)}`);
                 const data = await response.json();
 
-                let html = `<p><strong>App ID:</strong> ${data.app_id} | <strong>Total Reviews:</strong> ${data.total_reviews} | <strong>Timestamp:</strong> ${data.timestamp}</p>`;
+                if (data.error) {
+                    status.innerHTML = `❌ ${data.error}`;
+                    return;
+                }
 
-                // Most positive paragraphs
-                html += `<h3 style="color: #27ae60;">🌟 Top Positive Paragraphs</h3>`;
-                data.most_positive.forEach((p, idx) => {
+                status.innerHTML = `✅ Analysis complete for "${data.game_name}"!`;
+
+                const resultsDiv = document.getElementById('liveResults');
+                const contentDiv = document.getElementById('resultsContent');
+                resultsDiv.style.display = 'block';
+
+                let html = `<p><strong>Game:</strong> ${data.game_name} | <strong>App ID:</strong> ${data.app_id} | <strong>Total Reviews:</strong> ${data.total_reviews} | <strong>Timestamp:</strong> ${data.timestamp}</p>`;
+
+                // Positive paragraphs
+                html += `<h3 style="color:#27ae60;">🌟 Top Positive Paragraphs</h3>`;
+                data.most_positive_paragraphs.forEach(p => {
                     html += `<div class="review-card positive">
                                 <div class="review-meta">
                                     <span class="sentiment-badge positive">😊 ${p.normalized_score.toFixed(3)}</span>
@@ -84,9 +79,9 @@
                             </div>`;
                 });
 
-                // Most negative paragraphs
-                html += `<h3 style="color: #e74c3c;">💔 Top Negative Paragraphs</h3>`;
-                data.most_negative.forEach((p, idx) => {
+                // Negative paragraphs
+                html += `<h3 style="color:#e74c3c;">💔 Top Negative Paragraphs</h3>`;
+                data.most_negative_paragraphs.forEach(p => {
                     html += `<div class="review-card negative">
                                 <div class="review-meta">
                                     <span class="sentiment-badge negative">😞 ${p.normalized_score.toFixed(3)}</span>
@@ -97,9 +92,9 @@
 
                 contentDiv.innerHTML = html;
 
-            } catch (error) {
-                contentDiv.innerHTML = '<p style="color: #e74c3c;">❌ Failed to load results. Make sure server.py is running!</p>';
-                console.error(error);
+            } catch (err) {
+                status.innerHTML = '❌ Error running analysis!';
+                console.error(err);
             }
         }
     </script>
