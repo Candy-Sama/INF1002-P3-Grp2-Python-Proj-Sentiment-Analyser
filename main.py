@@ -11,13 +11,13 @@ from flask import Flask, jsonify, render_template, request
 # -----------------------------
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'modules')))
 
-import getSteamReviewsData
-import reviewCleaner
-import reviewScorer
-import sentimentDictionary
-import sliding_window_demo
-import additionalDataPoints
-import createSentimentVisualization
+from modules import getSteamReviewsData
+from modules import reviewMethods
+from modules import sentimentDictionary
+from modules import sliding_window_demo
+from modules import additionalDataPoints
+from modules import createSentimentVisualization
+from modules import mostPositiveandNegative
 # -----------------------------
 # Flask app initialization
 # -----------------------------
