@@ -53,11 +53,6 @@ def score_paragraphs_SlidingWindow(reviews, sentiment_dict, window_size=5, step_
     """
     Core sliding window function for sentiment analysis of paragraphs.
     
-    This function implements the sliding window technique to analyze paragraphs 
-    within reviews. It creates overlapping windows of sentences and calculates 
-    sentiment scores for each window, allowing us to find the most positive 
-    and negative content within reviews.
-    
     Stuff to take in:
         reviews (list): List of review dictionaries containing review text
         sentiment_dict (dict): Dictionary mapping words to sentiment scores
