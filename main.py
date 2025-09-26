@@ -18,6 +18,7 @@ from modules import sliding_window_demo
 from modules import additionalDataPoints
 from modules import createSentimentVisualization
 from modules import mostPositiveandNegative
+
 # -----------------------------
 # Flask app initialization
 # -----------------------------
@@ -62,7 +63,7 @@ def analyze_reviews():
         return jsonify({"error": f"No recent reviews found for App ID '{app_id}'"}), 404
 
     # 3️⃣ Clean and preprocess reviews
-    cleaned_reviews = [reviewCleaner.reviewFormatter(r) for r in reviews]
+    cleaned_reviews = [reviewMethods.reviewFormatter(r) for r in reviews]
 
     # 4️⃣ Load sentiment dictionary
     sentiment_dict = sentimentDictionary.wordScores()
