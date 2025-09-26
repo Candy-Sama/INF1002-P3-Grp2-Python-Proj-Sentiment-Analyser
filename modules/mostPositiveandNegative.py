@@ -168,15 +168,15 @@ def analyse_individual_reviews(reviews, sentiment_dict, window_size=3, step_size
             continue
             
         # Find the most positive and negative paragraphs within this review
-        best_paragraph = max(review_paragraphs, key=lambda x: x["normalised_score"]) if review_paragraphs else None
-        worst_paragraph = min(review_paragraphs, key=lambda x: x["normalised_score"]) if review_paragraphs else None
+        best_paragraph = max(review_paragraphs, key=lambda x: x["normalised_score"]) if review_paragraphs else None # Find the paragraph with the highest normalised score
+        worst_paragraph = min(review_paragraphs, key=lambda x: x["normalised_score"]) if review_paragraphs else None # Find the paragraph with the lowest normalised score
         
         # Handle potential key variations between normalised/normalized spelling
-        sentence_key = "normalised_score" if review_sentences and "normalised_score" in review_sentences[0] else "normalized_score"
+        sentence_key = "normalised_score" if review_sentences and "normalised_score" in review_sentences[0] else "normalized_score" # Fallback for American spelling
         # Find the most positive and negative sentences within this review
-        best_sentence = max(review_sentences, key=lambda x: x[sentence_key]) if review_sentences else None
-        worst_sentence = min(review_sentences, key=lambda x: x[sentence_key]) if review_sentences else None
-        
+        best_sentence = max(review_sentences, key=lambda x: x[sentence_key]) if review_sentences else None # Find the sentence with the highest normalised score 
+        worst_sentence = min(review_sentences, key=lambda x: x[sentence_key]) if review_sentences else None # Find the sentence with the lowest normalised score
+
         # Calculate comprehensive statistics for this review
         paragraph_scores = [p["normalised_score"] for p in review_paragraphs] # List of paragraph scores
         sentence_scores = [s["normalised_score"] for s in review_sentences] # List of sentence scores

@@ -1,6 +1,7 @@
 import contractions
 import re
 import sentimentDictionary
+import pandas as pd
 
 def reviewFormatter(review):
     listOfSentences = []
@@ -42,16 +43,18 @@ def sentence_score_calculator(review_to_be_scored):
     return results
 
 # Code to check the length of reviews
-def findReviewLengths(reviews):
-    
-    cleaned_reviews = reviewFormatter(reviews)
+def findReviewLengths(reviews): #Get the PD dataframe of reviews
 
+    #create a list to store the lengths of each review
+    review_lengths = []
 
-    review_lengths = [len(review) for review in cleaned_reviews]
+    for eachReview in reviews['review_text']:
+        review_lengths.append(len(eachReview.split())) # Get lengths of each review via word count
+    review_lengths.sort() # Sort the lengths in ascending order
 
-    longest_review = max(review_lengths) if review_lengths else 0
-    shortest_review = min(review_lengths) if review_lengths else 0
+    # Get the longest and shortest review lengths
+    longest_review = review_lengths[-1] if review_lengths else 0 # Handle empty list case
+    shortest_review = review_lengths[0] if review_lengths else 0 # Handle empty list case
 
-
-    return longest_review, shortest_review # Return sorted list of review lengths in ascending order
+    return longest_review, shortest_review
 
