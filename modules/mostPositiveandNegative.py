@@ -11,35 +11,13 @@ Date: September 2025
 
 # Import required modules for the sentiment analysis system
 import getSteamReviewsData      # Custom module to fetch Steam review data via API
-import reviewCleaner           # Custom module to clean and format review text
+import reviewMethods           # Custom module to clean and format review text
 import sentimentDictionary     # Custom module to load word sentiment scores from CSV
 from datetime import datetime  # For timestamping analysis results
 import json                   # For saving analysis results to JSON files
 import re                     # For regular expressions to split text into sentences
 
 def score_sentences(reviews, sentiment_dict): #Ethel's code
-    """
-    Calculate sentiment scores for entire reviews (treated as single sentences).
-    
-    This function processes a list of reviews and calculates their overall 
-    sentiment scores by summing up the sentiment values of all words.
-    
-    Args:
-        reviews (list): List of review dictionaries, each containing a 'review' key
-        sentiment_dict (dict): Dictionary mapping words to their sentiment scores
-        
-    Returns:
-        list: List of dictionaries containing:
-            - sentence: The cleaned review text
-            - normalised_score: Total sentiment score for the review
-            
-    Process:
-        1. Extract review text from each review dictionary
-        2. Clean the text using reviewCleaner.reviewFormatter()
-        3. Split into individual words
-        4. Sum sentiment scores for all words
-        5. Return scored sentence data
-    """
     scored_sentences = []
 
     # Process each review in the input list
@@ -51,7 +29,7 @@ def score_sentences(reviews, sentiment_dict): #Ethel's code
 
         # Clean the review text using the custom reviewFormatter
         # Note: reviewFormatter returns a list of cleaned sentences
-        cleaned_list = reviewCleaner.reviewFormatter(text)
+        cleaned_list = reviewMethods.reviewFormatter(text)
         
         # Convert list of sentences back to single string if needed
         cleaned = ' '.join(cleaned_list) if isinstance(cleaned_list, list) else cleaned_list
@@ -71,7 +49,7 @@ def score_sentences(reviews, sentiment_dict): #Ethel's code
 
     return scored_sentences
 
-def score_paragraphs_SlidingWindow(reviews, sentiment_dict, window_size=5, step_size=1): 
+def score_paragraphs_SlidingWindow(reviews, sentiment_dict, window_size=5, step_size=1):  #Mus Code
     """
     Core sliding window function for sentiment analysis of paragraphs.
     
@@ -80,7 +58,7 @@ def score_paragraphs_SlidingWindow(reviews, sentiment_dict, window_size=5, step_
     sentiment scores for each window, allowing us to find the most positive 
     and negative content within reviews.
     
-    Args to take in:
+    Stuff to take in:
         reviews (list): List of review dictionaries containing review text
         sentiment_dict (dict): Dictionary mapping words to sentiment scores
         window_size (int): Number of sentences per window (default: 5)
@@ -111,7 +89,7 @@ def score_paragraphs_SlidingWindow(reviews, sentiment_dict, window_size=5, step_
             continue
             
         # Clean the review text using reviewCleaner
-        cleaned_sentences = reviewCleaner.reviewFormatter(text)
+        cleaned_sentences = reviewMethods.reviewFormatter(text)
         
         # Filter out empty sentences and ensure we have clean data
         sentences = [s.strip() for s in cleaned_sentences if s.strip()] #Cleaned sentences list by removing empties using strip()
@@ -151,17 +129,17 @@ def score_paragraphs_SlidingWindow(reviews, sentiment_dict, window_size=5, step_
     
     return scored_paragraphs # Return all scored paragraph windows
 
-def get_most_positive_paragraphs(scored_paragraphs, top_n=10):
+def get_most_positive_paragraphs(scored_paragraphs, top_n=10): #Mus Code
     # Get the top N most positive paragraphs by sorting in descending order
     sorted_paragraphs = sorted(scored_paragraphs, key=lambda x: x["normalised_score"], reverse=True)
     return sorted_paragraphs[:top_n]
 
-def get_most_negative_paragraphs(scored_paragraphs, top_n=10):
+def get_most_negative_paragraphs(scored_paragraphs, top_n=10): #Mus Code
     # Get the top N most negative paragraphs by sorting in ascending order
     sorted_paragraphs = sorted(scored_paragraphs, key=lambda x: x["normalised_score"]) 
     return sorted_paragraphs[:top_n]
 
-def analyse_individual_reviews(reviews, sentiment_dict, window_size=3, step_size=1, max_reviews=10):
+def analyse_individual_reviews(reviews, sentiment_dict, window_size=3, step_size=1, max_reviews=10): #Mus Code
     """
     Analyze each review individually to find most positive/negative content within each review.
     This is the core function for individual review analysis, identifying the best and worst
