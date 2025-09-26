@@ -4,11 +4,12 @@ import re
 def reviewFormatter(review):
     listOfSentences = []
     listOfCleanedSentences = []
+    review = re.sub('_x000D_','',review)
 
     # Split review into sentences
     for sentence in review.split(r'.'):
         if len(sentence) != 0:
-            listOfSentences.append(sentence)
+            listOfSentences.append(sentence.strip())
 
     # Remove parenthesis contractions by splitting them into their base
     for word in listOfSentences:
