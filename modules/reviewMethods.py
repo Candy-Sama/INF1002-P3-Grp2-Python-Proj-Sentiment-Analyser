@@ -125,16 +125,6 @@ def score_paragraphs_SlidingWindow(reviews, sentiment_dict, window_size=5, step_
     
     return scored_paragraphs # Return all scored paragraph windows
 
-def get_most_positive_paragraphs(scored_paragraphs): #Mus Code
-    # Get the top most positive paragraphs by sorting in descending order
-    sorted_paragraphs = sorted(scored_paragraphs, key=lambda x: x["normalised_score"], reverse=True)
-    return sorted_paragraphs[:1] #return first item in list
-
-def get_most_negative_paragraphs(scored_paragraphs): #Mus Code
-    # Get the top most negative paragraphs by sorting in ascending order
-    sorted_paragraphs = sorted(scored_paragraphs, key=lambda x: x["normalised_score"]) 
-    return sorted_paragraphs[:1] #return first item in list
-
 def analyse_individual_reviews(reviews, sentiment_dict, window_size=3, step_size=1): #Mus Code
     """
     Analyze each review individually to find most positive/negative content within each review.
