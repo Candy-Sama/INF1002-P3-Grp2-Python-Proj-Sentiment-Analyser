@@ -24,7 +24,8 @@ from modules import data_to_frontend
 # -----------------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 template_dir = os.path.join(os.path.dirname(__file__), 'output')
-app = Flask(__name__, template_folder=template_dir)
+static_dir = os.path.join(os.path.dirname(__file__), 'output')
+app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 
 # -----------------------------
 # Routes
