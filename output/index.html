@@ -120,19 +120,19 @@
                 <option value="315210">315210</option>
             </select>
             <!--<input type="number" id="app_id" placeholder="Enter Steam App ID">-->
-            <button id="runBtn" onclick="runSentimentAnalysis()">🔍 Run Sentiment Analysis</button>
+            <button id="runBtn" onclick="runGetReviews()">🔍 Run Sentiment Analysis</button>
             <div id="analysisStatus" style="margin-top: 10px; font-style: italic; color: #666;"></div>
         </div>
 
         <div id="liveResults" style="display:none; padding: 20px;">
-            <h2>📊 Live Results</h2>
+            <h2>📊 Results</h2>
             <img id="visualization" src="" style="max-width:100%; margin-bottom: 20px; display:none;" />
             <div id="resultsContent"></div>
         </div>
     </div>
 
     <script>
-        async function runSentimentAnalysis() {
+        async function runGetReviews() {
             const status = document.getElementById('analysisStatus');
             const resultsDiv = document.getElementById('liveResults');
             const contentDiv = document.getElementById('resultsContent');
@@ -173,7 +173,7 @@
                 data.reviews.forEach((review, index) => {
                      html += `<div class="review-card">
                                   <div class="review-meta">
-                                      <span id="${index}" class="">${review}</span>
+                                      <span onclick="runSentimentAnalysis()" id="review_id" data-value="${index}">${review}</span>
                                   </div>
                               </div>`;
                 })//<div class="review-text">${p.sentence}</div>
@@ -207,6 +207,18 @@
                 status.innerHTML = '❌ Error running analysis!';
                 contentDiv.innerHTML = '<p style="color: #e74c3c;">❌ Failed to load results</p>';
                 console.error(error);
+            }
+        }
+        async function runSentimentAnalysis() {
+            const reviewId = document.getElementById('review_id')
+            const reviewIdVal = event.target.dataset.value;
+            console.log(reviewIdVal)
+            try {
+                const response = await fetch(`/reviewId?review_id=${reviewIdVal}`);
+                const data = await response.json();
+                console.log(data)
+            } catch (error) {
+                console.error(error)
             }
         }
     </script>

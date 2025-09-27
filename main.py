@@ -4,7 +4,7 @@
 import sys
 import os
 import datetime
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, g
 
 # -----------------------------
 # Add 'modules/' to Python path
@@ -14,7 +14,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'modules
 from modules import fetch_steam_data
 from modules import reviewMethods
 from modules import sentiment_dict
-from modules import sliding_window_demo
 from modules import additionalDataPoints
 # from modules import createSentimentVisualization
 from modules import most_positive_negative
@@ -63,7 +62,7 @@ def get_reviews():
     # cleaned_reviews = [reviewMethods.reviewFormatter(r) for r in reviews]
 
     # # 4️⃣ Load sentiment dictionary
-    sentiment_dictionary = sentiment_dict.wordScores()
+    # sentiment_dictionary = sentiment_dict.wordScores()
 
     # # 5️⃣ Sliding window sentiment analysis
     # positive, negative = sliding_window_demo.run_sliding_window(cleaned_reviews, sentiment_dict)
@@ -95,7 +94,11 @@ def sentiment_analytics():
     if not review_id:
         return jsonify({"error": "Missing required query parameter: review_id"}), 400
     else:
-        review_id = None
+        file_id = f'steam_reviews_{g.app_id}.xlsx'
+        file_path = os.path.join(BASE_DIR, "data", file_id)
+        output = data_to_frontend.get_review_id(file_path)
+
+    print(output)
 
     result = {
         "review_id":review_id,
