@@ -78,14 +78,34 @@
             color: white; 
         }
         #runBtn { background: linear-gradient(45deg, #3498db, #2c3e50); }
-        input[type="number"] { 
-            padding: 10px 15px; 
-            font-size: 1em; 
-            border-radius: 25px; 
-            border: 1px solid #ccc; 
-            margin-right: 10px; 
-            width: 200px; 
-        }
+        select {
+            margin: 50px;
+            width: 150px;
+            padding: 5px 35px 5px 5px;
+            font-size: 16px;
+            border: 1px solid #CCC;
+            height: 34px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background: url(https://stackoverflow.com/favicon.ico) 96% / 15% no-repeat #EEE;
+            }
+
+
+            /* CAUTION: Internet Explorer hackery ahead */
+
+
+            select::-ms-expand {
+                display: none; /* Remove default arrow in Internet Explorer 10 and 11 */
+            }
+
+            /* Target Internet Explorer 9 to undo the custom arrow */
+            @media screen and (min-width:0\0) {
+                select {
+                    background: none\9;
+                    padding: 5px\9;
+                }
+            }
     </style>
 </head>
 <body>
@@ -96,7 +116,10 @@
         </div>
 
         <div style="padding: 20px;">
-            <input type="number" id="app_id" placeholder="Enter Steam App ID">
+            <select id="app_id">
+                <option value="315210">315210</option>
+            </select>
+            <!--<input type="number" id="app_id" placeholder="Enter Steam App ID">-->
             <button id="runBtn" onclick="runSentimentAnalysis()">🔍 Run Sentiment Analysis</button>
             <div id="analysisStatus" style="margin-top: 10px; font-style: italic; color: #666;"></div>
         </div>
@@ -129,6 +152,7 @@
             try {
                 const response = await fetch(`/analyze?app_id=${appId}`);
                 const data = await response.json();
+                console.log(data)
 
                 if (data.error) {
                     status.innerHTML = '❌ ' + data.error;
@@ -136,41 +160,52 @@
                     return;
                 }
 
-                status.innerHTML = '✅ Analysis complete!';
+                status.innerHTML = '✅ Analysis complete! Click into each review to analyse the sentiment!';
 
                 // Show visualization
-                vizImg.src = data.visualization_path + '?t=' + new Date().getTime();
-                vizImg.style.display = 'block';
+                // vizImg.src = data.visualization_path + '?t=' + new Date().getTime();
+                // vizImg.style.display = 'block';
 
                 let html = `<p><strong>App ID:</strong> ${data.app_id} | <strong>Total Reviews:</strong> ${data.total_reviews} | <strong>Timestamp:</strong> ${data.timestamp}</p>`;
 
-                // Most positive paragraphs
-                html += `<h3 style="color: #27ae60;">🌟 Top Positive Paragraphs</h3>`;
-                data.most_positive_paragraphs.forEach(p => {
-                    html += `<div class="review-card positive">
-                                <div class="review-meta">
-                                    <span class="sentiment-badge positive">😊 ${p.normalized_score.toFixed(3)}</span>
-                                </div>
-                                <div class="review-text">${p.sentence}</div>
-                            </div>`;
-                });
+                // Print out reviews
+                html += `<h3 style="color: #00000;">Reviews</h3>`;
+                data.reviews.forEach((review, index) => {
+                     html += `<div class="review-card">
+                                  <div class="review-meta">
+                                      <span id="${index}" class="">${review}</span>
+                                  </div>
+                              </div>`;
+                })//<div class="review-text">${p.sentence}</div>
 
-                // Most negative paragraphs
-                html += `<h3 style="color: #e74c3c;">💔 Top Negative Paragraphs</h3>`;
-                data.most_negative_paragraphs.forEach(p => {
-                    html += `<div class="review-card negative">
-                                <div class="review-meta">
-                                    <span class="sentiment-badge negative">😞 ${p.normalized_score.toFixed(3)}</span>
-                                </div>
-                                <div class="review-text">${p.sentence}</div>
-                            </div>`;
-                });
+
+                // Most positive paragraphs
+                // html += `<h3 style="color: #27ae60;">🌟 Top Positive Paragraphs</h3>`;
+                // data.most_positive_paragraphs.forEach(p => {
+                //     html += `<div class="review-card positive">
+                //                 <div class="review-meta">
+                //                     <span class="sentiment-badge positive">😊 ${p.normalized_score.toFixed(3)}</span>
+                //                 </div>
+                //                 <div class="review-text">${p.sentence}</div>
+                //             </div>`;
+                // });
+
+                // // Most negative paragraphs
+                // html += `<h3 style="color: #e74c3c;">💔 Top Negative Paragraphs</h3>`;
+                // data.most_negative_paragraphs.forEach(p => {
+                //     html += `<div class="review-card negative">
+                //                 <div class="review-meta">
+                //                     <span class="sentiment-badge negative">😞 ${p.normalized_score.toFixed(3)}</span>
+                //                 </div>
+                //                 <div class="review-text">${p.sentence}</div>
+                //             </div>`;
+                // });
 
                 contentDiv.innerHTML = html;
 
             } catch (error) {
                 status.innerHTML = '❌ Error running analysis!';
-                contentDiv.innerHTML = '<p style="color: #e74c3c;">❌ Failed to load results. Make sure the server is running!</p>';
+                contentDiv.innerHTML = '<p style="color: #e74c3c;">❌ Failed to load results</p>';
                 console.error(error);
             }
         }

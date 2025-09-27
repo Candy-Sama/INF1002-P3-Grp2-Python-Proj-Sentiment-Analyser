@@ -1,13 +1,14 @@
 import os
 import contractions
 import re
-import sentimentDictionary
+import sentiment_dict as sentiment_dict
 import pandas as pd
 
-def reviewFormatter(review):
+# Prepare review for scoring (Zacc's Code)
+def format_review(review):
     listOfSentences = []
     listOfCleanedSentences = []
-    review = re.sub('_x000D_','',review)
+    review = re.sub('_x000D_', '', review)
 
     # Split review into sentences
     for sentence in review.split(r'.'):
@@ -22,18 +23,17 @@ def reviewFormatter(review):
 
     return listOfCleanedSentences
 
-
-# Function to calculate sentiment score of each sentence in a review
+# Function to calculate sentiment score of each sentence in a review (Zacc's Code)
 def sentence_score_calculator(review_to_be_scored):
     sentenceScore = []
     results = []
-    cleanedSentence = reviewFormatter(review_to_be_scored)
+    cleanedSentence = format_review(review_to_be_scored)
 
     for sentence in cleanedSentence:
         score = 0
         for word in sentence.split():
-            if word in sentimentDictionary.wordScores().keys():
-                score += float(sentimentDictionary.wordScores()[word])
+            if word in sentiment_dict.wordScores().keys():
+                score += float(sentiment_dict.wordScores()[word])
             else:
                 pass
         sentenceScore.append(score)
@@ -88,7 +88,7 @@ def score_paragraphs_SlidingWindow(reviews, sentiment_dict, window_size=5, step_
             continue
             
         # Clean the review text using reviewCleaner
-        cleaned_sentences = reviewFormatter(text)
+        cleaned_sentences = format_review(text)
         
         # 1 Apply sliding window technique to create paragraph windows
         # Loop through possible starting positions for windows
