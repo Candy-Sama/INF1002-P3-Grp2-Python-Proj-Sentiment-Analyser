@@ -25,9 +25,11 @@ def get_reviews(file_path):
         review_text = review_text_column.iloc[eachReview]
         review_text = re.sub('_x000D_', '', review_text)
         review_text = re.sub('\n', '', review_text)
+        review_text = re.sub(r'\s+', ' ', review_text).strip()  # Replace multiple spaces with a single space
+
         outputList.append({
-            "review_id": review_ID_column.iloc[eachReview], #iloc creates an index
-            "review_text": review_text #iloc creates an index
+            "review_id": review_ID_column.iloc[eachReview],
+            "review_text": review_text
         })
 
     print(outputList)
