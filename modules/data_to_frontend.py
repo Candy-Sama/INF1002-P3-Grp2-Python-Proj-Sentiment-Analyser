@@ -32,5 +32,4 @@ def get_reviews(file_path):
             "review_text": review_text
         })
 
-    print(outputList)
     return outputList
