@@ -59,7 +59,7 @@ async function runGetReviews() {
 
 
 //Function to call from the json the review ID and display the results
-async function runSentimentAnalysis(elementID, reviewID, appID) { //Edited by Mus
+async function runSentimentAnalysis(elementID,elementID1,elementID2,elementID3, reviewID, appID) { //Edited by Mus
     // Get review ID from clicked element's data-value attribute
     const reviewId = reviewID;
     console.log('Element ID:', elementID, 'Review ID:', reviewId); //For debug
@@ -83,7 +83,6 @@ async function runSentimentAnalysis(elementID, reviewID, appID) { //Edited by Mu
             // Display the sentiment analysis results
             element.innerHTML = `
                 <p>✅ Sentiment analysis completed!</p>
-                <p><strong>Review ID:</strong> ${reviewID}</p>
                 <p><strong>Review Text:</strong> ${data.review_text || 'No text available'}</p>
             `;
 
@@ -98,17 +97,17 @@ async function runSentimentAnalysis(elementID, reviewID, appID) { //Edited by Mu
 }
 
 // Function to update review analysis with timeout (Mus code)
-function updateReviewAnalysis(elementID, appID, reviewID, timeOut = 3000) {
-    console.log(`Starting timeout for element: ${elementID}, app: ${appID}, review: ${reviewID}, delay: ${timeOut}ms`);
+// function updateReviewAnalysis(elementID,elementID1,elementID2,elementID3, appID, reviewID, timeOut = 3000) {
+//     console.log(`Starting timeout for element: ${elementID}, app: ${appID}, review: ${reviewID}, delay: ${timeOut}ms`);
 
-    const reviewAnalysisTimeout = setTimeout(() => { //Create a timeout and store its ID
-        console.log(`Timeout fired! Calling runSentimentAnalysis...`);
-        // call the method to update the review analysis - pass all 3 required parameters
-        runSentimentAnalysis(elementID, reviewID, appID);
-    }, timeOut); // (default: 3000ms)
+//     const reviewAnalysisTimeout = setTimeout(() => { //Create a timeout and store its ID
+//         console.log(`Timeout fired! Calling runSentimentAnalysis...`);
+//         // call the method to update the review analysis - pass all 4 required parameters
+//         runSentimentAnalysis(elementID,elementID1,elementID2,elementID3, reviewID, appID);
+//     }, timeOut); // (default: 3000ms)
     
-    return reviewAnalysisTimeout; // Return timeout ID in case you need to clear it
-}
+//     return reviewAnalysisTimeout; // Return timeout ID in case you need to clear it
+// }
 
 async function runSummarizeReviews() {
     const status = document.getElementById('analysisStatus');

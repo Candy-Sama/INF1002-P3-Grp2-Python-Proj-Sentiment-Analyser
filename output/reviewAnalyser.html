@@ -82,7 +82,7 @@
             // Check if values are valid before calling function
             if (reviewID && appID) {
                 console.log('Calling updateReviewAnalysis with valid parameters');
-                const timeoutId = updateReviewAnalysis("originalReview", appID, reviewID, 0);
+                const timeoutId = runSentimentAnalysis("originalReview","reviewAnalysisContent","mostPositiveParagraph","mostNegativeParagraph", appID, reviewID);
             } else {
                 console.error('Invalid parameters - reviewID:', reviewID, 'appID:', appID);
             }
