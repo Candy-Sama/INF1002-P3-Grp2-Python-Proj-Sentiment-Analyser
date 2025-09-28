@@ -61,6 +61,7 @@
     
     {% if review_id is not none and app_id is not none %}
     <!-- Pass Flask data to JavaScript via data attributes -->
+    <!-- How does it do it? Via Jinja2 templating -->
     <div id="reviewData" 
          data-review-id="{{ review_id }}" 
          data-app-id="{{ app_id }}" 

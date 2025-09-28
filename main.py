@@ -4,6 +4,8 @@
 import sys
 import os
 import datetime
+import webbrowser
+from threading import Timer
 from unittest import result
 from flask import Flask, jsonify, render_template, request, g
 
@@ -152,8 +154,12 @@ def summaryVisualisation():
 
     return jsonify(result)
 
+def open_browser():
+      webbrowser.open_new("http://127.0.0.1:5000")
+
 # -----------------------------
 # Entry point
 # -----------------------------
 if __name__ == "__main__":
-    app.run(debug=True)
+    Timer(1, open_browser).start()
+    app.run(port=5000)
