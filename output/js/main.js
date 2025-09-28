@@ -12,10 +12,10 @@ async function runGetReviews() {
         return;
     }
 
-    status.innerHTML = '<div class="loading-indicator"><span class="loading-spinner">⏳</span><span>Running advanced sentiment analysis on Steam reviews...</span></div>';
+    status.innerHTML = '<div class="loading-indicator"><span class="loading-hourglass">⧗</span><span>Running advanced sentiment analysis on Steam reviews...</span></div>';
     status.className = 'status-indicator loading';
     resultsDiv.style.display = 'block';
-    contentDiv.innerHTML = '<div class="loading-indicator"><span class="loading-spinner">🔄</span><span>Processing review data...</span></div>';
+    contentDiv.innerHTML = '<div class="loading-indicator"><span class="loading-hourglass">⧗</span><span>Processing review data...</span></div>';
     vizImg.style.display = 'none';
 
     try {
@@ -145,7 +145,7 @@ async function runSentimentAnalysis(reviewID, appID, elementID1, elementID2, ele
                 <div class="extreme-sentiment-content">
                     <div class="sentiment-badge positive-badge">
                         <span class="badge-icon">🌟</span>
-                        <span class="badge-text">Highest Positive Score</span>
+                        <span class="badge-text">Highest Positive Sentence</span>
                     </div>
                     <div class="sentiment-details">
                         <div class="score-display positive-score">+${data.sorted_sentence_score[0][1].toFixed(3)}</div>
@@ -159,7 +159,7 @@ async function runSentimentAnalysis(reviewID, appID, elementID1, elementID2, ele
                 <div class="extreme-sentiment-content">
                     <div class="sentiment-badge negative-badge">
                         <span class="badge-icon">💔</span>
-                        <span class="badge-text">Lowest Negative Score</span>
+                        <span class="badge-text">Highest Negative Sentence</span>
                     </div>
                     <div class="sentiment-details">
                         <div class="score-display negative-score">${data.sorted_sentence_score[sorted_sentence_score.length - 1][1].toFixed(3)}</div>
@@ -238,9 +238,9 @@ async function runSummarizeReviews() {
         return; 
     }
 
-    status.innerHTML = '⏳ Running summary analysis on server...';
+    status.innerHTML = '<div class="loading-indicator"><span class="loading-hourglass">⧗</span><span>Running summary analysis on server...</span></div>';
     resultsDiv.style.display = 'block';
-    contentDiv.innerHTML = '⏳ Loading...';
+    contentDiv.innerHTML = '<div class="loading-indicator"><span class="loading-hourglass">⧗</span><span>Generating summary visualization...</span></div>';
     vizImg.style.display = 'none';
 
     try {

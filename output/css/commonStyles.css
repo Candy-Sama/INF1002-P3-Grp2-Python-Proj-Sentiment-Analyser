@@ -93,19 +93,23 @@ body::before {
     font-weight: 900;
     font-size: 3rem;
     margin-bottom: 15px;
-    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    color: #ffffff !important;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.6);
     letter-spacing: 2px;
     position: relative;
     z-index: 1;
+    text-rendering: optimizeLegibility;
 }
 
 .subtitle {
     font-size: 1.3rem;
     font-weight: 300;
-    opacity: 0.9;
+    color: #ffffff !important;
+    opacity: 0.95;
     margin-bottom: 30px;
     position: relative;
     z-index: 1;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 .header-decoration {
@@ -607,6 +611,18 @@ a:hover {
     animation: spin 1s linear infinite;
 }
 
+.loading-hourglass {
+    display: inline-block;
+    animation: hourglass-rotate 2s linear infinite;
+    font-size: 1.2em;
+}
+
+@keyframes hourglass-rotate {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(180deg); }
+    100% { transform: rotate(360deg); }
+}
+
 /* Status and Navigation */
 .status-indicator {
     text-align: center;
@@ -958,6 +974,8 @@ select::-ms-expand {
 @media (max-width: 768px) {
     .main-title {
         font-size: 2rem;
+        color: #ffffff !important;
+        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.6);
     }
     
     .button-group {

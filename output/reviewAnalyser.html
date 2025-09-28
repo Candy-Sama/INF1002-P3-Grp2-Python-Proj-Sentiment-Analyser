@@ -46,7 +46,7 @@
                     </div>
                     <div id="originalReview" class="content-box loading">
                         <div class="loading-indicator">
-                            <span class="loading-spinner">⏳</span>
+                            <span class="loading-hourglass">⧗</span>
                             <span>Loading original review text...</span>
                         </div>
                     </div>
@@ -60,36 +60,43 @@
                     </div>
                     <div id="reviewAnalysisContent" class="content-box loading">
                         <div class="loading-indicator">
-                            <span class="loading-spinner">⏳</span>
+                            <span class="loading-hourglass">⧗</span>
                             <span>Processing detailed sentiment analysis...</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Top Sentences Section -->
-                <div class="analysis-grid">
-                    <div class="analysis-card positive-card">
-                        <div class="card-header">
-                            <h4>😊 Most Positive Sentence</h4>
-                            <span class="sentiment-indicator positive">+</span>
-                        </div>
-                        <div id="mostPositiveSentence" class="card-content loading">
-                            <div class="loading-indicator">
-                                <span class="loading-spinner">⏳</span>
-                                <span>Analyzing positive sentiment...</span>
+                <!-- Extreme Sentiment Sentences Section -->
+                <div class="analysis-section extreme-sentences-section">
+                    <div class="section-header">
+                        <h3>⚡ Highest Positive & Negative Sentences</h3>
+                        <p>Most extreme sentiment scores found in individual sentences</p>
+                    </div>
+                    
+                    <div class="analysis-grid">
+                        <div class="analysis-card positive-card">
+                            <div class="card-header">
+                                <h4>😊 Highest Positive Sentence</h4>
+                                <span class="sentiment-indicator positive">+</span>
+                            </div>
+                            <div id="mostPositiveSentence" class="card-content loading">
+                                <div class="loading-indicator">
+                                    <span class="loading-hourglass">⧗</span>
+                                    <span>Analyzing highest positive sentence...</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="analysis-card negative-card">
-                        <div class="card-header">
-                            <h4>😞 Most Negative Sentence</h4>
-                            <span class="sentiment-indicator negative">-</span>
-                        </div>
-                        <div id="mostNegativeSentence" class="card-content loading">
-                            <div class="loading-indicator">
-                                <span class="loading-spinner">⏳</span>
-                                <span>Analyzing negative sentiment...</span>
+                        <div class="analysis-card negative-card">
+                            <div class="card-header">
+                                <h4>😞 Highest Negative Sentence</h4>
+                                <span class="sentiment-indicator negative">-</span>
+                            </div>
+                            <div id="mostNegativeSentence" class="card-content loading">
+                                <div class="loading-indicator">
+                                    <span class="loading-hourglass">⧗</span>
+                                    <span>Analyzing highest negative sentence...</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -99,7 +106,7 @@
                 <div class="analysis-section sliding-window-section">
                     <div class="section-header">
                         <h3>📊 Sliding Window Paragraph Analysis</h3>
-                        <p>Advanced contextual sentiment analysis using sliding window technique</p>
+                        <p>Advanced contextual sentiment analysis using sliding window technique for paragraph-level insights</p>
                     </div>
                     
                     <div class="paragraph-analysis-grid">
@@ -110,7 +117,7 @@
                             </div>
                             <div id="mostPositiveParagraph" class="card-content loading">
                                 <div class="loading-indicator">
-                                    <span class="loading-spinner">⏳</span>
+                                    <span class="loading-hourglass">⧗</span>
                                     <span>Processing sliding window analysis for positive sentiment...</span>
                                 </div>
                             </div>
@@ -123,7 +130,7 @@
                             </div>
                             <div id="mostNegativeParagraph" class="card-content loading">
                                 <div class="loading-indicator">
-                                    <span class="loading-spinner">⏳</span>
+                                    <span class="loading-hourglass">⧗</span>
                                     <span>Processing sliding window analysis for negative sentiment...</span>
                                 </div>
                             </div>
