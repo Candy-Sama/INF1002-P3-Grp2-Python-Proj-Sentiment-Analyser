@@ -83,8 +83,10 @@ def returnReview():
             # Convert numpy int64 to regular int for JSON serialization
             json_safe_result = {
                 "review_id": int(result["review_id"]),
-                "review_text": result["review_text"]
+                "review_text": result["review_text"],
+                "segmented_sentences": reviewMethods.format_review(result["review_text"])
             }
+            print(f"segmented_sentences: {json_safe_result['segmented_sentences']}") #debug
             return jsonify(json_safe_result)
     except ValueError:
         return jsonify({"error": "Invalid review_id format"}), 400
