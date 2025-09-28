@@ -77,7 +77,9 @@ def sentence_score_calculator(review_to_be_scored):
     for i in range(len(cleanedSentence)):
         results.append([cleanedSentence[i],sentenceScore[i]])
 
-    return results
+    sorted_results = sorted(results, key=lambda x: x[1], reverse=True)
+
+    return results, sorted_results
 
 # Code to check the length of reviews
 def findReviewLengths(): #Get the PD dataframe of reviews (Mus code)

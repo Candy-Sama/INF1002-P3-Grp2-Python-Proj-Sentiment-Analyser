@@ -80,7 +80,7 @@ def returnReview():
 
         # Get Sentence Score
         sentence_to_score = result["review_text"]
-        sentence_score = reviewMethods.sentence_score_calculator(sentence_to_score)
+        sentence_score, sorted_sentence_score = reviewMethods.sentence_score_calculator(sentence_to_score)
 
         if result is None:
             return jsonify({"error": f"Review ID '{review_id}' not found"}), 404
@@ -89,7 +89,8 @@ def returnReview():
             json_safe_result = {
                 "review_id": int(result["review_id"]),
                 "review_text": result["review_text"],
-                "sentence_score": sentence_score
+                "sentence_score": sentence_score,
+                "sorted_sentence_score": sorted_sentence_score
             }
 
             return jsonify(json_safe_result)

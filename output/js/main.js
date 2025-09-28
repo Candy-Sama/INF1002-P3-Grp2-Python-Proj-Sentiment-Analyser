@@ -86,6 +86,7 @@ async function runSentimentAnalysis(reviewID, appID, elementID, elementID1, elem
         else {
             // Display the sentiment analysis results
             let sentence_score = data.sentence_score
+            let sorted_sentence_score = data.sorted_sentence_score
 
             element.innerHTML = `
                 <p>✅ Sentiment analysis completed!</p><br>
@@ -95,10 +96,18 @@ async function runSentimentAnalysis(reviewID, appID, elementID, elementID1, elem
             element2.innerHTML = ''
 
             for (let i = 0; i < sentence_score.length; i++) {
-                element2.innerHTML += `<p><strong>Sentence:</strong> ${data.sentence_score[i][0] || 'No text available'} <\p>
+                element2.innerHTML += `<p><strong>Sentence:</strong> ${data.sentence_score[i][0] || 'No text available'} </p>
                 <p><strong>Score:</strong> ${data.sentence_score[i][1] || '0'}</p>
                 `;
             }
+
+            element3.innerHTML = `<p><strong>Sentence:</strong> ${data.sorted_sentence_score[0][0] || 'No text available'} </p>
+                <p><strong>Score:</strong> ${data.sorted_sentence_score[0][1] || '0'}</p>
+                `;
+
+            element4.innerHTML = `<p><strong>Sentence:</strong> ${data.sorted_sentence_score[sorted_sentence_score.length - 1][0] || 'No text available'} </p>
+                <p><strong>Score:</strong> ${data.sorted_sentence_score[sorted_sentence_score.length - 1][1] || '0'}</p>
+                `;
 
             // Create two other divs to hold most positive and negative paragraphs
             
