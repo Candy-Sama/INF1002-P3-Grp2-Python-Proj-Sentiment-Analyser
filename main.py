@@ -100,7 +100,7 @@ def returnReview():
         return jsonify({"error": "Error loading review text"}), 500
 
 
-@app.route("/analyze", methods=["GET"])
+@app.route("/getReviews", methods=["GET"])
 def get_reviewsMain():
     # Extract app_id from query parameter
     app_id = request.args.get("app_id")

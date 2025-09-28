@@ -1,3 +1,4 @@
+import itertools
 import os
 import contractions
 import re
@@ -6,7 +7,7 @@ import pandas as pd
 from itertools import combinations
 from wordsegment import load, segment
 
-# Prepare review for scoring (Zacc's Code)
+# Prepare review for scoring (Zacc's Code, edited by mus hehe)
 def format_review(review):
     load()
     finalResult = []
@@ -28,15 +29,34 @@ def format_review(review):
     
     # Segmentation
     for sentence in listOfCleanedSentences:
-        listOfSegmentedResults = []
-        for word in sentence.split():
-            word = segment(word)
-            segmentResult = ' '.join(word)
-            listOfSegmentedResults.append(segmentResult)
-        combined_string = ' '.join(listOfSegmentedResults)
-        finalResult.append(combined_string)
-
+        finalResult.append(segment_sentence(sentence))
     return finalResult
+
+def segment_sentence(sentence): #Mus code
+    # Segmentation
+    listOfSegmentedResults = []
+    for word in sentence.split():
+        word = segment(word)
+        segmentResult = ' '.join(word)
+        listOfSegmentedResults.append(segmentResult)
+    combined_string = ' '.join(listOfSegmentedResults)
+    return combined_string
+
+def permutations_of_sentences(review): #Mus Code
+    combinatorics = itertools.product([True, False], repeat=len(review) - 1)
+
+    solution = []
+    for combination in combinatorics:
+        i = 0
+        one_such_combination = [review[i]]
+        for slab in combination:
+            i += 1
+            if not slab: # there is a join
+                one_such_combination[-1] += review[i]
+            else:
+                one_such_combination += [review[i]]
+        solution.append(one_such_combination)
+    return solution
 
 # Function to calculate sentiment score of each sentence in a review 
 # (Zacc and Ethel's Code)
