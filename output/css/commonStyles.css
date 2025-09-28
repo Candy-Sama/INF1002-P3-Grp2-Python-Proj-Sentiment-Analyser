@@ -18,6 +18,15 @@
             box-shadow: 0 25px 50px rgba(0,0,0,0.15); 
             overflow: hidden; 
         }
+        #imageContainer { 
+            max-width: 1000px;
+            margin: 0 auto;  
+            border-radius: 20px; 
+            overflow: hidden; 
+        }
+        #img {
+           width: 750px;
+        }
         .header { 
             background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%); 
             color: white; 
@@ -97,6 +106,18 @@
             -moz-appearance: none;
             appearance: none;
             background: url(https://stackoverflow.com/favicon.ico) 96% / 15% no-repeat #EEE;
+            }
+        #summarizeBtn { background: linear-gradient(45deg, #3498db, #2c3e50); }
+        select {
+            margin: 50px;
+            width: 150px;
+            padding: 5px 35px 5px 5px;
+            font-size: 16px;
+            border: 1px solid #CCC;
+            height: 34px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
             }
 
         a {

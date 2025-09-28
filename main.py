@@ -16,7 +16,7 @@ from modules import fetch_steam_data
 from modules import reviewMethods
 from modules import sentiment_dict
 from modules import additionalDataPoints
-# from modules import createSentimentVisualization
+from modules import createSentimentVisualization
 from modules import most_positive_negative
 from modules import data_to_frontend
 
@@ -109,6 +109,42 @@ def get_reviewsMain():
         "review_id": [int(review["review_id"]) for review in reviewList], # add review_id list, convert to int
         "reviews": [str(review["review_text"]) for review in reviewList], # add review text list
         "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    #    "most_positive_paragraphs": positive,
+    #    "most_negative_paragraphs": negative,
+    #    "visualization_path": "output/sentiment_playtime_analysis.png"
+    }
+
+    return jsonify(result)
+
+
+@app.route("/summaryVisualisation", methods=["GET"])
+def summaryVisualisation():
+    # 1️⃣ Extract app_id from query parameter
+    app_id = request.args.get("app_id", type=int)
+    if not app_id:
+        return jsonify({"error": "Missing required query parameter: app_id"}), 400
+    else:
+        file_id = f'steam_reviews_{app_id}.xlsx'
+        file_path = os.path.join(BASE_DIR, "data", file_id)
+
+        output = createSentimentVisualization.create_sentiment_playtime_visualization(file_id)
+        
+        # Show the plot
+        # plt.show()
+        
+        # Save detailed data
+        # summary_data.to_csv('output/sentiment_by_playtime_detailed.csv', index=False)
+        # print("\nDetailed data saved to: output/sentiment_by_playtime_detailed.csv")
+
+        # output = data_to_frontend.get_reviews(file_path)
+
+    # 8️⃣ Build JSON response
+    result = {
+        "output_path": output
+    #    "app_id": app_id,
+    #    "total_reviews": len(output),
+    #    "reviews": output,
+    #    "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     #    "most_positive_paragraphs": positive,
     #    "most_negative_paragraphs": negative,
     #    "visualization_path": "output/sentiment_playtime_analysis.png"

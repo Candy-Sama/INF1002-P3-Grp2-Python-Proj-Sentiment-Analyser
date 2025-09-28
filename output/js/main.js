@@ -109,3 +109,73 @@ function updateReviewAnalysis(elementID, appID, reviewID, timeOut = 3000) {
     
     return reviewAnalysisTimeout; // Return timeout ID in case you need to clear it
 }
+
+async function runSummarizeReviews() {
+    const status = document.getElementById('analysisStatus');
+    const resultsDiv = document.getElementById('liveResults');
+    const contentDiv = document.getElementById('resultsContent');
+    const vizImg = document.getElementById('visualization');
+    const appId = document.getElementById('app_id').value;
+
+    if (!appId) { 
+        status.innerHTML = '❌ Please enter a valid App ID!'; 
+        return; 
+    }
+
+    status.innerHTML = '⏳ Running summary analysis on server...';
+    resultsDiv.style.display = 'block';
+    contentDiv.innerHTML = '⏳ Loading...';
+    vizImg.style.display = 'none';
+
+    try {
+        const response = await fetch(`/summaryVisualisation?app_id=${appId}`);
+        const data = await response.json();
+        console.log(data)
+
+        if (data.error) {
+            status.innerHTML = '❌ ' + data.error;
+            contentDiv.innerHTML = '';
+            return;
+        }
+
+        status.innerHTML = '✅ Summary complete!';
+
+         // 1. Create the image element
+        const newImage = document.createElement("img");
+
+        // 2. Set the image source
+        newImage.src = "./output/sentiment_playtime_analysis.png";
+        // newImage.src = JSON.stringify(${data.output_path});
+
+        // 3. Set the alt text and style for accessibility and viewing
+        newImage.alt = "A summary of the Steam Reviews";
+        
+        newImage.style.width = "1000px"
+
+        // 4. Get the container element where you want to add the image
+        const container = document.getElementById("imageContainer");
+
+        // 5. Append the image to the container
+        container.appendChild(newImage);
+
+        // let html = `<p><strong>App ID:</strong> ${data.app_id} | <strong>Total Reviews:</strong> ${data.total_reviews} | <strong>Timestamp:</strong> ${data.timestamp}</p>`;
+
+        // Print out reviews
+
+        // html += `<h3 style="color: #00000;">Reviews</h3>`;
+        // data.reviews.forEach((review, index) => {
+        //      html += `<div class="review-card">
+        //                   <div class="review-meta">
+        //                       <span onclick="runSentimentAnalysis()" id="review_id" data-value="${index}">${review}</span>
+        //                   </div>
+        //               </div>`;
+        // })
+
+        contentDiv.innerHTML = "";
+
+    } catch (error) {
+        status.innerHTML = '❌ Error running summary!';
+        contentDiv.innerHTML = '<p style="color: #e74c3c;">❌ Failed to load summary</p>';
+        console.error(error);
+    }
+}
