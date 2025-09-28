@@ -1,11 +1,16 @@
+import itertools
 import os
 import contractions
 import re
 import sentiment_dict
 import pandas as pd
+from itertools import combinations
+from wordsegment import load, segment
 
-# Prepare review for scoring (Zacc's Code)
+# Prepare review for scoring (Zacc's Code, edited by mus hehe)
 def format_review(review):
+    load()
+    finalResult = []
     listOfSentences = []
     listOfCleanedSentences = []
     review = re.sub('_x000D_', '', review)
@@ -16,16 +21,45 @@ def format_review(review):
     for sentence in sentences:
         if len(sentence.strip()) != 0:  # Also strip whitespace
             listOfSentences.append(sentence.strip())
-
     # Remove parenthesis contractions by splitting them into their base
-    for word in listOfSentences:
-            word = re.sub(r'\-',' ',word)
-            word = re.sub(r'[^a-zA-Z\d\s:]','',word)
-            listOfCleanedSentences.append(contractions.fix(word))
+    for sentence in listOfSentences:
+            sentence = re.sub(r'\-', ' ', sentence)
+            sentence = re.sub(r'[^a-zA-Z\d\s:]', '', sentence)
+            listOfCleanedSentences.append(contractions.fix(sentence))
+    
+    # Segmentation
+    for sentence in listOfCleanedSentences:
+        finalResult.append(segment_sentence(sentence))
+    return finalResult
 
-    return listOfCleanedSentences
+def segment_sentence(sentence): #Mus code
+    # Segmentation
+    listOfSegmentedResults = []
+    for word in sentence.split():
+        word = segment(word)
+        segmentResult = ' '.join(word)
+        listOfSegmentedResults.append(segmentResult)
+    combined_string = ' '.join(listOfSegmentedResults)
+    return combined_string
 
-# Function to calculate sentiment score of each sentence in a review (Zacc's Code)
+def permutations_of_sentences(review): #Mus Code
+    combinatorics = itertools.product([True, False], repeat=len(review) - 1)
+
+    solution = []
+    for combination in combinatorics:
+        i = 0
+        one_such_combination = [review[i]]
+        for slab in combination:
+            i += 1
+            if not slab: # there is a join
+                one_such_combination[-1] += review[i]
+            else:
+                one_such_combination += [review[i]]
+        solution.append(one_such_combination)
+    return solution
+
+# Function to calculate sentiment score of each sentence in a review 
+# (Zacc and Ethel's Code)
 def sentence_score_calculator(review_to_be_scored):
     sentenceScore = []
     results = []
@@ -43,7 +77,9 @@ def sentence_score_calculator(review_to_be_scored):
     for i in range(len(cleanedSentence)):
         results.append([cleanedSentence[i],sentenceScore[i]])
 
-    return results
+    sorted_results = sorted(results, key=lambda x: x[1], reverse=True)
+
+    return results, sorted_results
 
 # Code to check the length of reviews
 def findReviewLengths(): #Get the PD dataframe of reviews (Mus code)
@@ -89,64 +125,50 @@ def findReviewLengths(): #Get the PD dataframe of reviews (Mus code)
 
     return review_lengths
 
-def score_paragraphs_SlidingWindow(reviews, sentiment_dict, window_size=5, step_size=1):  #Mus Code
+def score_paragraphs_SlidingWindow(review, window_size=5, step_size=1):  #Mus Code
     """
     Core sliding window function for sentiment analysis of paragraphs.
            
     Sliding Window Process:
-        1. Split each review into sentences using punctuation
+        1. Split given review into sentences using punctuation
         2. Create overlapping windows of sentences
         3. Calculate sentiment score for each window
     """
     scored_paragraphs = []
-    
-    # Process each review individually
-    for review_idx, review in enumerate(reviews):
-        # Extract review text with fallback to empty string
-        text = review.get("review", "")
-        if not text:
-            continue
-            
-        # Clean the review text using reviewCleaner
-        cleaned_sentences = format_review(text)
+    cleaned_sentences = format_review(review)
+    window_score = 0
         
-        # 1 Apply sliding window technique to create paragraph windows
-        # Loop through possible starting positions for windows
-        for i in range(0, len(cleaned_sentences) - window_size + 1, step_size):
-            
-            # Extract current window of sentences
-            window_sentences = cleaned_sentences[i:i + window_size]
+    # 1 Apply sliding window technique to create paragraph windows
+    # Loop through possible starting positions for windows
+    for i in range(0, len(cleaned_sentences) - window_size + 1, step_size):
+        
+        # Extract current window of sentences
+        window_sentences = cleaned_sentences[i:i + window_size]
 
-            # Join sentences into a single paragraph with proper punctuation
-            paragraph_text = '. '.join(window_sentences) + '.'
-            
-            # (1a) Calculate sentiment score for this paragraph window
-            #Edited by Ethel:
-            # Clean and convert to lowercase for word matching
-            # Remove punctuation and extra spaces for better word matching
-            cleaned_paragraph = re.sub(r'[^\w\s]', '', paragraph_text.lower())
-            words = cleaned_paragraph.split()
-            
-            # (1b) Sum sentiment scores for all words in the paragraph
-            # Unknown words get score of 0 via dict.get(word, 0)
-            window_score = sum(sentiment_dict.get(word, 0) for word in words if word)
+        # Join sentences into a single paragraph with proper punctuation
+        paragraph_text = '. '.join(window_sentences) + '.'
+        
+        # (1a) Calculate sentiment score for this paragraph window
+        # (1b) Sum sentiment scores for all words in the paragraph
+        for sentence in cleaned_sentences:
+            score = 0
+            for word in sentence.split():
+                if word in sentiment_dict.wordScores().keys():
+                    score += float(sentiment_dict.wordScores()[word])
+                else:
+                    pass
+            window_score += score
 
-            # (1c) Normalize score by word count to handle different paragraph lengths
-            # This allows fair comparison between long and short paragraphs
-            normalised_score = window_score / len(words) if words else 0
+        # (1c) Store data about this paragraph window
+        scored_paragraphs.append({
+            "paragraph": paragraph_text,              # The actual text
+            "raw_score": window_score,               # Total sentiment score
+            "window_position": i,                    # Starting sentence position
+            "sentences_in_window": len(window_sentences)  # Window size used
+        })
+    scored_paragraphs_sorted = sorted(scored_paragraphs, key=lambda x: x["raw_score"], reverse=True)
+    return scored_paragraphs_sorted
 
-            # (1d) Store data about this paragraph window
-            scored_paragraphs.append({
-                "paragraph": paragraph_text,              # The actual text
-                "raw_score": window_score,               # Total sentiment score
-                "normalised_score": normalised_score,    # Score per word
-                "word_count": len(words),                # Number of words
-                "review_index": review_idx,              # Which review this came from
-                "window_position": i,                    # Starting sentence position
-                "sentences_in_window": len(window_sentences)  # Window size used
-            })
-    
-    return scored_paragraphs # Return all scored paragraph windows
 
 def analyse_individual_reviews(reviews, sentiment_dict, window_size=3, step_size=1): #Mus Code
     """
@@ -163,7 +185,7 @@ def analyse_individual_reviews(reviews, sentiment_dict, window_size=3, step_size
         
         # Apply sliding window analysis to this specific review
         review_paragraphs = score_paragraphs_SlidingWindow([reviews[review_idx]], sentiment_dict, window_size, step_size)
-        # Fixed: Pass the correct parameters to sentence_score_calculator
+        #Ethel Edited: Pass the correct parameters to sentence_score_calculator
         review_sentences = sentence_score_calculator(text)  # Pass the text directly
 
         # Skip review if analysis failed
@@ -176,7 +198,7 @@ def analyse_individual_reviews(reviews, sentiment_dict, window_size=3, step_size
 
         # Calculate comprehensive statistics for this review
         paragraph_scores = [p["normalised_score"] for p in review_paragraphs] # List of paragraph scores
-        # Fixed: review_sentences returns [sentence, score] pairs, extract scores correctly
+        #Ethel Edited: review_sentences returns [sentence, score] pairs, extract scores correctly
         sentence_scores = [s[1] for s in review_sentences] # List of sentence scores (extract score from [sentence, score] pairs)
         
 

@@ -17,15 +17,19 @@ def get_sentence_scores(file_path):
 # Get raw review to display to users (Zacc's & Mus' Code)
 def get_reviews(file_path):
     df = pd.read_excel(file_path)
-
+    review_text_column = df['review_text']
+    review_ID_column = df['review_id']
     outputList = []
+    
     for eachReview in range(len(df['review_text'].head(10))):
-        review_text_column = df['review_text'];
-        review_ID_column = df['review_id'];
+        review_text = review_text_column.iloc[eachReview]
+        review_text = re.sub('_x000D_', '', review_text)
+        review_text = re.sub('\n', '', review_text)
+        review_text = re.sub(r'\s+', ' ', review_text).strip()  # Replace multiple spaces with a single space
 
         outputList.append({
-            "review_id": review_ID_column.iloc[eachReview], #iloc creates an index
-            "review_text": review_text_column.iloc[eachReview] #iloc creates an index
+            "review_id": review_ID_column.iloc[eachReview],
+            "review_text": review_text
         })
 
     return outputList
