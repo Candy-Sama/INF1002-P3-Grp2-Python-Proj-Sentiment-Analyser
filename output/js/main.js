@@ -18,7 +18,7 @@ async function runGetReviews() {
     vizImg.style.display = 'none';
 
     try {
-        const response = await fetch(`/analyze?app_id=${appId}`);
+        const response = await fetch(`/getReviews?app_id=${appId}`);
         const data = await response.json();
         console.log('Received data:', data);
 
@@ -65,6 +65,10 @@ async function runSentimentAnalysis(reviewID, appID, elementID, elementID1, elem
     console.log('Element ID:', elementID, 'Review ID:', reviewId); //For debug
 
     const element = document.getElementById(elementID);
+    const element1 = document.getElementById(elementID1);
+    const element2 = document.getElementById(elementID2);
+    const element3 = document.getElementById(elementID3);
+
     if (!element) {
         console.error(`Element with ID '${elementID}' not found!`);
         return;
