@@ -1,7 +1,7 @@
 import os
 import contractions
 import re
-import modules.sentiment_dict as sentiment_dict
+import sentiment_dict
 import pandas as pd
 
 # Prepare review for scoring (Zacc's Code)
@@ -11,8 +11,10 @@ def format_review(review):
     review = re.sub('_x000D_', '', review)
 
     # Split review into sentences
-    for sentence in review.split(r'.'):
-        if len(sentence) != 0:
+    # Edited by Ethel: Use proper sentence splitting with multiple punctuation marks
+    sentences = re.split(r'[.!?]+', review)
+    for sentence in sentences:
+        if len(sentence.strip()) != 0:  # Also strip whitespace
             listOfSentences.append(sentence.strip())
 
     # Remove parenthesis contractions by splitting them into their base
@@ -51,17 +53,35 @@ def findReviewLengths(): #Get the PD dataframe of reviews (Mus code)
 
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     file_path = os.path.join(BASE_DIR, "..", "data", "steam_reviews_315210.xlsx") # Path to the excel file
-    df = pd.read_excel(file_path)
+    
+    # Edited by Ethel: Added error handling for file operations
+    try:
+        df = pd.read_excel(file_path)
+    except FileNotFoundError:
+        print(f"Error: Could not find file at {file_path}")
+        return []
+    except Exception as e:
+        print(f"Error reading Excel file: {e}")
+        return []
 
     largest_review, smallest_review, largest_review_text, smallest_review_text = 0, 0, "", ""
 
-    for eachReview in df['review_text'].head(10): # Loop through each review in the dataframe
-        if (largest_review < len(eachReview.split())): # Check if the current review is larger than the largest review
-            largest_review = len(eachReview.split()) # Update the largest review length
+    # Add error handling for missing columns
+    if 'review_text' not in df.columns:
+        print("Error: 'review_text' column not found in the DataFrame")
+        return []
+
+    for eachReview in df['review_text'].dropna().head(10): # Loop through each review, skip NaN values
+        # Convert to string to handle any non-string data types
+        eachReview = str(eachReview)
+        review_word_count = len(eachReview.split())
+        
+        if (largest_review < review_word_count): # Check if the current review is larger than the largest review
+            largest_review = review_word_count # Update the largest review length
             largest_review_text = eachReview # Update the largest review text
 
-        if (smallest_review > len(eachReview.split())) or (smallest_review == 0): # Check if the current review is smaller than the smallest review
-            smallest_review = len(eachReview.split()) # Update the smallest review length
+        if (smallest_review > review_word_count) or (smallest_review == 0): # Check if the current review is smaller than the smallest review
+            smallest_review = review_word_count # Update the smallest review length
             smallest_review_text = eachReview # Update the smallest review text
 
     review_lengths.append({"length": largest_review, "text": largest_review_text})
@@ -101,12 +121,15 @@ def score_paragraphs_SlidingWindow(reviews, sentiment_dict, window_size=5, step_
             paragraph_text = '. '.join(window_sentences) + '.'
             
             # (1a) Calculate sentiment score for this paragraph window
-            # Convert to lowercase for word matching
-            words = paragraph_text.lower().split()
+            #Edited by Ethel:
+            # Clean and convert to lowercase for word matching
+            # Remove punctuation and extra spaces for better word matching
+            cleaned_paragraph = re.sub(r'[^\w\s]', '', paragraph_text.lower())
+            words = cleaned_paragraph.split()
             
             # (1b) Sum sentiment scores for all words in the paragraph
             # Unknown words get score of 0 via dict.get(word, 0)
-            window_score = sum(sentiment_dict.get(word, 0) for word in words)
+            window_score = sum(sentiment_dict.get(word, 0) for word in words if word)
 
             # (1c) Normalize score by word count to handle different paragraph lengths
             # This allows fair comparison between long and short paragraphs
@@ -140,7 +163,8 @@ def analyse_individual_reviews(reviews, sentiment_dict, window_size=3, step_size
         
         # Apply sliding window analysis to this specific review
         review_paragraphs = score_paragraphs_SlidingWindow([reviews[review_idx]], sentiment_dict, window_size, step_size)
-        review_sentences = sentence_score_calculator([reviews[review_idx]], sentiment_dict)
+        # Fixed: Pass the correct parameters to sentence_score_calculator
+        review_sentences = sentence_score_calculator(text)  # Pass the text directly
 
         # Skip review if analysis failed
         if not review_paragraphs or not review_sentences:
@@ -152,7 +176,8 @@ def analyse_individual_reviews(reviews, sentiment_dict, window_size=3, step_size
 
         # Calculate comprehensive statistics for this review
         paragraph_scores = [p["normalised_score"] for p in review_paragraphs] # List of paragraph scores
-        sentence_scores = [s["normalised_score"] for s in review_sentences] # List of sentence scores
+        # Fixed: review_sentences returns [sentence, score] pairs, extract scores correctly
+        sentence_scores = [s[1] for s in review_sentences] # List of sentence scores (extract score from [sentence, score] pairs)
         
 
         analysed_review = {
