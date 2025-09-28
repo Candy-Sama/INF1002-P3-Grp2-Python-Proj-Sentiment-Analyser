@@ -32,7 +32,4 @@ def get_reviews(file_path):
             "review_text": review_text
         })
 
-    print(outputList)
     return outputList
-
-get_reviews(r'D:\Uni\Programming Fundamentals\INT1002-P3-Grp2-Python-Proj-Sentiment-Analyser\data\steam_reviews_315210.xlsx')
