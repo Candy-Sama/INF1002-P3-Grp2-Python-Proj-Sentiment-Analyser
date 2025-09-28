@@ -65,6 +65,8 @@ async function runSentimentAnalysis(reviewID, appID, elementID, elementID1, elem
     console.log('Element ID:', elementID, 'Review ID:', reviewId); //For debug
 
     const element = document.getElementById(elementID);
+    const element2 = document.getElementById(elementID1)
+
     if (!element) {
         console.error(`Element with ID '${elementID}' not found!`);
         return;
@@ -81,10 +83,20 @@ async function runSentimentAnalysis(reviewID, appID, elementID, elementID1, elem
         } 
         else {
             // Display the sentiment analysis results
+            let sentence_score = data.sentence_score
+
             element.innerHTML = `
-                <p>✅ Sentiment analysis completed!</p>
+                <p>✅ Sentiment analysis completed!</p><br>
                 <p><strong>Review Text:</strong> ${data.review_text || 'No text available'}</p>
             `;
+            
+            element2.innerHTML = ''
+
+            for (let i = 0; i < sentence_score.length; i++) {
+                element2.innerHTML += `<p><strong>Sentence:</strong> ${data.sentence_score[i][0] || 'No text available'} <\p>
+                <p><strong>Score:</strong> ${data.sentence_score[i][1] || '0'}</p>
+                `;
+            }
 
             // Create two other divs to hold most positive and negative paragraphs
             

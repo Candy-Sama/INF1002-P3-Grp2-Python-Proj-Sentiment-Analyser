@@ -74,17 +74,24 @@ def returnReview():
         file_path = os.path.join(BASE_DIR, "data", file_id)
         outputList = data_to_frontend.get_reviews(file_path)
 
-        #find the specific review
-        #run through the list of dicts to find the one with matching review_id
+        # Find the specific review
+        # Run through the list of dicts to find the one with matching review_id
         result = next((item for item in outputList if item["review_id"] == review_id), None)
+
+        # Get Sentence Score
+        sentence_to_score = result["review_text"]
+        sentence_score = reviewMethods.sentence_score_calculator(sentence_to_score)
+
         if result is None:
             return jsonify({"error": f"Review ID '{review_id}' not found"}), 404
         else:
             # Convert numpy int64 to regular int for JSON serialization
             json_safe_result = {
                 "review_id": int(result["review_id"]),
-                "review_text": result["review_text"]
+                "review_text": result["review_text"],
+                "sentence_score": sentence_score
             }
+
             return jsonify(json_safe_result)
     except ValueError:
         return jsonify({"error": "Invalid review_id format"}), 400
@@ -95,7 +102,7 @@ def returnReview():
 
 @app.route("/analyze", methods=["GET"])
 def get_reviewsMain():
-    #Extract app_id from query parameter
+    # Extract app_id from query parameter
     app_id = request.args.get("app_id")
     if not app_id:
         return jsonify({"error": "Missing required query parameter: app_id"}), 400
@@ -104,7 +111,7 @@ def get_reviewsMain():
         file_path = os.path.join(BASE_DIR, "data", file_id)
         reviewList = data_to_frontend.get_reviews(file_path)
 
-    #Build JSON response
+    # Build JSON response
     result = {
         "app_id": app_id,
         "total_reviews": len(reviewList),
@@ -121,7 +128,7 @@ def get_reviewsMain():
 
 @app.route("/summaryVisualisation", methods=["GET"])
 def summaryVisualisation():
-    #Extract app_id from query parameter
+    # Extract app_id from query parameter
     app_id = request.args.get("app_id", type=int)
     if not app_id:
         return jsonify({"error": "Missing required query parameter: app_id"}), 400
