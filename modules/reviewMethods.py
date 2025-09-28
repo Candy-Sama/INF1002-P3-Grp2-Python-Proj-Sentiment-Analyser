@@ -177,7 +177,7 @@ def analyse_individual_reviews(reviews, sentiment_dict, window_size=3, step_size
         
         # Apply sliding window analysis to this specific review
         review_paragraphs = score_paragraphs_SlidingWindow([reviews[review_idx]], sentiment_dict, window_size, step_size)
-        # Fixed: Pass the correct parameters to sentence_score_calculator
+        #Ethel Edited: Pass the correct parameters to sentence_score_calculator
         review_sentences = sentence_score_calculator(text)  # Pass the text directly
 
         # Skip review if analysis failed
@@ -190,7 +190,7 @@ def analyse_individual_reviews(reviews, sentiment_dict, window_size=3, step_size
 
         # Calculate comprehensive statistics for this review
         paragraph_scores = [p["normalised_score"] for p in review_paragraphs] # List of paragraph scores
-        # Fixed: review_sentences returns [sentence, score] pairs, extract scores correctly
+        #Ethel Edited: review_sentences returns [sentence, score] pairs, extract scores correctly
         sentence_scores = [s[1] for s in review_sentences] # List of sentence scores (extract score from [sentence, score] pairs)
         
 
