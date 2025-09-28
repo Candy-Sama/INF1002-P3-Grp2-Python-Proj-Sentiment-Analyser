@@ -3,9 +3,13 @@ import contractions
 import re
 import sentiment_dict
 import pandas as pd
+from itertools import combinations
+from wordsegment import load, segment
 
 # Prepare review for scoring (Zacc's Code)
 def format_review(review):
+    load()
+    finalResult = []
     listOfSentences = []
     listOfCleanedSentences = []
     review = re.sub('_x000D_', '', review)
@@ -16,14 +20,23 @@ def format_review(review):
     for sentence in sentences:
         if len(sentence.strip()) != 0:  # Also strip whitespace
             listOfSentences.append(sentence.strip())
-
     # Remove parenthesis contractions by splitting them into their base
-    for word in listOfSentences:
-            word = re.sub(r'\-',' ',word)
-            word = re.sub(r'[^a-zA-Z\d\s:]','',word)
-            listOfCleanedSentences.append(contractions.fix(word))
+    for sentence in listOfSentences:
+            sentence = re.sub(r'\-', ' ', sentence)
+            sentence = re.sub(r'[^a-zA-Z\d\s:]', '', sentence)
+            listOfCleanedSentences.append(contractions.fix(sentence))
+    
+    # Segmentation
+    for sentence in listOfCleanedSentences:
+        listOfSegmentedResults = []
+        for word in sentence.split():
+            word = segment(word)
+            segmentResult = ' '.join(word)
+            listOfSegmentedResults.append(segmentResult)
+        combined_string = ' '.join(listOfSegmentedResults)
+        finalResult.append(combined_string)
 
-    return listOfCleanedSentences
+    return finalResult
 
 # Function to calculate sentiment score of each sentence in a review (Zacc's Code)
 def sentence_score_calculator(review_to_be_scored):
