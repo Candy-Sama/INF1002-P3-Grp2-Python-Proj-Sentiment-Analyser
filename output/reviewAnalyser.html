@@ -60,19 +60,26 @@
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     
     {% if review_id is not none and app_id is not none %}
+    <!-- Pass Flask data to JavaScript via data attributes -->
+    <div id="reviewData" 
+         data-review-id="{{ review_id }}" 
+         data-app-id="{{ app_id }}" 
+         style="display: none;">
+    </div>
+    
     <script>
         // Wait for DOM to be ready, then call the function
         document.addEventListener('DOMContentLoaded', function() {
-            // Pass Flask template variables to JavaScript (with safety checks)
-            //Ignore the errors, JS doesn't recognize flask syntax
-            const reviewID = {{ review_id if review_id is not none else 'null' }}; 
-            const appID = {{ app_id if app_id is not none else 'null' }};
+            // Get Flask data from HTML data attributes
+            const dataElement = document.getElementById('reviewData');
+            const reviewID = parseInt(dataElement.getAttribute('data-review-id'));
+            const appID = dataElement.getAttribute('data-app-id');
 
             console.log('DOM loaded, starting analysis for review ID:', reviewID);
             console.log('App ID:', appID);
             
             // Check if values are valid before calling function
-            if (reviewID !== null && appID !== null) {
+            if (reviewID && appID) {
                 console.log('Calling updateReviewAnalysis with valid parameters');
                 const timeoutId = updateReviewAnalysis("originalReview", appID, reviewID, 0);
             } else {
