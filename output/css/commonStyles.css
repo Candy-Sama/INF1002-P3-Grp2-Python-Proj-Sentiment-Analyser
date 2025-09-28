@@ -77,6 +77,14 @@
             border-radius: 25px; 
             color: white; 
         }
+        .backBtn { /* New class for back buttons */
+            background: linear-gradient(45deg, #3498db, #2c3e50); 
+            color: white; 
+            padding: 12px 25px; 
+            border: none; 
+            border-radius: 25px; 
+            cursor: pointer; 
+        }
         #runBtn { background: linear-gradient(45deg, #3498db, #2c3e50); }
         select {
             margin: 50px;
@@ -91,6 +99,10 @@
             background: url(https://stackoverflow.com/favicon.ico) 96% / 15% no-repeat #EEE;
             }
 
+        a {
+            color: blue;
+            text-decoration: none; /* no underline */
+        }
 
             /* CAUTION: Internet Explorer hackery ahead */
 

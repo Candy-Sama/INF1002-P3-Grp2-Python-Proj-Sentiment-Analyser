@@ -26,6 +26,16 @@ def get_reviews(file_path):
 
     return output
 
+# Get spcific review based on review_id (Mus Code)
+def get_specific_review(file_path, review_id):
+    df = pd.read_excel(file_path)
+    review_row = df[df['review_id'] == review_id]
+
+    if not review_row.empty:
+        return review_row.iloc[0]['review_text']
+    else:
+        return None
+
 # Get review_id (Zacc's Code)
 def get_review_id(file_path):
     df = pd.read_excel(file_path)

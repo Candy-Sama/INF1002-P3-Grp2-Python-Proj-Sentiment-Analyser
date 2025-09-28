@@ -4,6 +4,7 @@
 import sys
 import os
 import datetime
+from unittest import result
 from flask import Flask, jsonify, render_template, request, g
 
 # -----------------------------
@@ -35,6 +36,41 @@ def index():
     """Serve the homepage"""
     return render_template("index.html")
 
+@app.route("/reviewAnalyser") # Edited by Mus
+def reviewAnalyser():
+    """Serve the review analyser page"""
+    review_id = request.args.get("review_id", type=int)
+    app_id = request.args.get("app_id", type=int)
+    print(f"Received review_id: {review_id}, app_id: {app_id}")
+    
+    # Initialize default values
+    review_text = "No review text available"
+    
+    # Get review data if review_id is provided
+    if review_id is not None:
+        try:
+            # Get the file path
+            file_id = f'steam_reviews_{app_id}.xlsx'
+            file_path = os.path.join(BASE_DIR, "data", file_id)
+            output = data_to_frontend.get_specific_review(file_path, review_id)
+
+            # Create the result dictionary
+            result = {
+                "review_id": review_id,
+                "review_text": output
+            }
+            return jsonify(result)  # Ensure result is a dictionary
+        except Exception as e:
+            print(f"Error getting review data: {e}")
+            review_text = "Error loading review text"
+    
+    # Pass the parameters to the template (correct syntax with named parameters)
+    return render_template("reviewAnalyser.html",
+                           review_id=result["review_id"],
+                           app_id=app_id,
+                           review_text=result["review_text"] if result["review_text"] else review_text)
+    
+
 
 @app.route("/analyze", methods=["GET"])
 def get_reviews():
@@ -46,6 +82,28 @@ def get_reviews():
         file_id = f'steam_reviews_{app_id}.xlsx'
         file_path = os.path.join(BASE_DIR, "data", file_id)
         output = data_to_frontend.get_reviews(file_path)
+
+    # 8️⃣ Build JSON response
+    result = {
+        "app_id": app_id,
+        "total_reviews": len(output),
+        "reviews": output,
+        "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    #    "most_positive_paragraphs": positive,
+    #    "most_negative_paragraphs": negative,
+    #    "visualization_path": "output/sentiment_playtime_analysis.png"
+    }
+
+    return jsonify(result)
+
+# -----------------------------
+# Entry point
+# -----------------------------
+if __name__ == "__main__":
+    app.run(debug=True)
+
+
+
 
     # 2️⃣ Fetch reviews from the last 10 days
     # reviews = getSteamReviewsData.fetch_steam_reviews(
@@ -75,38 +133,3 @@ def get_reviews():
 
     # # 7️⃣ Generate playtime-based sentiment visualization
     # # createSentimentVisualization.create_sentiment_playtime_visualization()
-
-    # 8️⃣ Build JSON response
-    result = {
-        "app_id": app_id,
-        "total_reviews": len(output),
-        "reviews": output,
-        "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    #    "most_positive_paragraphs": positive,
-    #    "most_negative_paragraphs": negative,
-    #    "visualization_path": "output/sentiment_playtime_analysis.png"
-    }
-
-    return jsonify(result)
-
-@app.route("/reviewId", methods=["GET"])
-def sentiment_analytics():
-    review_id = request.args.get("review_id", type=int)
-    if not review_id:
-        return jsonify({"error": "Missing required query parameter: review_id"}), 400
-    else:
-        file_id = f'steam_reviews_{g.app_id}.xlsx'
-        file_path = os.path.join(BASE_DIR, "data", file_id)
-        output = data_to_frontend.get_review_id(file_path)
-
-    print(output)
-
-    result = {
-        "review_id":review_id,
-        
-    }
-# -----------------------------
-# Entry point
-# -----------------------------
-if __name__ == "__main__":
-    app.run(debug=True)

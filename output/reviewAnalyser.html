@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> <!-- Created by Mus-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,8 +10,54 @@
 </head>
 <body>
     <!-- Content for review analyzer will go here -->
+    <div class="container">
+        <div class="header">
+            <h1>🔍 Review Analyser</h1>
+            <p>Detailed sentiment analysis for individual reviews</p>
+        </div>
+        <div style="padding: 20px;">
+            {% if review_id is not none and app_id is not none %} <!-- Check if review_id and app_id are provided -->
+                <div class="review-card">
+                    <h3>Analysis Details</h3>
+                    <p><strong>App ID:</strong> {{ app_id }}</p>
+                    <p><strong>Review Index:</strong> {{ review_id }}</p>
+                    <div id="reviewAnalysisContent">
+                        <p>⏳ Loading detailed sentiment analysis...</p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 20px;"> 
+                    <a href="/" style="text-decoration: none;">
+                        <button class="backBtn">
+                            ← Back to Main Analysis
+                        </button>
+                    </a>
+                </div>
+            {% else %} <!-- If review_id or app_id is missing -->
+                <div class="review-card">
+                    <p>❌ No review selected. Please go back and select a review to analyze.</p>
+                    <a href="/" style="text-decoration: none;">
+                        <button class="backBtn">
+                            ← Back to Main Analysis
+                        </button>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
     
-    <!-- Load JavaScript at the end for better performance -->
+    <!-- Load JavaScript at the end -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    
+    {% if review_id is not none and app_id is not none %}
+    <script>
+        // Wait for DOM to be ready, then call the function
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, starting analysis for review ID:', review_id);
+            // Call the function to update the review analysis after a delay
+            const timeoutId = updateReviewAnalysis("reviewAnalysisContent", review_id, 2000);
+        });
+    </script>
+    {% endif %}
 </body>
 </html>
