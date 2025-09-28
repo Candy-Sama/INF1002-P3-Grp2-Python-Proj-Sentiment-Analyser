@@ -20,10 +20,7 @@
                 <div class="review-card">
                     <h3>Analysis Details</h3>
                     <p><strong>App ID:</strong> {{ app_id }}</p>
-                    <p><strong>Review Index:</strong> {{ review_id }}</p>
-                    <!-- Debug info -->
-                    <p><strong>Debug - Review ID Type:</strong> {{ review_id.__class__.__name__ }}</p>
-                    <p><strong>Debug - App ID Type:</strong> {{ app_id.__class__.__name__ }}</p>
+                    <p><strong>Review ID:</strong> {{ review_id }}</p>
                     <div id="originalReview" style="margin-top: 10px;">
                         <p>⏳ Loading original review text...</p>
                     </div>
@@ -33,6 +30,10 @@
                     <div id="mostPositiveParagraph" style="margin-top: 20px;">
                         <p>⏳ Loading most positive paragraph...</p>
                     </div>
+                    <div id="mostNegativeParagraph" style="margin-top: 20px;">
+                        <p>⏳ Loading most negative paragraph...</p>
+                    </div>
+
                 </div>
                 
                 <div style="margin-top: 20px;"> 
@@ -72,7 +73,7 @@
             // Check if values are valid before calling function
             if (reviewID !== null && appID !== null) {
                 console.log('Calling updateReviewAnalysis with valid parameters');
-                const timeoutId = updateReviewAnalysis("reviewAnalysisContent", appID, reviewID, 2000);
+                const timeoutId = updateReviewAnalysis("originalReview", appID, reviewID, 2000);
             } else {
                 console.error('Invalid parameters - reviewID:', reviewID, 'appID:', appID);
             }

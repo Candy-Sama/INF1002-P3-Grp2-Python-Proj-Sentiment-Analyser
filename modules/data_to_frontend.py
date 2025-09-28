@@ -29,14 +29,3 @@ def get_reviews(file_path):
         })
 
     return outputList
-
-# Get review_id (Zacc's Code)
-def get_review_id(file_path):
-    df = pd.read_excel(file_path)
-    reviewId_column = df['review_id'].head(10)
-    output = []
-
-    for review_id in reviewId_column:
-        output.append(review_id)
-
-    return output

@@ -86,6 +86,7 @@ async function runSentimentAnalysis(elementID, reviewID, appID) { //Edited by Mu
             `;
 
             // Create two other divs to hold most positive and negative paragraphs
+            
 
             
             
@@ -108,29 +109,3 @@ function updateReviewAnalysis(elementID, appID, reviewID, timeOut = 3000) {
     
     return reviewAnalysisTimeout; // Return timeout ID in case you need to clear it
 }
-
-//ethel's code
-// <div class="review-text">${p.sentence}</div>
-
-
-        // Most positive paragraphs
-        // html += `<h3 style="color: #27ae60;">🌟 Top Positive Paragraphs</h3>`;
-        // data.most_positive_paragraphs.forEach(p => {
-        //     html += `<div class="review-card positive">
-        //                 <div class="review-meta">
-        //                     <span class="sentiment-badge positive">😊 ${p.normalized_score.toFixed(3)}</span>
-        //                 </div>
-        //                 <div class="review-text">${p.sentence}</div>
-        //             </div>`;
-        // });
-
-        // // Most negative paragraphs
-        // html += `<h3 style="color: #e74c3c;">💔 Top Negative Paragraphs</h3>`;
-        // data.most_negative_paragraphs.forEach(p => {
-        //     html += `<div class="review-card negative">
-        //                 <div class="review-meta">
-        //                     <span class="sentiment-badge negative">😞 ${p.normalized_score.toFixed(3)}</span>
-        //                 </div>
-        //                 <div class="review-text">${p.sentence}</div>
-        //             </div>`;
-        // });
