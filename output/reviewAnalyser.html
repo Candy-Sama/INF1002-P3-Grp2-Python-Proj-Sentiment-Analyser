@@ -24,8 +24,14 @@
                     <!-- Debug info -->
                     <p><strong>Debug - Review ID Type:</strong> {{ review_id.__class__.__name__ }}</p>
                     <p><strong>Debug - App ID Type:</strong> {{ app_id.__class__.__name__ }}</p>
-                    <div id="reviewAnalysisContent">
+                    <div id="originalReview" style="margin-top: 10px;">
+                        <p>⏳ Loading original review text...</p>
+                    </div>
+                    <div id="reviewAnalysisContent" style="margin-top: 20px;">
                         <p>⏳ Loading detailed sentiment analysis...</p>
+                    </div>
+                    <div id="mostPositiveParagraph" style="margin-top: 20px;">
+                        <p>⏳ Loading most positive paragraph...</p>
                     </div>
                 </div>
                 
@@ -57,7 +63,7 @@
         // Wait for DOM to be ready, then call the function
         document.addEventListener('DOMContentLoaded', function() {
             // Pass Flask template variables to JavaScript (with safety checks)
-            const reviewID = {{ review_id if review_id is not none else 'null' }};
+            const reviewID = {{ review_id if review_id is not none else 'null' }}; //Ignore the errors, it works
             const appID = {{ app_id if app_id is not none else 'null' }};
 
             console.log('DOM loaded, starting analysis for review ID:', reviewID);
