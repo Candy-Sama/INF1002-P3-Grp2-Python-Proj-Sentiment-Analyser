@@ -19,7 +19,6 @@ from modules import reviewMethods
 from modules import sentiment_dict
 from modules import additionalDataPoints
 from modules import createSentimentVisualization
-from modules import most_positive_negative
 from modules import data_to_frontend
 
 # -----------------------------
