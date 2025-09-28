@@ -33,6 +33,7 @@ app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 # -----------------------------
 # Routes
 # -----------------------------
+#Ethel's codes
 @app.route("/")
 def index():
     """Serve the homepage"""
@@ -95,7 +96,7 @@ def returnReview():
 
 @app.route("/analyze", methods=["GET"])
 def get_reviewsMain():
-    # 1️⃣ Extract app_id from query parameter
+    #Extract app_id from query parameter
     app_id = request.args.get("app_id")
     if not app_id:
         return jsonify({"error": "Missing required query parameter: app_id"}), 400
@@ -104,7 +105,7 @@ def get_reviewsMain():
         file_path = os.path.join(BASE_DIR, "data", file_id)
         reviewList = data_to_frontend.get_reviews(file_path)
 
-    # 8️⃣ Build JSON response
+    #Build JSON response
     result = {
         "app_id": app_id,
         "total_reviews": len(reviewList),
@@ -121,7 +122,7 @@ def get_reviewsMain():
 
 @app.route("/summaryVisualisation", methods=["GET"])
 def summaryVisualisation():
-    # 1️⃣ Extract app_id from query parameter
+    #Extract app_id from query parameter
     app_id = request.args.get("app_id", type=int)
     if not app_id:
         return jsonify({"error": "Missing required query parameter: app_id"}), 400
