@@ -21,6 +21,7 @@
             </select>
             <!--<input type="number" id="app_id" placeholder="Enter Steam App ID">-->
             <button id="runBtn" onclick="runGetReviews()">🔍 Run Sentiment Analysis</button>
+            <button id="summarizeBtn" onclick="runSummarizeReviews()">Summarize</button>
             <div id="analysisStatus" style="margin-top: 10px; font-style: italic; color: #666;"></div>
         </div>
 
@@ -28,6 +29,7 @@
             <h2>📊 Results</h2>
             <img id="visualization" src="" style="max-width:100%; margin-bottom: 20px; display:none;" />
             <div id="resultsContent"></div>
+            <div id="imageContainer"></div>
         </div>
     </div>
 

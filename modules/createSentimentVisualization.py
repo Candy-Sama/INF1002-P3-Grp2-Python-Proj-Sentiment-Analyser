@@ -8,15 +8,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 
-def create_sentiment_playtime_visualization():
+def create_sentiment_playtime_visualization(file_id):
     """Create comprehensive sentiment analysis visualization"""
     
     # Read and prepare the data
     print("Loading Steam reviews data...")
-    df = pd.read_excel('steam_reviews_315210.xlsx')
+    df = pd.read_excel(file_id)
     
     # Convert playtime from minutes to hours
-    df['playtime_hours'] = df['playtime_at_review_h'] / 60
+    df['playtime_hours'] = df['playtime_at_review_m'] / 60
     df['sentiment_score'] = df['recommended'].astype(int)
     
     # Create playtime bins (in hours)
@@ -40,17 +40,17 @@ def create_sentiment_playtime_visualization():
     # Create the visualization
     plt.style.use('default')
     fig, axes = plt.subplots(2, 2, figsize=(16, 12))
-    fig.suptitle('Steam Reviews: Sentiment Analysis by Playtime Hours', 
-                 fontsize=20, fontweight='bold', y=0.98)
+    # fig.suptitle('Steam Reviews: Sentiment Analysis by Playtime Hours', 
+    #             fontsize=20, fontweight='bold', y=0.98)
     
-    # Plot 1: Bar Chart - Sentiment Ratio
+    # Plot 1: Bar Chart - Recommended Ratio
     ax1 = axes[0, 0]
     colors = ['#ff6b6b' if x < 0.5 else '#51cf66' for x in sentiment_stats['positive_ratio']]
     bars1 = ax1.bar(sentiment_stats['playtime_bin'], sentiment_stats['positive_ratio'],
                     color=colors, alpha=0.8, edgecolor='black', linewidth=1)
     
-    ax1.set_title('Positive Sentiment Ratio by Playtime', fontsize=14, fontweight='bold')
-    ax1.set_ylabel('Positive Sentiment Ratio')
+    ax1.set_title('Recommended Ratio by Playtime', fontsize=14, fontweight='bold')
+    ax1.set_ylabel('Recommended Ratio')
     ax1.set_ylim(0, 1)
     ax1.axhline(y=0.5, color='black', linestyle='--', alpha=0.7, label='50% threshold')
     ax1.legend()
@@ -81,9 +81,9 @@ def create_sentiment_playtime_visualization():
                     marker='o', linewidth=4, markersize=12, color='purple',
                     markerfacecolor='white', markeredgecolor='purple', markeredgewidth=3)
     
-    ax3.set_title('Sentiment Flow Across Playtime Categories', fontsize=14, fontweight='bold')
+    ax3.set_title('Recommended Ratio Across Playtime Categories', fontsize=14, fontweight='bold')
     ax3.set_xlabel('Playtime Categories')
-    ax3.set_ylabel('Positive Sentiment Ratio')
+    ax3.set_ylabel('Recommended Ratio')
     ax3.set_xticks(range(len(sentiment_stats)))
     ax3.set_xticklabels(sentiment_stats['playtime_bin'], rotation=45, ha='right')
     ax3.axhline(y=0.5, color='red', linestyle='--', alpha=0.7, label='50% threshold')
@@ -140,10 +140,10 @@ def create_sentiment_playtime_visualization():
     print("Peak satisfaction occurs in the 25-50h range")
     print("Long-term players (500h+) maintain high satisfaction")
     
-    return sentiment_stats
+    return output_path
 
 if __name__ == "__main__":
-    sentiment_data = create_sentiment_playtime_visualization()
+    sentiment_data = create_sentiment_playtime_visualization('steam_reviews_315210.xlsx')
     
     # Show the plot
     plt.show()
