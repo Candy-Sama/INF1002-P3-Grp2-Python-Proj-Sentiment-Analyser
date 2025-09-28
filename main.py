@@ -128,8 +128,7 @@ def summaryVisualisation():
     else:
         file_id = f'steam_reviews_{app_id}.xlsx'
         file_path = os.path.join(BASE_DIR, "data", file_id)
-
-        output = createSentimentVisualization.create_sentiment_playtime_visualization(file_id)
+        output = createSentimentVisualization.create_sentiment_playtime_visualization(file_path)
         
         # Show the plot
         # plt.show()
