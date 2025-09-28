@@ -47,7 +47,7 @@ async function runGetReviews() {
         })
 
 
-        document.getElementById("imageContainer").removeChild(document.getElementById("imageContainer").lastChild)
+        // document.getElementById("imageContainer").removeChild(document.getElementById("imageContainer").lastChild)
         contentDiv.innerHTML = html;
 
     } catch (error) {
@@ -158,19 +158,6 @@ async function runSummarizeReviews() {
         // 5. Append the image to the container
         if (!container.hasChildNodes()) {
         container.appendChild(newImage)};
-
-        // let html = `<p><strong>App ID:</strong> ${data.app_id} | <strong>Total Reviews:</strong> ${data.total_reviews} | <strong>Timestamp:</strong> ${data.timestamp}</p>`;
-
-        // Print out reviews
-
-        // html += `<h3 style="color: #00000;">Reviews</h3>`;
-        // data.reviews.forEach((review, index) => {
-        //      html += `<div class="review-card">
-        //                   <div class="review-meta">
-        //                       <span onclick="runSentimentAnalysis()" id="review_id" data-value="${index}">${review}</span>
-        //                   </div>
-        //               </div>`;
-        // })
 
         contentDiv.innerHTML = "";
 
