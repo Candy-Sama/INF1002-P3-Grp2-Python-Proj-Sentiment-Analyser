@@ -1,8 +1,9 @@
 # INT1002-P3-Grp2-Python-Proj-Sentiment-Analyser
-# Remember to use a Virtual Enviroment by python -m venv .venv
-# then
-# .venv/Scripts/Activate to activate the virtual environment
-# python -m pip install -r requirements.txt to add libraries that others added
-# python -m pip freeze > requirements.txt to add libraries so that others know what you added
-# then
-# if you are done u can just type deactivate to deactivate the virtual environment
+# This is the README file 
+# -------------------------------------------------
+# To start:
+# py -m venv .venv (create virtual environment)
+# .venv/Scripts/Activate (start the virtual environment)
+# py -m pip freeze > requirements.txt (to let others know which library we installed)
+# py -m pip install -r requirements.txt (to install the libraries others have installed)
+# deactivate (to get out of the virtual environment)

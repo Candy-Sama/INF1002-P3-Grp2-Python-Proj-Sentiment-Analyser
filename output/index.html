@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steam Review Sentiment Analysis Demo</title>
+    <!-- The Reason why the href is made that way is because it is using Flask's url_for function 
+        to generate the correct URL for the static file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/commonStyles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎮 Steam Review Sentiment Analysis</h1>
+            <p>Game Review Analysis Dashboard</p>
+        </div>
+
+        <div style="padding: 20px;">
+            <select id="app_id">
+                <option value="315210">315210</option>
+            </select>
+            <!--<input type="number" id="app_id" placeholder="Enter Steam App ID">-->
+            <button id="runBtn" onclick="runGetReviews()">🔍 Run Sentiment Analysis</button>
+            <div id="analysisStatus" style="margin-top: 10px; font-style: italic; color: #666;"></div>
+        </div>
+
+        <div id="liveResults" style="display:none; padding: 20px;">
+            <h2>📊 Results</h2>
+            <img id="visualization" src="" style="max-width:100%; margin-bottom: 20px; display:none;" />
+            <div id="resultsContent"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript is now organized in external files -->
+    <!-- Functions: runGetReviews(), runSentimentAnalysis() -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,826 @@
+{
+  "app_id": 315210,
+  "total_reviews_fetched": 9775,
+  "reviews_analyzed": 5,
+  "timestamp": "2025-09-23 17:38:39",
+  "sliding_window_config": {
+    "window_size": 3,
+    "step_size": 1
+  },
+  "analysed_reviews": [
+    {
+      "review_index": 0,
+      "original_review": {
+        "recommendationid": "204984108",
+        "author": {
+          "steamid": "76561198950231691",
+          "num_games_owned": 0,
+          "num_reviews": 4,
+          "playtime_forever": 3131,
+          "playtime_last_two_weeks": 1415,
+          "playtime_at_review": 3131,
+          "last_played": 1758503012
+        },
+        "language": "english",
+        "review": "Extremely repetitive, in terms of gameplay, missions, and loot, even the battlepass is bad. Everything about it just felt so empty like it's still in Beta. The game is terrible and the hate it gets is justified, maybe if it got released in 2016 it would have done numbers.  \r\nIs it bad? Yes. \r\nDid I still enjoy it? Yes lmfao",
+        "timestamp_created": 1758578778,
+        "timestamp_updated": 1758578778,
+        "voted_up": true,
+        "votes_up": 0,
+        "votes_funny": 0,
+        "weighted_vote_score": 0.5,
+        "comment_count": 0,
+        "steam_purchase": true,
+        "received_for_free": false,
+        "written_during_early_access": false,
+        "primarily_steam_deck": false
+      },
+      "review_text_preview": "Extremely repetitive, in terms of gameplay, missions, and loot, even the battlepass is bad. Everything about it just felt so empty like it's still in Beta. The game is terrible and the hate it gets is...",
+      "statistics": {
+        "total_paragraphs": 3,
+        "total_sentences": 1,
+        "avg_paragraph_score": -0.1109059008218672,
+        "avg_sentence_score": -3.0,
+        "score_range_paragraphs": 0.09262166405023549,
+        "score_range_sentences": 0.0
+      },
+      "best_paragraph": {
+        "paragraph": "Extremely repetitive in terms of gameplay missions and loot even the battlepass is bad. Everything about it just felt so empty like its still in Beta. The game is terrible and the hate it gets is justified maybe if it got released in 2016 it would have done numbers.",
+        "raw_score": -3.0,
+        "normalised_score": -0.061224489795918366,
+        "word_count": 49,
+        "review_index": 0,
+        "window_position": 0,
+        "sentences_in_window": 3
+      },
+      "worst_paragraph": {
+        "paragraph": "Everything about it just felt so empty like its still in Beta. The game is terrible and the hate it gets is justified maybe if it got released in 2016 it would have done numbers. Is it bad Yes.",
+        "raw_score": -6.0,
+        "normalised_score": -0.15384615384615385,
+        "word_count": 39,
+        "review_index": 0,
+        "window_position": 1,
+        "sentences_in_window": 3
+      },
+      "best_sentence": {
+        "sentence": "Extremely repetitive in terms of gameplay missions and loot even the battlepass is bad  Everything about it just felt so empty like its still in Beta  The game is terrible and the hate it gets is justified maybe if it got released in 2016 it would have done numbers   \r\nIs it bad Yes  \r\nDid I still enjoy it Yes lmfao",
+        "normalised_score": -3.0
+      },
+      "worst_sentence": {
+        "sentence": "Extremely repetitive in terms of gameplay missions and loot even the battlepass is bad  Everything about it just felt so empty like its still in Beta  The game is terrible and the hate it gets is justified maybe if it got released in 2016 it would have done numbers   \r\nIs it bad Yes  \r\nDid I still enjoy it Yes lmfao",
+        "normalised_score": -3.0
+      },
+      "all_paragraphs": [
+        {
+          "paragraph": "Extremely repetitive in terms of gameplay missions and loot even the battlepass is bad. Everything about it just felt so empty like its still in Beta. The game is terrible and the hate it gets is justified maybe if it got released in 2016 it would have done numbers.",
+          "raw_score": -3.0,
+          "normalised_score": -0.061224489795918366,
+          "word_count": 49,
+          "review_index": 0,
+          "window_position": 0,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "Everything about it just felt so empty like its still in Beta. The game is terrible and the hate it gets is justified maybe if it got released in 2016 it would have done numbers. Is it bad Yes.",
+          "raw_score": -6.0,
+          "normalised_score": -0.15384615384615385,
+          "word_count": 39,
+          "review_index": 0,
+          "window_position": 1,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "The game is terrible and the hate it gets is justified maybe if it got released in 2016 it would have done numbers. Is it bad Yes. Did I still enjoy it Yes lmfao.",
+          "raw_score": -4.0,
+          "normalised_score": -0.11764705882352941,
+          "word_count": 34,
+          "review_index": 0,
+          "window_position": 2,
+          "sentences_in_window": 3
+        }
+      ],
+      "all_sentences": [
+        {
+          "sentence": "Extremely repetitive in terms of gameplay missions and loot even the battlepass is bad  Everything about it just felt so empty like its still in Beta  The game is terrible and the hate it gets is justified maybe if it got released in 2016 it would have done numbers   \r\nIs it bad Yes  \r\nDid I still enjoy it Yes lmfao",
+          "normalised_score": -3.0
+        }
+      ]
+    },
+    {
+      "review_index": 1,
+      "original_review": {
+        "recommendationid": "204965876",
+        "author": {
+          "steamid": "76561198043835726",
+          "num_games_owned": 0,
+          "num_reviews": 99,
+          "playtime_forever": 627,
+          "playtime_last_two_weeks": 627,
+          "playtime_at_review": 627,
+          "last_played": 1758564065
+        },
+        "language": "english",
+        "review": "This was probably the most challenging review because there\u2019s no between recommending this game or not so let me try to explain what you can expect and then it\u2019s up to you if you really want to dive in. First the tutorial almost fooled me into believing this was a parkour game. Jump here from here and kill these monsters, then repeat. That is quite similar to what you do but even the location of the tutorial was not a pretty one. The city is much more beautiful and detailed so they missed to gather interest from some players right from the start.\r\n\r\nI was aware of the game\u2019s problems. The performance, the bugs, the infinite loading screens. Yet,I still wanted to give a fair shot at the game because the story really seemed interesting. There are going to be a lot of \u201cifs\u201d in order to decide whether it\u2019s worth playing but from my experience I witnessed:\r\n\r\nThe game wouldn\u2019t even start. An error right from the start prevented me from even reaching the first menu. I had to search for several solutions. The one that worked was turning off the \u201ccore isolation\u201d in windows settings. Now, you should not have to resort to such a thing, while seeing your operating system telling you that turning this off can create a security issue for your computer. Still, I turned it off, restarted my PC and played this game from start to finish.\r\n\r\nThe FPS spikes. I managed 90% of game time with steady FPS, but those 10% really soured my experience. I meet all the requirements to play the game. Even after dropping many settings those FPS drops persisted on 10% of my playthrough. It may seem only a fraction of time but there should be no game to have such performance issues after so much time after release.\r\n\r\nGPS usage. It went from 50% to 90% on and off increasing my GPU temperature. Again, changing the settings and exiting the game didn\u2019t matter. I\u2019m just satisfied that I\u2019m not going to put my PC under such stress since I\u2019m done with the game.\r\n\r\nInfinite loading times. The game was still giving me tips on the loading screen. Such a shame that no loading message in the menu helped me with getting out of the infinite loading screen, only quitting the game and having to redo the last mission worked. \r\n\r\nNow\u2026 Considering all these issues I still wanted to finish the main story. And I did. And I had a great time.\r\n\r\nCut scenes are nicely made. The graphics are detailed and a joy to watch. The rain drops when raining, the city, the characters and their expressions, the humor, the effects such as sparks and explosions, these are well worth your time. But in order to enjoy them I had to be quick about it. So I put the difficulty on the easiest setting possible. Then I only went for the main missions all the time. I may have done some misc things here and there that were on my way to the main mission marker but that\u2019s it. I wanted to treat this game as a pure single player experience. You played Guardians of the Galaxy? I wanted something like that in here and by focusing on the story only, on the easy setting, I\u2019ve managed to find the fun in this game.\r\n\r\nThis game didn\u2019t need the Battle Passes. The cosmetics and open world are filled with copy and paste activities. At one point if you played through them once, you\u2019ve seen them all. There was no point. A single player experience would have made the game much more enjoyable, so, after 10 hours I was done with the story and I had a great time. \r\n\r\nIt\u2019s a shame that my experience was so much impacted by many issues regarding performance and the game design and direction did not meet my desires. But if you like those open worlds with lots of \u201cgames as a service\u201d content then you\u2019ll love this game, if you can play it without any performance issues. And even if you can stomach the issues, having your game crash and make you redo hard missions will make you lose interest in pursuing the best gear in the long run.",
+        "timestamp_created": 1758565694,
+        "timestamp_updated": 1758565694,
+        "voted_up": true,
+        "votes_up": 1,
+        "votes_funny": 0,
+        "weighted_vote_score": "0.513379395008087158",
+        "comment_count": 0,
+        "steam_purchase": true,
+        "received_for_free": false,
+        "written_during_early_access": false,
+        "primarily_steam_deck": false
+      },
+      "review_text_preview": "This was probably the most challenging review because there\u2019s no between recommending this game or not so let me try to explain what you can expect and then it\u2019s up to you if you really want to dive i...",
+      "statistics": {
+        "total_paragraphs": 44,
+        "total_sentences": 1,
+        "avg_paragraph_score": 0.03574036649844714,
+        "avg_sentence_score": 29.0,
+        "score_range_paragraphs": 0.31521739130434784,
+        "score_range_sentences": 0.0
+      },
+      "best_paragraph": {
+        "paragraph": "And I had a great time. Cut scenes are nicely made. The graphics are detailed and a joy to watch.",
+        "raw_score": 5.0,
+        "normalised_score": 0.25,
+        "word_count": 20,
+        "review_index": 0,
+        "window_position": 28,
+        "sentences_in_window": 3
+      },
+      "worst_paragraph": {
+        "paragraph": "Infinite loading times. The game was still giving me tips on the loading screen. Such a shame that no loading message in the menu helped me with getting out of the infinite loading screen only quitting the game and having to redo the last mission worked.",
+        "raw_score": -3.0,
+        "normalised_score": -0.06521739130434782,
+        "word_count": 46,
+        "review_index": 0,
+        "window_position": 23,
+        "sentences_in_window": 3
+      },
+      "best_sentence": {
+        "sentence": "This was probably the most challenging review because there is no between recommending this game or not so let me try to explain what you can expect and then its up to you if you really want to dive in  First the tutorial almost fooled me into believing this was a parkour game  Jump here from here and kill these monsters then repeat  That is quite similar to what you do but even the location of the tutorial was not a pretty one  The city is much more beautiful and detailed so they missed to gather interest from some players right from the start \r\n\r\nI was aware of the games problems  The performance the bugs the infinite loading screens  YetI still wanted to give a fair shot at the game because the story really seemed interesting  There are going to be a lot of ifs in order to decide whether its worth playing but from my experience I witnessed:\r\n\r\nThe game would not even start  An error right from the start prevented me from even reaching the first menu  I had to search for several solutions  The one that worked was turning off the core isolation in windows settings  Now you should not have to resort to such a thing while seeing your operating system telling you that turning this off can create a security issue for your computer  Still I turned it off restarted my PC and played this game from start to finish \r\n\r\nThe FPS spikes  I managed 90 of game time with steady FPS but those 10 really soured my experience  I meet all the requirements to play the game  Even after dropping many settings those FPS drops persisted on 10 of my playthrough  It may seem only a fraction of time but there should be no game to have such performance issues after so much time after release \r\n\r\nGPS usage  It went from 50 to 90 on and off increasing my GPU temperature  Again changing the settings and exiting the game did not matter  I Am just satisfied that I Am not going to put my PC under such stress since I Am done with the game \r\n\r\nInfinite loading times  The game was still giving me tips on the loading screen  Such a shame that no loading message in the menu helped me with getting out of the infinite loading screen only quitting the game and having to redo the last mission worked  \r\n\r\nNow Considering all these issues I still wanted to finish the main story  And I did  And I had a great time \r\n\r\nCut scenes are nicely made  The graphics are detailed and a joy to watch  The rain drops when raining the city the characters and their expressions the humor the effects such as sparks and explosions these are well worth your time  But in order to enjoy them I had to be quick about it  So I put the difficulty on the easiest setting possible  Then I only went for the main missions all the time  I may have done some misc things here and there that were on my way to the main mission marker but that is it  I wanted to treat this game as a pure single player experience  You played Guardians of the Galaxy I wanted something like that in here and by focusing on the story only on the easy setting I Have managed to find the fun in this game \r\n\r\nThis game did not need the Battle Passes  The cosmetics and open world are filled with copy and paste activities  At one point if you played through them once you have seen them all  There was no point  A single player experience would have made the game much more enjoyable so after 10 hours I was done with the story and I had a great time  \r\n\r\nIts a shame that my experience was so much impacted by many issues regarding performance and the game design and direction did not meet my desires  But if you like those open worlds with lots of games as a service content then you will love this game if you can play it without any performance issues  And even if you can stomach the issues having your game crash and make you redo hard missions will make you lose interest in pursuing the best gear in the long run",
+        "normalised_score": 29.0
+      },
+      "worst_sentence": {
+        "sentence": "This was probably the most challenging review because there is no between recommending this game or not so let me try to explain what you can expect and then its up to you if you really want to dive in  First the tutorial almost fooled me into believing this was a parkour game  Jump here from here and kill these monsters then repeat  That is quite similar to what you do but even the location of the tutorial was not a pretty one  The city is much more beautiful and detailed so they missed to gather interest from some players right from the start \r\n\r\nI was aware of the games problems  The performance the bugs the infinite loading screens  YetI still wanted to give a fair shot at the game because the story really seemed interesting  There are going to be a lot of ifs in order to decide whether its worth playing but from my experience I witnessed:\r\n\r\nThe game would not even start  An error right from the start prevented me from even reaching the first menu  I had to search for several solutions  The one that worked was turning off the core isolation in windows settings  Now you should not have to resort to such a thing while seeing your operating system telling you that turning this off can create a security issue for your computer  Still I turned it off restarted my PC and played this game from start to finish \r\n\r\nThe FPS spikes  I managed 90 of game time with steady FPS but those 10 really soured my experience  I meet all the requirements to play the game  Even after dropping many settings those FPS drops persisted on 10 of my playthrough  It may seem only a fraction of time but there should be no game to have such performance issues after so much time after release \r\n\r\nGPS usage  It went from 50 to 90 on and off increasing my GPU temperature  Again changing the settings and exiting the game did not matter  I Am just satisfied that I Am not going to put my PC under such stress since I Am done with the game \r\n\r\nInfinite loading times  The game was still giving me tips on the loading screen  Such a shame that no loading message in the menu helped me with getting out of the infinite loading screen only quitting the game and having to redo the last mission worked  \r\n\r\nNow Considering all these issues I still wanted to finish the main story  And I did  And I had a great time \r\n\r\nCut scenes are nicely made  The graphics are detailed and a joy to watch  The rain drops when raining the city the characters and their expressions the humor the effects such as sparks and explosions these are well worth your time  But in order to enjoy them I had to be quick about it  So I put the difficulty on the easiest setting possible  Then I only went for the main missions all the time  I may have done some misc things here and there that were on my way to the main mission marker but that is it  I wanted to treat this game as a pure single player experience  You played Guardians of the Galaxy I wanted something like that in here and by focusing on the story only on the easy setting I Have managed to find the fun in this game \r\n\r\nThis game did not need the Battle Passes  The cosmetics and open world are filled with copy and paste activities  At one point if you played through them once you have seen them all  There was no point  A single player experience would have made the game much more enjoyable so after 10 hours I was done with the story and I had a great time  \r\n\r\nIts a shame that my experience was so much impacted by many issues regarding performance and the game design and direction did not meet my desires  But if you like those open worlds with lots of games as a service content then you will love this game if you can play it without any performance issues  And even if you can stomach the issues having your game crash and make you redo hard missions will make you lose interest in pursuing the best gear in the long run",
+        "normalised_score": 29.0
+      },
+      "all_paragraphs": [
+        {
+          "paragraph": "This was probably the most challenging review because there is no between recommending this game or not so let me try to explain what you can expect and then its up to you if you really want to dive in. First the tutorial almost fooled me into believing this was a parkour game. Jump here from here and kill these monsters then repeat.",
+          "raw_score": -3.0,
+          "normalised_score": -0.047619047619047616,
+          "word_count": 63,
+          "review_index": 0,
+          "window_position": 0,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "First the tutorial almost fooled me into believing this was a parkour game. Jump here from here and kill these monsters then repeat. That is quite similar to what you do but even the location of the tutorial was not a pretty one.",
+          "raw_score": -2.0,
+          "normalised_score": -0.046511627906976744,
+          "word_count": 43,
+          "review_index": 0,
+          "window_position": 1,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "Jump here from here and kill these monsters then repeat. That is quite similar to what you do but even the location of the tutorial was not a pretty one. The city is much more beautiful and detailed so they missed to gather interest from some players right from the start.",
+          "raw_score": 0.0,
+          "normalised_score": 0.0,
+          "word_count": 51,
+          "review_index": 0,
+          "window_position": 2,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "That is quite similar to what you do but even the location of the tutorial was not a pretty one. The city is much more beautiful and detailed so they missed to gather interest from some players right from the start. I was aware of the games problems.",
+          "raw_score": 3.0,
+          "normalised_score": 0.0625,
+          "word_count": 48,
+          "review_index": 0,
+          "window_position": 3,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "The city is much more beautiful and detailed so they missed to gather interest from some players right from the start. I was aware of the games problems. The performance the bugs the infinite loading screens.",
+          "raw_score": 2.0,
+          "normalised_score": 0.05555555555555555,
+          "word_count": 36,
+          "review_index": 0,
+          "window_position": 4,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "I was aware of the games problems. The performance the bugs the infinite loading screens. YetI still wanted to give a fair shot at the game because the story really seemed interesting.",
+          "raw_score": 2.0,
+          "normalised_score": 0.0625,
+          "word_count": 32,
+          "review_index": 0,
+          "window_position": 5,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "The performance the bugs the infinite loading screens. YetI still wanted to give a fair shot at the game because the story really seemed interesting. There are going to be a lot of ifs in order to decide whether its worth playing but from my experience I witnessed:\r\n\r\nThe game would not even start.",
+          "raw_score": 4.0,
+          "normalised_score": 0.07407407407407407,
+          "word_count": 54,
+          "review_index": 0,
+          "window_position": 6,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "YetI still wanted to give a fair shot at the game because the story really seemed interesting. There are going to be a lot of ifs in order to decide whether its worth playing but from my experience I witnessed:\r\n\r\nThe game would not even start. An error right from the start prevented me from even reaching the first menu.",
+          "raw_score": 2.0,
+          "normalised_score": 0.03333333333333333,
+          "word_count": 60,
+          "review_index": 0,
+          "window_position": 7,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "There are going to be a lot of ifs in order to decide whether its worth playing but from my experience I witnessed:\r\n\r\nThe game would not even start. An error right from the start prevented me from even reaching the first menu. I had to search for several solutions.",
+          "raw_score": 0.0,
+          "normalised_score": 0.0,
+          "word_count": 50,
+          "review_index": 0,
+          "window_position": 8,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "An error right from the start prevented me from even reaching the first menu. I had to search for several solutions. The one that worked was turning off the core isolation in windows settings.",
+          "raw_score": -2.0,
+          "normalised_score": -0.058823529411764705,
+          "word_count": 34,
+          "review_index": 0,
+          "window_position": 9,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "I had to search for several solutions. The one that worked was turning off the core isolation in windows settings. Now you should not have to resort to such a thing while seeing your operating system telling you that turning this off can create a security issue for your computer.",
+          "raw_score": 0,
+          "normalised_score": 0.0,
+          "word_count": 50,
+          "review_index": 0,
+          "window_position": 10,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "The one that worked was turning off the core isolation in windows settings. Now you should not have to resort to such a thing while seeing your operating system telling you that turning this off can create a security issue for your computer. Still I turned it off restarted my PC and played this game from start to finish.",
+          "raw_score": 0,
+          "normalised_score": 0.0,
+          "word_count": 59,
+          "review_index": 0,
+          "window_position": 11,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "Now you should not have to resort to such a thing while seeing your operating system telling you that turning this off can create a security issue for your computer. Still I turned it off restarted my PC and played this game from start to finish. The FPS spikes.",
+          "raw_score": 0,
+          "normalised_score": 0.0,
+          "word_count": 49,
+          "review_index": 0,
+          "window_position": 12,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "Still I turned it off restarted my PC and played this game from start to finish. The FPS spikes. I managed 90 of game time with steady FPS but those 10 really soured my experience.",
+          "raw_score": 0,
+          "normalised_score": 0.0,
+          "word_count": 35,
+          "review_index": 0,
+          "window_position": 13,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "The FPS spikes. I managed 90 of game time with steady FPS but those 10 really soured my experience. I meet all the requirements to play the game.",
+          "raw_score": 0,
+          "normalised_score": 0.0,
+          "word_count": 28,
+          "review_index": 0,
+          "window_position": 14,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "I managed 90 of game time with steady FPS but those 10 really soured my experience. I meet all the requirements to play the game. Even after dropping many settings those FPS drops persisted on 10 of my playthrough.",
+          "raw_score": 0,
+          "normalised_score": 0.0,
+          "word_count": 39,
+          "review_index": 0,
+          "window_position": 15,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "I meet all the requirements to play the game. Even after dropping many settings those FPS drops persisted on 10 of my playthrough. It may seem only a fraction of time but there should be no game to have such performance issues after so much time after release.",
+          "raw_score": -1.0,
+          "normalised_score": -0.020833333333333332,
+          "word_count": 48,
+          "review_index": 0,
+          "window_position": 16,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "Even after dropping many settings those FPS drops persisted on 10 of my playthrough. It may seem only a fraction of time but there should be no game to have such performance issues after so much time after release. GPS usage.",
+          "raw_score": -1.0,
+          "normalised_score": -0.024390243902439025,
+          "word_count": 41,
+          "review_index": 0,
+          "window_position": 17,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "It may seem only a fraction of time but there should be no game to have such performance issues after so much time after release. GPS usage. It went from 50 to 90 on and off increasing my GPU temperature.",
+          "raw_score": -1.0,
+          "normalised_score": -0.025,
+          "word_count": 40,
+          "review_index": 0,
+          "window_position": 18,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "GPS usage. It went from 50 to 90 on and off increasing my GPU temperature. Again changing the settings and exiting the game did not matter.",
+          "raw_score": 0,
+          "normalised_score": 0.0,
+          "word_count": 26,
+          "review_index": 0,
+          "window_position": 19,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "It went from 50 to 90 on and off increasing my GPU temperature. Again changing the settings and exiting the game did not matter. I Am just satisfied that I Am not going to put my PC under such stress since I Am done with the game.",
+          "raw_score": 1.0,
+          "normalised_score": 0.02127659574468085,
+          "word_count": 47,
+          "review_index": 0,
+          "window_position": 20,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "Again changing the settings and exiting the game did not matter. I Am just satisfied that I Am not going to put my PC under such stress since I Am done with the game. Infinite loading times.",
+          "raw_score": 1.0,
+          "normalised_score": 0.02702702702702703,
+          "word_count": 37,
+          "review_index": 0,
+          "window_position": 21,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "I Am just satisfied that I Am not going to put my PC under such stress since I Am done with the game. Infinite loading times. The game was still giving me tips on the loading screen.",
+          "raw_score": 1.0,
+          "normalised_score": 0.02702702702702703,
+          "word_count": 37,
+          "review_index": 0,
+          "window_position": 22,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "Infinite loading times. The game was still giving me tips on the loading screen. Such a shame that no loading message in the menu helped me with getting out of the infinite loading screen only quitting the game and having to redo the last mission worked.",
+          "raw_score": -3.0,
+          "normalised_score": -0.06521739130434782,
+          "word_count": 46,
+          "review_index": 0,
+          "window_position": 23,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "The game was still giving me tips on the loading screen. Such a shame that no loading message in the menu helped me with getting out of the infinite loading screen only quitting the game and having to redo the last mission worked. Now Considering all these issues I still wanted to finish the main story.",
+          "raw_score": -3.0,
+          "normalised_score": -0.05357142857142857,
+          "word_count": 56,
+          "review_index": 0,
+          "window_position": 24,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "Such a shame that no loading message in the menu helped me with getting out of the infinite loading screen only quitting the game and having to redo the last mission worked. Now Considering all these issues I still wanted to finish the main story. And I did.",
+          "raw_score": -3.0,
+          "normalised_score": -0.0625,
+          "word_count": 48,
+          "review_index": 0,
+          "window_position": 25,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "Now Considering all these issues I still wanted to finish the main story. And I did. And I had a great time.",
+          "raw_score": 3.0,
+          "normalised_score": 0.13636363636363635,
+          "word_count": 22,
+          "review_index": 0,
+          "window_position": 26,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "And I did. And I had a great time. Cut scenes are nicely made.",
+          "raw_score": 2.0,
+          "normalised_score": 0.14285714285714285,
+          "word_count": 14,
+          "review_index": 0,
+          "window_position": 27,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "And I had a great time. Cut scenes are nicely made. The graphics are detailed and a joy to watch.",
+          "raw_score": 5.0,
+          "normalised_score": 0.25,
+          "word_count": 20,
+          "review_index": 0,
+          "window_position": 28,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "Cut scenes are nicely made. The graphics are detailed and a joy to watch. The rain drops when raining the city the characters and their expressions the humor the effects such as sparks and explosions these are well worth your time.",
+          "raw_score": 6.0,
+          "normalised_score": 0.14634146341463414,
+          "word_count": 41,
+          "review_index": 0,
+          "window_position": 29,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "The graphics are detailed and a joy to watch. The rain drops when raining the city the characters and their expressions the humor the effects such as sparks and explosions these are well worth your time. But in order to enjoy them I had to be quick about it.",
+          "raw_score": 9.0,
+          "normalised_score": 0.1836734693877551,
+          "word_count": 49,
+          "review_index": 0,
+          "window_position": 30,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "The rain drops when raining the city the characters and their expressions the humor the effects such as sparks and explosions these are well worth your time. But in order to enjoy them I had to be quick about it. So I put the difficulty on the easiest setting possible.",
+          "raw_score": 6.0,
+          "normalised_score": 0.12,
+          "word_count": 50,
+          "review_index": 0,
+          "window_position": 31,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "But in order to enjoy them I had to be quick about it. So I put the difficulty on the easiest setting possible. Then I only went for the main missions all the time.",
+          "raw_score": 2.0,
+          "normalised_score": 0.058823529411764705,
+          "word_count": 34,
+          "review_index": 0,
+          "window_position": 32,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "So I put the difficulty on the easiest setting possible. Then I only went for the main missions all the time. I may have done some misc things here and there that were on my way to the main mission marker but that is it.",
+          "raw_score": 0,
+          "normalised_score": 0.0,
+          "word_count": 45,
+          "review_index": 0,
+          "window_position": 33,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "Then I only went for the main missions all the time. I may have done some misc things here and there that were on my way to the main mission marker but that is it. I wanted to treat this game as a pure single player experience.",
+          "raw_score": 1.0,
+          "normalised_score": 0.02127659574468085,
+          "word_count": 47,
+          "review_index": 0,
+          "window_position": 34,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "I may have done some misc things here and there that were on my way to the main mission marker but that is it. I wanted to treat this game as a pure single player experience. You played Guardians of the Galaxy I wanted something like that in here and by focusing on the story only on the easy setting I Have managed to find the fun in this game.",
+          "raw_score": 8.0,
+          "normalised_score": 0.11428571428571428,
+          "word_count": 70,
+          "review_index": 0,
+          "window_position": 35,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "I wanted to treat this game as a pure single player experience. You played Guardians of the Galaxy I wanted something like that in here and by focusing on the story only on the easy setting I Have managed to find the fun in this game. This game did not need the Battle Passes.",
+          "raw_score": 7.0,
+          "normalised_score": 0.12962962962962962,
+          "word_count": 54,
+          "review_index": 0,
+          "window_position": 36,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "You played Guardians of the Galaxy I wanted something like that in here and by focusing on the story only on the easy setting I Have managed to find the fun in this game. This game did not need the Battle Passes. The cosmetics and open world are filled with copy and paste activities.",
+          "raw_score": 6.0,
+          "normalised_score": 0.1111111111111111,
+          "word_count": 54,
+          "review_index": 0,
+          "window_position": 37,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "This game did not need the Battle Passes. The cosmetics and open world are filled with copy and paste activities. At one point if you played through them once you have seen them all.",
+          "raw_score": -1.0,
+          "normalised_score": -0.029411764705882353,
+          "word_count": 34,
+          "review_index": 0,
+          "window_position": 38,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "The cosmetics and open world are filled with copy and paste activities. At one point if you played through them once you have seen them all. There was no point.",
+          "raw_score": -1.0,
+          "normalised_score": -0.03333333333333333,
+          "word_count": 30,
+          "review_index": 0,
+          "window_position": 39,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "At one point if you played through them once you have seen them all. There was no point. A single player experience would have made the game much more enjoyable so after 10 hours I was done with the story and I had a great time.",
+          "raw_score": 4.0,
+          "normalised_score": 0.08695652173913043,
+          "word_count": 46,
+          "review_index": 0,
+          "window_position": 40,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "There was no point. A single player experience would have made the game much more enjoyable so after 10 hours I was done with the story and I had a great time. Its a shame that my experience was so much impacted by many issues regarding performance and the game design and direction did not meet my desires.",
+          "raw_score": 2.0,
+          "normalised_score": 0.034482758620689655,
+          "word_count": 58,
+          "review_index": 0,
+          "window_position": 41,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "A single player experience would have made the game much more enjoyable so after 10 hours I was done with the story and I had a great time. Its a shame that my experience was so much impacted by many issues regarding performance and the game design and direction did not meet my desires. But if you like those open worlds with lots of games as a service content then you will love this game if you can play it without any performance issues.",
+          "raw_score": 8.0,
+          "normalised_score": 0.09523809523809523,
+          "word_count": 84,
+          "review_index": 0,
+          "window_position": 42,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "Its a shame that my experience was so much impacted by many issues regarding performance and the game design and direction did not meet my desires. But if you like those open worlds with lots of games as a service content then you will love this game if you can play it without any performance issues. And even if you can stomach the issues having your game crash and make you redo hard missions will make you lose interest in pursuing the best gear in the long run.",
+          "raw_score": 4.0,
+          "normalised_score": 0.045454545454545456,
+          "word_count": 88,
+          "review_index": 0,
+          "window_position": 43,
+          "sentences_in_window": 3
+        }
+      ],
+      "all_sentences": [
+        {
+          "sentence": "This was probably the most challenging review because there is no between recommending this game or not so let me try to explain what you can expect and then its up to you if you really want to dive in  First the tutorial almost fooled me into believing this was a parkour game  Jump here from here and kill these monsters then repeat  That is quite similar to what you do but even the location of the tutorial was not a pretty one  The city is much more beautiful and detailed so they missed to gather interest from some players right from the start \r\n\r\nI was aware of the games problems  The performance the bugs the infinite loading screens  YetI still wanted to give a fair shot at the game because the story really seemed interesting  There are going to be a lot of ifs in order to decide whether its worth playing but from my experience I witnessed:\r\n\r\nThe game would not even start  An error right from the start prevented me from even reaching the first menu  I had to search for several solutions  The one that worked was turning off the core isolation in windows settings  Now you should not have to resort to such a thing while seeing your operating system telling you that turning this off can create a security issue for your computer  Still I turned it off restarted my PC and played this game from start to finish \r\n\r\nThe FPS spikes  I managed 90 of game time with steady FPS but those 10 really soured my experience  I meet all the requirements to play the game  Even after dropping many settings those FPS drops persisted on 10 of my playthrough  It may seem only a fraction of time but there should be no game to have such performance issues after so much time after release \r\n\r\nGPS usage  It went from 50 to 90 on and off increasing my GPU temperature  Again changing the settings and exiting the game did not matter  I Am just satisfied that I Am not going to put my PC under such stress since I Am done with the game \r\n\r\nInfinite loading times  The game was still giving me tips on the loading screen  Such a shame that no loading message in the menu helped me with getting out of the infinite loading screen only quitting the game and having to redo the last mission worked  \r\n\r\nNow Considering all these issues I still wanted to finish the main story  And I did  And I had a great time \r\n\r\nCut scenes are nicely made  The graphics are detailed and a joy to watch  The rain drops when raining the city the characters and their expressions the humor the effects such as sparks and explosions these are well worth your time  But in order to enjoy them I had to be quick about it  So I put the difficulty on the easiest setting possible  Then I only went for the main missions all the time  I may have done some misc things here and there that were on my way to the main mission marker but that is it  I wanted to treat this game as a pure single player experience  You played Guardians of the Galaxy I wanted something like that in here and by focusing on the story only on the easy setting I Have managed to find the fun in this game \r\n\r\nThis game did not need the Battle Passes  The cosmetics and open world are filled with copy and paste activities  At one point if you played through them once you have seen them all  There was no point  A single player experience would have made the game much more enjoyable so after 10 hours I was done with the story and I had a great time  \r\n\r\nIts a shame that my experience was so much impacted by many issues regarding performance and the game design and direction did not meet my desires  But if you like those open worlds with lots of games as a service content then you will love this game if you can play it without any performance issues  And even if you can stomach the issues having your game crash and make you redo hard missions will make you lose interest in pursuing the best gear in the long run",
+          "normalised_score": 29.0
+        }
+      ]
+    },
+    {
+      "review_index": 4,
+      "original_review": {
+        "recommendationid": "204892118",
+        "author": {
+          "steamid": "76561198789089633",
+          "num_games_owned": 0,
+          "num_reviews": 1,
+          "playtime_forever": 749,
+          "playtime_last_two_weeks": 749,
+          "playtime_at_review": 716,
+          "last_played": 1758489561
+        },
+        "language": "english",
+        "review": "Ive played about 11 hours so far and really enjoy it. The combat is fun, theres always something going on, and the Flash (my favourite character) makes the story especially exiting. The game did crash twice even on medium video settings, but overall Its still a very fun experience.\r\nI know the game has had some criticism, but from my experience its been entertaining despite the crashes.",
+        "timestamp_created": 1758478874,
+        "timestamp_updated": 1758478874,
+        "voted_up": true,
+        "votes_up": 0,
+        "votes_funny": 0,
+        "weighted_vote_score": 0.5,
+        "comment_count": 0,
+        "steam_purchase": false,
+        "received_for_free": false,
+        "written_during_early_access": false,
+        "primarily_steam_deck": false
+      },
+      "review_text_preview": "Ive played about 11 hours so far and really enjoy it. The combat is fun, theres always something going on, and the Flash (my favourite character) makes the story especially exiting. The game did crash...",
+      "statistics": {
+        "total_paragraphs": 2,
+        "total_sentences": 1,
+        "avg_paragraph_score": 0.14963880288957687,
+        "avg_sentence_score": 9.0,
+        "score_range_paragraphs": 0.05366357069143449,
+        "score_range_sentences": 0.0
+      },
+      "best_paragraph": {
+        "paragraph": "I Have played about 11 hours so far and really enjoy it. The combat is fun there is always something going on and the Flash my favourite character makes the story especially exiting. The game did crash twice even on medium video settings but overall Its still a very fun experience.",
+        "raw_score": 9.0,
+        "normalised_score": 0.17647058823529413,
+        "word_count": 51,
+        "review_index": 0,
+        "window_position": 0,
+        "sentences_in_window": 3
+      },
+      "worst_paragraph": {
+        "paragraph": "The combat is fun there is always something going on and the Flash my favourite character makes the story especially exiting. The game did crash twice even on medium video settings but overall Its still a very fun experience. I know the game has had some criticism but from my experience its been entertaining despite the crashes.",
+        "raw_score": 7.0,
+        "normalised_score": 0.12280701754385964,
+        "word_count": 57,
+        "review_index": 0,
+        "window_position": 1,
+        "sentences_in_window": 3
+      },
+      "best_sentence": {
+        "sentence": "I Have played about 11 hours so far and really enjoy it  The combat is fun there is always something going on and the Flash my favourite character makes the story especially exiting  The game did crash twice even on medium video settings but overall Its still a very fun experience \r\nI know the game has had some criticism but from my experience its been entertaining despite the crashes",
+        "normalised_score": 9.0
+      },
+      "worst_sentence": {
+        "sentence": "I Have played about 11 hours so far and really enjoy it  The combat is fun there is always something going on and the Flash my favourite character makes the story especially exiting  The game did crash twice even on medium video settings but overall Its still a very fun experience \r\nI know the game has had some criticism but from my experience its been entertaining despite the crashes",
+        "normalised_score": 9.0
+      },
+      "all_paragraphs": [
+        {
+          "paragraph": "I Have played about 11 hours so far and really enjoy it. The combat is fun there is always something going on and the Flash my favourite character makes the story especially exiting. The game did crash twice even on medium video settings but overall Its still a very fun experience.",
+          "raw_score": 9.0,
+          "normalised_score": 0.17647058823529413,
+          "word_count": 51,
+          "review_index": 0,
+          "window_position": 0,
+          "sentences_in_window": 3
+        },
+        {
+          "paragraph": "The combat is fun there is always something going on and the Flash my favourite character makes the story especially exiting. The game did crash twice even on medium video settings but overall Its still a very fun experience. I know the game has had some criticism but from my experience its been entertaining despite the crashes.",
+          "raw_score": 7.0,
+          "normalised_score": 0.12280701754385964,
+          "word_count": 57,
+          "review_index": 0,
+          "window_position": 1,
+          "sentences_in_window": 3
+        }
+      ],
+      "all_sentences": [
+        {
+          "sentence": "I Have played about 11 hours so far and really enjoy it  The combat is fun there is always something going on and the Flash my favourite character makes the story especially exiting  The game did crash twice even on medium video settings but overall Its still a very fun experience \r\nI know the game has had some criticism but from my experience its been entertaining despite the crashes",
+          "normalised_score": 9.0
+        }
+      ]
+    },
+    {
+      "review_index": 5,
+      "original_review": {
+        "recommendationid": "204836499",
+        "author": {
+          "steamid": "76561198139625076",
+          "num_games_owned": 0,
+          "num_reviews": 14,
+          "playtime_forever": 1310,
+          "playtime_last_two_weeks": 638,
+          "playtime_at_review": 1006,
+          "last_played": 1758500429
+        },
+        "language": "english",
+        "review": "Don't let the cry babies in these reviews tell you otherwise.... this game is fun. (catch it on sale though as price for me was a little to high) still none the less it has been fun.",
+        "timestamp_created": 1758425792,
+        "timestamp_updated": 1758425792,
+        "voted_up": true,
+        "votes_up": 0,
+        "votes_funny": 0,
+        "weighted_vote_score": 0.5,
+        "comment_count": 0,
+        "steam_purchase": true,
+        "received_for_free": false,
+        "written_during_early_access": false,
+        "primarily_steam_deck": false
+      },
+      "review_text_preview": "Don't let the cry babies in these reviews tell you otherwise.... this game is fun. (catch it on sale though as price for me was a little to high) still none the less it has been fun.",
+      "statistics": {
+        "total_paragraphs": 1,
+        "total_sentences": 1,
+        "avg_paragraph_score": -0.02631578947368421,
+        "avg_sentence_score": 7.0,
+        "score_range_paragraphs": 0.0,
+        "score_range_sentences": 0.0
+      },
+      "best_paragraph": {
+        "paragraph": "Do Not let the cry babies in these reviews tell you otherwise. this game is fun. catch it on sale though as price for me was a little to high still none the less it has been fun.",
+        "raw_score": -1.0,
+        "normalised_score": -0.02631578947368421,
+        "word_count": 38,
+        "review_index": 0,
+        "window_position": 0,
+        "sentences_in_window": 3
+      },
+      "worst_paragraph": {
+        "paragraph": "Do Not let the cry babies in these reviews tell you otherwise. this game is fun. catch it on sale though as price for me was a little to high still none the less it has been fun.",
+        "raw_score": -1.0,
+        "normalised_score": -0.02631578947368421,
+        "word_count": 38,
+        "review_index": 0,
+        "window_position": 0,
+        "sentences_in_window": 3
+      },
+      "best_sentence": {
+        "sentence": "Do Not let the cry babies in these reviews tell you otherwise  this game is fun  catch it on sale though as price for me was a little to high still none the less it has been fun",
+        "normalised_score": 7.0
+      },
+      "worst_sentence": {
+        "sentence": "Do Not let the cry babies in these reviews tell you otherwise  this game is fun  catch it on sale though as price for me was a little to high still none the less it has been fun",
+        "normalised_score": 7.0
+      },
+      "all_paragraphs": [
+        {
+          "paragraph": "Do Not let the cry babies in these reviews tell you otherwise. this game is fun. catch it on sale though as price for me was a little to high still none the less it has been fun.",
+          "raw_score": -1.0,
+          "normalised_score": -0.02631578947368421,
+          "word_count": 38,
+          "review_index": 0,
+          "window_position": 0,
+          "sentences_in_window": 3
+        }
+      ],
+      "all_sentences": [
+        {
+          "sentence": "Do Not let the cry babies in these reviews tell you otherwise  this game is fun  catch it on sale though as price for me was a little to high still none the less it has been fun",
+          "normalised_score": 7.0
+        }
+      ]
+    },
+    {
+      "review_index": 6,
+      "original_review": {
+        "recommendationid": "204820633",
+        "author": {
+          "steamid": "76561198023169460",
+          "num_games_owned": 0,
+          "num_reviews": 28,
+          "playtime_forever": 1661,
+          "playtime_last_two_weeks": 1,
+          "playtime_at_review": 1661,
+          "last_played": 1758411945
+        },
+        "language": "english",
+        "review": "It's a pretty fun game for fans of DC characters. I think a lot of people came into this with their expectations too high. It isn't the Arkham games, but it is a lot of fun.",
+        "timestamp_created": 1758407407,
+        "timestamp_updated": 1758407407,
+        "voted_up": true,
+        "votes_up": 0,
+        "votes_funny": 0,
+        "weighted_vote_score": 0.5,
+        "comment_count": 0,
+        "steam_purchase": true,
+        "received_for_free": false,
+        "written_during_early_access": false,
+        "primarily_steam_deck": false
+      },
+      "review_text_preview": "It's a pretty fun game for fans of DC characters. I think a lot of people came into this with their expectations too high. It isn't the Arkham games, but it is a lot of fun.",
+      "statistics": {
+        "total_paragraphs": 1,
+        "total_sentences": 1,
+        "avg_paragraph_score": 0.13513513513513514,
+        "avg_sentence_score": 9.0,
+        "score_range_paragraphs": 0.0,
+        "score_range_sentences": 0.0
+      },
+      "best_paragraph": {
+        "paragraph": "Its a pretty fun game for fans of DC characters. I think a lot of people came into this with their expectations too high. It is not the Arkham games but it is a lot of fun.",
+        "raw_score": 5.0,
+        "normalised_score": 0.13513513513513514,
+        "word_count": 37,
+        "review_index": 0,
+        "window_position": 0,
+        "sentences_in_window": 3
+      },
+      "worst_paragraph": {
+        "paragraph": "Its a pretty fun game for fans of DC characters. I think a lot of people came into this with their expectations too high. It is not the Arkham games but it is a lot of fun.",
+        "raw_score": 5.0,
+        "normalised_score": 0.13513513513513514,
+        "word_count": 37,
+        "review_index": 0,
+        "window_position": 0,
+        "sentences_in_window": 3
+      },
+      "best_sentence": {
+        "sentence": "Its a pretty fun game for fans of DC characters  I think a lot of people came into this with their expectations too high  It is not the Arkham games but it is a lot of fun",
+        "normalised_score": 9.0
+      },
+      "worst_sentence": {
+        "sentence": "Its a pretty fun game for fans of DC characters  I think a lot of people came into this with their expectations too high  It is not the Arkham games but it is a lot of fun",
+        "normalised_score": 9.0
+      },
+      "all_paragraphs": [
+        {
+          "paragraph": "Its a pretty fun game for fans of DC characters. I think a lot of people came into this with their expectations too high. It is not the Arkham games but it is a lot of fun.",
+          "raw_score": 5.0,
+          "normalised_score": 0.13513513513513514,
+          "word_count": 37,
+          "review_index": 0,
+          "window_position": 0,
+          "sentences_in_window": 3
+        }
+      ],
+      "all_sentences": [
+        {
+          "sentence": "Its a pretty fun game for fans of DC characters  I think a lot of people came into this with their expectations too high  It is not the Arkham games but it is a lot of fun",
+          "normalised_score": 9.0
+        }
+      ]
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 import requests
 import pandas as pd
 from datetime import datetime
+import time
 
 def fetch_steam_reviews(app_id,
                         filter_by='all',
@@ -11,8 +12,9 @@ def fetch_steam_reviews(app_id,
                         num_per_page=100):
     """
     Fetches all Steam reviews for a given app_id, paging through cursors.
-    Returns a list of raw review dicts.
+    Returns a list of raw review dicts and also times how long it takes 
     """
+    start = time.time()
     reviews = []
     cursor = '*'
 
@@ -43,7 +45,9 @@ def fetch_steam_reviews(app_id,
         # When Steam returns the same cursor twice or no cursor, we stop
         if not cursor or cursor == params['cursor']:
             break
-
+        
+    end = time.time()
+    print("Time taken to fetch:", end - start)
     return reviews
 
 
@@ -59,7 +63,7 @@ def reviews_to_dataframe(raw_reviews):
             'steam_id':               r.get('author', {}).get('steamid'),
             'num_games_owned':        r.get('author', {}).get('num_games_owned'),
             'num_reviews_by_user':    r.get('author', {}).get('num_reviews'),
-            'playtime_at_review_h':   r.get('author', {}).get('playtime_at_review'),
+            'playtime_at_review_m':   r.get('author', {}).get('playtime_at_review'),
             'language':               r.get('language'),
             'date_of_review':         created,
             'recommended':            r.get('voted_up'),
@@ -76,10 +80,13 @@ def reviews_to_dataframe(raw_reviews):
 
 
 if __name__ == '__main__':
+    print("In main")
+
     # 1) Set your target App ID (e.g., 730 for CS:GO, 440 for Team Fortress 2)
     app_id = 315210
 
     # 2) Fetch reviews
+    print("Before fetch function")
     raw = fetch_steam_reviews(
         app_id=app_id,
         filter_by='recent',     # recent, updated, or all
@@ -91,9 +98,11 @@ if __name__ == '__main__':
     )
 
     # 3) Build DataFrame
+    print("Before pandas to storage function")
     df = reviews_to_dataframe(raw)
 
     # 4) Output to Excel
+    print("Before store to excel")
     output_file = f'steam_reviews_{app_id}.xlsx'
 
     # Usig the default openpyxl engine
@@ -110,6 +119,8 @@ if __name__ == '__main__':
         df.to_excel(writer, index=False)
 
     print(f"\nExported {len(df)} reviews to {output_file}")
+
+    print("End of main")
 
 
     # 5) Tweak pandas display options for terminal output
