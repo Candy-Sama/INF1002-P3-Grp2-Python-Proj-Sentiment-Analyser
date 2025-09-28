@@ -1,56 +1,160 @@
-<!DOCTYPE html> <!-- Created by Mus-->
+<!DOCTYPE html> <!-- Created by Mus -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- The Reason why the href is made that way is because it is using Flask's url_for function 
-        to generate the correct URL for the static file -->
+    <title>Steam Review Deep Analysis | Individual Review Analyzer</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/commonStyles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Content for review analyzer will go here -->
     <div class="container">
-        <div class="header">
-            <h1>🔍 Review Analyser</h1>
-            <p>Detailed sentiment analysis for individual reviews</p>
+        <!-- Review Analysis Header -->
+        <div class="header review-analyzer-header">
+            <div class="analyzer-logo">🔬</div>
+            <h1 class="main-title">Deep Review Analysis</h1>
+            <p class="subtitle">Advanced Sentiment Analysis & Natural Language Processing</p>
         </div>
-        <div style="padding: 20px;">
-            {% if review_id is not none and app_id is not none %} <!-- Check if review_id and app_id are provided -->
-                <div class="review-card">
-                    <h3>Analysis Details</h3>
-                    <p><strong>App ID:</strong> {{ app_id }}</p>
-                    <p><strong>Review ID:</strong> {{ review_id }}</p>
-                    <div id="originalReview" style="margin-top: 10px;">
-                        <p>⏳ Loading original review text...</p>
+
+        <div class="analyzer-content">
+            {% if review_id is not none and app_id is not none %}
+                <!-- Analysis Info Panel -->
+                <div class="info-panel">
+                    <div class="section-header">
+                        <h2>📋 Analysis Overview</h2>
+                        <p>Review identification and processing details</p>
                     </div>
-                    <div id="reviewAnalysisContent" style="margin-top: 20px;">
-                        <p>⏳ Loading detailed sentiment analysis...</p>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">🎮 Steam App ID:</span>
+                            <span class="info-value">{{ app_id }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">🆔 Review ID:</span>
+                            <span class="info-value">{{ review_id }}</span>
+                        </div>
                     </div>
-                    <div id="mostPositiveParagraph" style="margin-top: 20px;">
-                        <p>⏳ Loading most positive sentence...</p>
+                </div>
+
+                <!-- Original Review Section -->
+                <div class="analysis-section original-review-section">
+                    <div class="section-header">
+                        <h3>📄 Original Review Content</h3>
+                        <p>The complete user review text being analyzed</p>
                     </div>
-                    <div id="mostNegativeParagraph" style="margin-top: 20px;">
-                        <p>⏳ Loading most negative sentence...</p>
+                    <div id="originalReview" class="content-box loading">
+                        <div class="loading-indicator">
+                            <span class="loading-spinner">⏳</span>
+                            <span>Loading original review text...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sentence Analysis Section -->
+                <div class="analysis-section sentence-analysis-section">
+                    <div class="section-header">
+                        <h3>🔍 Sentence-Level Analysis</h3>
+                        <p>Individual sentence sentiment scores and breakdown</p>
+                    </div>
+                    <div id="reviewAnalysisContent" class="content-box loading">
+                        <div class="loading-indicator">
+                            <span class="loading-spinner">⏳</span>
+                            <span>Processing detailed sentiment analysis...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Sentences Section -->
+                <div class="analysis-grid">
+                    <div class="analysis-card positive-card">
+                        <div class="card-header">
+                            <h4>😊 Most Positive Sentence</h4>
+                            <span class="sentiment-indicator positive">+</span>
+                        </div>
+                        <div id="mostPositiveSentence" class="card-content loading">
+                            <div class="loading-indicator">
+                                <span class="loading-spinner">⏳</span>
+                                <span>Analyzing positive sentiment...</span>
+                            </div>
+                        </div>
                     </div>
 
+                    <div class="analysis-card negative-card">
+                        <div class="card-header">
+                            <h4>😞 Most Negative Sentence</h4>
+                            <span class="sentiment-indicator negative">-</span>
+                        </div>
+                        <div id="mostNegativeSentence" class="card-content loading">
+                            <div class="loading-indicator">
+                                <span class="loading-spinner">⏳</span>
+                                <span>Analyzing negative sentiment...</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                <div style="margin-top: 20px;"> 
-                    <a href="/" style="text-decoration: none;">
-                        <button class="backBtn">
-                            ← Back to Main Analysis
+
+                <!-- Sliding Window Analysis Section -->
+                <div class="analysis-section sliding-window-section">
+                    <div class="section-header">
+                        <h3>📊 Sliding Window Paragraph Analysis</h3>
+                        <p>Advanced contextual sentiment analysis using sliding window technique</p>
+                    </div>
+                    
+                    <div class="paragraph-analysis-grid">
+                        <div class="analysis-card paragraph-positive-card">
+                            <div class="card-header">
+                                <h4>🌟 Most Positive Paragraph Context</h4>
+                                <span class="analysis-badge">Sliding Window</span>
+                            </div>
+                            <div id="mostPositiveParagraph" class="card-content loading">
+                                <div class="loading-indicator">
+                                    <span class="loading-spinner">⏳</span>
+                                    <span>Processing sliding window analysis for positive sentiment...</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="analysis-card paragraph-negative-card">
+                            <div class="card-header">
+                                <h4>💔 Most Negative Paragraph Context</h4>
+                                <span class="analysis-badge">Sliding Window</span>
+                            </div>
+                            <div id="mostNegativeParagraph" class="card-content loading">
+                                <div class="loading-indicator">
+                                    <span class="loading-spinner">⏳</span>
+                                    <span>Processing sliding window analysis for negative sentiment...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Section -->
+                <div class="navigation-section">
+                    <a href="/" class="nav-link">
+                        <button class="back-button">
+                            <span class="btn-icon">←</span>
+                            Return to Main Dashboard
                         </button>
                     </a>
                 </div>
-            {% else %} <!-- If review_id or app_id is missing -->
-                <div class="review-card">
-                    <p>❌ No review selected. Please go back and select a review to analyze.</p>
-                    <a href="/" style="text-decoration: none;">
-                        <button class="backBtn">
-                            ← Back to Main Analysis
-                        </button>
-                    </a>
+
+            {% else %}
+                <!-- Error State -->
+                <div class="error-section">
+                    <div class="error-card">
+                        <div class="error-icon">⚠️</div>
+                        <h3>No Review Selected</h3>
+                        <p>Please return to the main dashboard and select a review to analyze.</p>
+                        <a href="/" class="nav-link">
+                            <button class="back-button">
+                                <span class="btn-icon">←</span>
+                                Return to Main Dashboard
+                            </button>
+                        </a>
+                    </div>
                 </div>
             {% endif %}
         </div>
@@ -82,7 +186,7 @@
             // Check if values are valid before calling function
             if (reviewID && appID) {
                 console.log('Calling runSentimentAnalysis with valid parameters');
-                const loadVar = runSentimentAnalysis(reviewID, appID, "originalReview", "reviewAnalysisContent", "mostPositiveParagraph", "mostNegativeParagraph");
+                const loadVar = runSentimentAnalysis(reviewID, appID, "originalReview", "reviewAnalysisContent", "mostPositiveSentence", "mostNegativeSentence","mostPositiveParagraph","mostNegativeParagraph");
             } else {
                 console.error('Invalid parameters - reviewID:', reviewID, 'appID:', appID);
             }

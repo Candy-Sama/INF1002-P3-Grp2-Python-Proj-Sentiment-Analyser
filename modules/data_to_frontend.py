@@ -1,5 +1,5 @@
 import pandas as pd
-import reviewMethods as reviewMethods
+import modules.reviewMethods as reviewMethods
 import re
 
 # Get sentence and score of review (Zacc's Code)

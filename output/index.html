@@ -3,38 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Steam Review Sentiment Analysis Demo</title>
-    <!-- The Reason why the href is made that way is because it is using Flask's url_for function 
-        to generate the correct URL for the static file -->
+    <title>Steam Review Sentiment Analyzer | Game Review Analysis Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/commonStyles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>🎮 Steam Review Sentiment Analysis</h1>
-            <p>Game Review Analysis Dashboard</p>
+        <!-- Hero Header -->
+        <div class="header steam-header">
+            <div class="steam-logo">🎮</div>
+            <h1 class="main-title">Steam Review Sentiment Analyzer</h1>
+            <p class="subtitle">Advanced AI-Powered Game Review Analysis Dashboard</p>
+            <div class="header-decoration">
+                <span class="decoration-item">📊</span>
+                <span class="decoration-item">🔍</span>
+                <span class="decoration-item">💬</span>
+                <span class="decoration-item">🎯</span>
+            </div>
         </div>
 
-        <div style="padding: 20px;">
-            <select id="app_id">
-                <option value="315210">315210</option>
-            </select>
-            <!--<input type="number" id="app_id" placeholder="Enter Steam App ID">-->
-            <button id="runBtn" onclick="runGetReviews()">🔍 Run Sentiment Analysis</button>
-            <button id="summarizeBtn" onclick="runSummarizeReviews()">Summarize</button>
-            <div id="analysisStatus" style="margin-top: 10px; font-style: italic; color: #666;"></div>
+        <!-- Control Panel Section -->
+        <div class="control-panel">
+            <div class="section-header">
+                <h2>🎮 Game Selection & Analysis Controls</h2>
+                <p>Choose a Steam game and run comprehensive sentiment analysis on its reviews</p>
+            </div>
+            
+            <div class="input-group">
+                <label for="app_id" class="input-label">
+                    <span class="label-icon">🎯</span>
+                    Steam App ID
+                </label>
+                <select id="app_id" class="steam-select">
+                    <option value="315210">Assassin's Creed Syndicate (315210)</option>
+                </select>
+                <small class="input-hint">Select a game from the available options above</small>
+            </div>
+            
+            <div class="button-group">
+                <button id="runBtn" class="primary-btn" onclick="runGetReviews()">
+                    <span class="btn-icon">🔍</span>
+                    Analyze Reviews
+                </button>
+                <button id="summarizeBtn" class="secondary-btn" onclick="runSummarizeReviews()">
+                    <span class="btn-icon">📊</span>
+                    Generate Summary
+                </button>
+            </div>
+            
+            <div id="analysisStatus" class="status-indicator"></div>
         </div>
 
-        <div id="liveResults" style="display:none; padding: 20px;">
-            <h2>📊 Results</h2>
-            <img id="visualization" src="" style="max-width:100%; margin-bottom: 20px; display:none;" />
-            <div id="resultsContent"></div>
-            <div id="imageContainer"></div>
+        <!-- Results Section -->
+        <div id="liveResults" class="results-section" style="display:none;">
+            <div class="section-header">
+                <h2>📊 Analysis Results</h2>
+                <p>Detailed sentiment analysis breakdown of game reviews</p>
+            </div>
+            
+            <!-- Visualization Container -->
+            <div class="visualization-container">
+                <h3 class="subsection-title">
+                    <span class="title-icon">📈</span>
+                    Data Visualization
+                </h3>
+                <img id="visualization" src="" class="chart-image" style="display:none;" />
+                <div id="imageContainer" class="chart-container"></div>
+            </div>
+            
+            <!-- Reviews Container -->
+            <div class="reviews-container">
+                <h3 class="subsection-title">
+                    <span class="title-icon">💬</span>
+                    Individual Reviews
+                </h3>
+                <div id="resultsContent" class="reviews-grid"></div>
+            </div>
         </div>
     </div>
 
-    <!-- JavaScript is now organized in external files -->
-    <!-- Functions: runGetReviews(), runSentimentAnalysis() -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
