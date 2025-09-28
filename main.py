@@ -73,6 +73,7 @@ def returnReview():
         outputList = data_to_frontend.get_reviews(file_path)
 
         #find the specific review
+        #run through the list of dicts to find the one with matching review_id
         result = next((item for item in outputList if item["review_id"] == review_id), None)
         if result is None:
             return jsonify({"error": f"Review ID '{review_id}' not found"}), 404
@@ -91,7 +92,7 @@ def returnReview():
 
 
 @app.route("/analyze", methods=["GET"])
-def get_reviews():
+def get_reviewsMain():
     # 1️⃣ Extract app_id from query parameter
     app_id = request.args.get("app_id")
     if not app_id:
@@ -120,35 +121,3 @@ def get_reviews():
 # -----------------------------
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-
-
-    # 2️⃣ Fetch reviews from the last 10 days
-    # reviews = getSteamReviewsData.fetch_steam_reviews(
-    #     app_id,
-    #     filter_by='recent',
-    #     language='english',
-    #     day_range=10,  # last 10 days
-    #     num_per_page=200
-    # )
-
-    # if not reviews:
-    #     return jsonify({"error": f"No recent reviews found for App ID '{app_id}'"}), 404
-
-    # # 3️⃣ Clean and preprocess reviews
-    # cleaned_reviews = [reviewMethods.reviewFormatter(r) for r in reviews]
-
-    # # 4️⃣ Load sentiment dictionary
-    # sentiment_dictionary = sentiment_dict.wordScores()
-
-    # # 5️⃣ Sliding window sentiment analysis
-    # positive, negative = sliding_window_demo.run_sliding_window(cleaned_reviews, sentiment_dict)
-
-    # # 6️⃣ Save reviews to Excel for visualization
-    # df_reviews = getSteamReviewsData.reviews_to_dataframe(reviews)
-    # excel_path = f'steam_reviews_{app_id}.xlsx'
-    # df_reviews.to_excel(excel_path, index=False)
-
-    # # 7️⃣ Generate playtime-based sentiment visualization
-    # # createSentimentVisualization.create_sentiment_playtime_visualization()

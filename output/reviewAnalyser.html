@@ -64,7 +64,8 @@
         // Wait for DOM to be ready, then call the function
         document.addEventListener('DOMContentLoaded', function() {
             // Pass Flask template variables to JavaScript (with safety checks)
-            const reviewID = {{ review_id if review_id is not none else 'null' }}; //Ignore the errors, it works
+            //Ignore the errors, JS doesn't recognize flask syntax
+            const reviewID = {{ review_id if review_id is not none else 'null' }}; 
             const appID = {{ app_id if app_id is not none else 'null' }};
 
             console.log('DOM loaded, starting analysis for review ID:', reviewID);
@@ -73,7 +74,7 @@
             // Check if values are valid before calling function
             if (reviewID !== null && appID !== null) {
                 console.log('Calling updateReviewAnalysis with valid parameters');
-                const timeoutId = updateReviewAnalysis("originalReview", appID, reviewID, 2000);
+                const timeoutId = updateReviewAnalysis("originalReview", appID, reviewID, 0);
             } else {
                 console.error('Invalid parameters - reviewID:', reviewID, 'appID:', appID);
             }

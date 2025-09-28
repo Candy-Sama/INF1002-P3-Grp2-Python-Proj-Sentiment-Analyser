@@ -20,12 +20,12 @@ def get_reviews(file_path):
 
     outputList = []
     for eachReview in range(len(df['review_text'].head(10))):
-        review_text_column = df['review_text'].head(10);
-        review_ID_column = df['review_id'].head(10);
+        review_text_column = df['review_text'];
+        review_ID_column = df['review_id'];
 
         outputList.append({
-            "review_id": review_ID_column.iloc[eachReview],
-            "review_text": review_text_column.iloc[eachReview]
+            "review_id": review_ID_column.iloc[eachReview], #iloc creates an index
+            "review_text": review_text_column.iloc[eachReview] #iloc creates an index
         })
 
     return outputList
