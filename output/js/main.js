@@ -76,13 +76,19 @@ async function runSentimentAnalysis(elementID, reviewID, appID) { //Edited by Mu
         // Update the element with the received data
         if (data.error) {
             element.innerHTML = `<p>❌ Error: ${data.error}</p>`;
-        } else {
+        } 
+        else {
             // Display the sentiment analysis results
             element.innerHTML = `
                 <p>✅ Sentiment analysis completed!</p>
                 <p><strong>Review ID:</strong> ${reviewID}</p>
                 <p><strong>Review Text:</strong> ${data.review_text || 'No text available'}</p>
             `;
+
+            // Create two other divs to hold most positive and negative paragraphs
+
+            
+            
         }
     } catch (error) {
         console.error('Fetch error:', error);
