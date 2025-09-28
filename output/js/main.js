@@ -46,6 +46,8 @@ async function runGetReviews() {
                       </div>`;
         })
 
+
+        document.getElementById("imageContainer").removeChild(document.getElementById("imageContainer").lastChild)
         contentDiv.innerHTML = html;
 
     } catch (error) {
@@ -86,8 +88,6 @@ async function runSentimentAnalysis(elementID, reviewID, appID) { //Edited by Mu
             `;
 
             // Create two other divs to hold most positive and negative paragraphs
-            
-
             
             
         }
@@ -156,7 +156,8 @@ async function runSummarizeReviews() {
         const container = document.getElementById("imageContainer");
 
         // 5. Append the image to the container
-        container.appendChild(newImage);
+        if (!container.hasChildNodes()) {
+        container.appendChild(newImage)};
 
         // let html = `<p><strong>App ID:</strong> ${data.app_id} | <strong>Total Reviews:</strong> ${data.total_reviews} | <strong>Timestamp:</strong> ${data.timestamp}</p>`;
 
