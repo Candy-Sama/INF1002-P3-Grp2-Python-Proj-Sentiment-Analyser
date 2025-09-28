@@ -38,7 +38,8 @@ def format_review(review):
 
     return finalResult
 
-# Function to calculate sentiment score of each sentence in a review (Zacc's Code)
+# Function to calculate sentiment score of each sentence in a review 
+# (Zacc and Ethel's Code)
 def sentence_score_calculator(review_to_be_scored):
     sentenceScore = []
     results = []
