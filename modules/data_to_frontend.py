@@ -1,5 +1,5 @@
 import pandas as pd
-import reviewMethods
+import modules.reviewMethods as reviewMethods
 import re
 
 # Get sentence and score of review (Zacc's Code)
@@ -14,27 +14,21 @@ def get_sentence_scores(file_path):
 
     return output
     
-# Get raw review to display to users (Zacc's Code)
+# Get raw review to display to users (Zacc's & Mus' Code)
 def get_reviews(file_path):
     df = pd.read_excel(file_path)
-    review_column = df['review_text'].head(10)
-    output = []
 
-    for review in review_column:
-        review = re.sub('_x000D_', '', review)
-        output.append(review)
+    outputList = []
+    for eachReview in range(len(df['review_text'].head(10))):
+        review_text_column = df['review_text'].head(10);
+        review_ID_column = df['review_id'].head(10);
 
-    return output
+        outputList.append({
+            "review_id": review_ID_column.iloc[eachReview],
+            "review_text": review_text_column.iloc[eachReview]
+        })
 
-# Get spcific review based on review_id (Mus Code)
-def get_specific_review(file_path, review_id):
-    df = pd.read_excel(file_path)
-    review_row = df[df['review_id'] == review_id]
-
-    if not review_row.empty:
-        return review_row.iloc[0]['review_text']
-    else:
-        return None
+    return outputList
 
 # Get review_id (Zacc's Code)
 def get_review_id(file_path):

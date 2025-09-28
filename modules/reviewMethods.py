@@ -1,7 +1,7 @@
 import os
 import contractions
 import re
-import sentiment_dict as sentiment_dict
+import modules.sentiment_dict as sentiment_dict
 import pandas as pd
 
 # Prepare review for scoring (Zacc's Code)

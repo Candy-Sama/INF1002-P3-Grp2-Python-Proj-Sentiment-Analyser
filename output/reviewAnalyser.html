@@ -21,6 +21,9 @@
                     <h3>Analysis Details</h3>
                     <p><strong>App ID:</strong> {{ app_id }}</p>
                     <p><strong>Review Index:</strong> {{ review_id }}</p>
+                    <!-- Debug info -->
+                    <p><strong>Debug - Review ID Type:</strong> {{ review_id.__class__.__name__ }}</p>
+                    <p><strong>Debug - App ID Type:</strong> {{ app_id.__class__.__name__ }}</p>
                     <div id="reviewAnalysisContent">
                         <p>⏳ Loading detailed sentiment analysis...</p>
                     </div>
@@ -53,9 +56,20 @@
     <script>
         // Wait for DOM to be ready, then call the function
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, starting analysis for review ID:', review_id);
-            // Call the function to update the review analysis after a delay
-            const timeoutId = updateReviewAnalysis("reviewAnalysisContent", review_id, 2000);
+            // Pass Flask template variables to JavaScript (with safety checks)
+            const reviewID = {{ review_id if review_id is not none else 'null' }};
+            const appID = {{ app_id if app_id is not none else 'null' }};
+
+            console.log('DOM loaded, starting analysis for review ID:', reviewID);
+            console.log('App ID:', appID);
+            
+            // Check if values are valid before calling function
+            if (reviewID !== null && appID !== null) {
+                console.log('Calling updateReviewAnalysis with valid parameters');
+                const timeoutId = updateReviewAnalysis("reviewAnalysisContent", appID, reviewID, 2000);
+            } else {
+                console.error('Invalid parameters - reviewID:', reviewID, 'appID:', appID);
+            }
         });
     </script>
     {% endif %}

@@ -11,7 +11,7 @@ Date: September 2025
 
 # Import required modules for the sentiment analysis system
 import modules.fetch_steam_data as fetch_steam_data      # Custom module to fetch Steam review data via API
-import reviewMethods           # Custom module to clean and format review text
+import modules.reviewMethods as reviewMethods           # Custom module to clean and format review text
 import modules.sentiment_dict as sentiment_dict     # Custom module to load word sentiment scores from CSV
 from datetime import datetime  # For timestamping analysis results
 import json                   # For saving analysis results to JSON files
