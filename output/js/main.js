@@ -115,7 +115,7 @@ async function runSentimentAnalysis(reviewID, appID, elementID1, elementID2, ele
             `;
             
             // 2. Detailed Sentence Analysis Section
-            element2.innerHTML = `
+            let sentenceListHTML = `
                 <div class="sentence-analysis-header">
                     <h4 class="content-subtitle">🔍 Individual Sentence Breakdown</h4>
                     <p class="analysis-description">Each sentence analyzed for sentiment with numerical scores</p>
@@ -128,7 +128,7 @@ async function runSentimentAnalysis(reviewID, appID, elementID1, elementID2, ele
                 const sentimentClass = score > 0 ? 'positive-sentiment' : score < 0 ? 'negative-sentiment' : 'neutral-sentiment';
                 const sentimentIcon = score > 0 ? '😊' : score < 0 ? '😞' : '😐';
                 
-                element2.innerHTML += `
+                sentenceListHTML += `
                     <div class="sentence-item ${sentimentClass}">
                         <div class="sentence-header">
                             <span class="sentence-number">Sentence ${i + 1}</span>
@@ -138,7 +138,8 @@ async function runSentimentAnalysis(reviewID, appID, elementID1, elementID2, ele
                     </div>
                 `;
             }
-            element2.innerHTML += `</div>`;
+            sentenceListHTML += `</div>`;
+            element2.innerHTML = sentenceListHTML;
 
             // 3. Most Positive Sentence Section
             element3.innerHTML = `
@@ -177,7 +178,7 @@ async function runSentimentAnalysis(reviewID, appID, elementID1, elementID2, ele
                     </div>
                     <div class="paragraph-result positive-paragraph">
                         <div class="paragraph-score-header">
-                            <span class="context-label">Most Positive Context</span>
+                            <span class="context-label">Most Positive Paragraph</span>
                             <span class="paragraph-score positive-score">Score: +${most_positive_paragraph_score?.toFixed(3) || '0.000'}</span>
                         </div>
                         <div class="paragraph-content">
@@ -196,7 +197,7 @@ async function runSentimentAnalysis(reviewID, appID, elementID1, elementID2, ele
                     </div>
                     <div class="paragraph-result negative-paragraph">
                         <div class="paragraph-score-header">
-                            <span class="context-label">Most Negative Context</span>
+                            <span class="context-label">Most Negative Paragraph</span>
                             <span class="paragraph-score negative-score">Score: ${most_negative_paragraph_score?.toFixed(3) || '0.000'}</span>
                         </div>
                         <div class="paragraph-content">
