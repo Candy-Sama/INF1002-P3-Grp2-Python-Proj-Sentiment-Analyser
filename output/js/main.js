@@ -66,10 +66,8 @@ async function runSentimentAnalysis(reviewID, appID, elementID, elementID1, elem
 
     const element = document.getElementById(elementID);
     const element2 = document.getElementById(elementID1)
-
-    const element1 = document.getElementById(elementID1);
-    const element2 = document.getElementById(elementID2);
-    const element3 = document.getElementById(elementID3);
+    const element3 = document.getElementById(elementID2);
+    const element4= document.getElementById(elementID3);
 
     if (!element) {
         console.error(`Element with ID '${elementID}' not found!`);
