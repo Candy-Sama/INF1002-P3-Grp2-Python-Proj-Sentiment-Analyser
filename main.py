@@ -6,18 +6,14 @@ import os
 import datetime
 import webbrowser
 from threading import Timer
-from unittest import result
-from flask import Flask, jsonify, render_template, request, g
+from flask import Flask, jsonify, render_template, request
 
 # -----------------------------
 # Add 'backend/' to Python path
 # -----------------------------
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'backend')))
 
-from backend import fetch_steam_data
 from backend import reviewMethods
-from backend import sentiment_dict
-from backend import additionalDataPoints
 from backend import createSentimentVisualization
 from backend import data_to_frontend
 

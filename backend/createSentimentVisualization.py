@@ -5,8 +5,6 @@ Creates comprehensive visualizations showing sentiment flow based on playtime ho
 
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
-import seaborn as sns
 
 def create_sentiment_playtime_visualization(file_id):
     """Create comprehensive sentiment analysis visualization"""

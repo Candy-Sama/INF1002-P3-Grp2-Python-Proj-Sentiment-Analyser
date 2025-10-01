@@ -4,7 +4,6 @@ import contractions
 import re
 import sentiment_dict
 import pandas as pd
-from itertools import combinations
 from wordsegment import load, segment
 
 # Prepare review for scoring (Zacc's Code, edited by mus hehe)
