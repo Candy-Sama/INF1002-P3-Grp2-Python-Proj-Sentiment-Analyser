@@ -245,7 +245,10 @@ async function runSummarizeReviews() {
     vizImg.style.display = 'none';
 
     try {
+        console.log("Before const response")
         const response = await fetch(`/summaryVisualisation?app_id=${appId}`);
+        console.log(response)
+        console.log("After const response")
         const data = await response.json();
         console.log(data)
 
@@ -261,7 +264,7 @@ async function runSummarizeReviews() {
         const newImage = document.createElement("img");
 
         // 2. Set the image source
-        newImage.src = "./output/sentiment_playtime_analysis.png";
+        newImage.src = "../static/css/sentiment_playtime_analysis.png";
         // newImage.src = JSON.stringify(${data.output_path});
 
         // 3. Set the alt text and style for accessibility and viewing

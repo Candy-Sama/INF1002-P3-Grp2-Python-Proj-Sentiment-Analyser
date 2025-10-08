@@ -7,6 +7,7 @@ import datetime
 import webbrowser
 from threading import Timer
 from flask import Flask, jsonify, render_template, request
+from logging import FileHandler,WARNING
 
 # -----------------------------
 # Add 'backend/' to Python path
@@ -24,6 +25,8 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 template_dir = os.path.join(os.path.dirname(__file__), 'frontend', 'templates')
 static_dir = os.path.join(os.path.dirname(__file__), 'frontend', 'static')
 app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
+file_handler = FileHandler('errorlog.txt')
+file_handler.setLevel(WARNING)
 
 # -----------------------------
 # Routes
@@ -173,6 +176,7 @@ def get_reviewsMain():
 
 @app.route("/summaryVisualisation", methods=["GET"])
 def summaryVisualisation():
+    result = {"output": ""}
     # Extract app_id from query parameter
     app_id = request.args.get("app_id", type=int)
     if not app_id:
@@ -192,16 +196,16 @@ def summaryVisualisation():
         # output = data_to_frontend.get_reviews(file_path)
 
     # 8️⃣ Build JSON response
-    result = {
+    result = [{
         "output_path": output
+    }]
     #    "app_id": app_id,
     #    "total_reviews": len(output),
     #    "reviews": output,
     #    "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     #    "most_positive_paragraphs": positive,
     #    "most_negative_paragraphs": negative,
-    #    "visualization_path": "output/sentiment_playtime_analysis.png"
-    }
+    #    "visualization_path": "output/sentiment_playtime_analysis.png
 
     return jsonify(result)
 
