@@ -230,7 +230,7 @@ async function runSentimentAnalysis(reviewID, appID, elementID1, elementID2, ele
 async function runSummarizeReviews() {
     const status = document.getElementById('analysisStatus');
     const resultsDiv = document.getElementById('liveResults');
-    const contentDiv = document.getElementById('resultsContent');
+    const contentDiv = document.getElementById('resultsContentSummary');
     const vizImg = document.getElementById('visualization');
     const appId = document.getElementById('app_id').value;
 
