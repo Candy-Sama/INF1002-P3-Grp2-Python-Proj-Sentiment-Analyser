@@ -6,7 +6,7 @@ import sentiment_dict
 import pandas as pd
 from wordsegment import load, segment
 
-# Prepare review for scoring (Zacc's Code, edited by mus hehe)
+# Prepare review for scoring (Zacc's code, edited by Mus)
 def format_review(review):
     load()
     finalResult = []
@@ -31,7 +31,8 @@ def format_review(review):
         finalResult.append(segment_sentence(sentence))
     return finalResult
 
-def segment_sentence(sentence): #Mus code
+# Zacc's code
+def segment_sentence(sentence):
     # Segmentation
     listOfSegmentedResults = []
     for word in sentence.split():
@@ -41,7 +42,8 @@ def segment_sentence(sentence): #Mus code
     combined_string = ' '.join(listOfSegmentedResults)
     return combined_string
 
-def permutations_of_sentences(review): #Mus Code
+# Mus' Code
+def permutations_of_sentences(review):
     combinatorics = itertools.product([True, False], repeat=len(review) - 1)
 
     solution = []
@@ -58,16 +60,8 @@ def permutations_of_sentences(review): #Mus Code
     return solution
 
 # Function to calculate sentiment score of each sentence in a review 
-# (Zacc and Ethel's Code - Optimized for performance)
+# (Zacc and Ethel's code - Optimized for performance)
 def sentence_score_calculator(review_to_be_scored):
-    """
-    Calculate sentiment score for each sentence in a review.
-    
-    Original algorithm by Zacc and Ethel, optimized for performance:
-    - Cache word scores to avoid repeated dictionary lookups
-    - Reduce function calls and object creation
-    - More efficient list building
-    """
     # Cache the sentiment dictionary to avoid repeated calls
     word_scores = sentiment_dict.wordScores()
     
@@ -109,10 +103,10 @@ def sentence_score_calculator_original(review_to_be_scored):
 
     return results, sorted_results
 
-# Code to check the length of reviews
-def findReviewLengths(): #Get the PD dataframe of reviews (Mus code)
+# Code to check the length of reviews (Mus' code)
+def findReviewLengths(): # Get the PD dataframe of reviews
 
-    #create a list to store the lengths of each review
+    # Create a list to store the lengths of each review
     review_lengths = []
 
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -153,7 +147,8 @@ def findReviewLengths(): #Get the PD dataframe of reviews (Mus code)
 
     return review_lengths
 
-def score_paragraphs_SlidingWindow(review, window_size=5, step_size=1):  #Mus Code
+# Mus' code
+def score_paragraphs_SlidingWindow(review, window_size=5, step_size=1):
     """
     Core sliding window function for sentiment analysis of paragraphs.
     Original algorithm by Mus, optimized for performance and bug fixes.
@@ -205,8 +200,8 @@ def score_paragraphs_SlidingWindow(review, window_size=5, step_size=1):  #Mus Co
     scored_paragraphs_sorted = sorted(scored_paragraphs, key=lambda x: x["raw_score"], reverse=True)
     return scored_paragraphs_sorted
 
-# ORIGINAL VERSION - Kept for reference and fallback
-def score_paragraphs_SlidingWindow_original(review, window_size=5, step_size=1):  #Mus Code
+# ORIGINAL VERSION - Kept for reference and fallback (Mus' code)
+def score_paragraphs_SlidingWindow_original(review, window_size=5, step_size=1):  #Mus code
     """
     Original implementation by Mus - kept as backup
     Note: Contains scoring bug where all sentences were scored for each window
@@ -246,8 +241,8 @@ def score_paragraphs_SlidingWindow_original(review, window_size=5, step_size=1):
     scored_paragraphs_sorted = sorted(scored_paragraphs, key=lambda x: x["raw_score"], reverse=True)
     return scored_paragraphs_sorted
 
-
-def analyse_individual_reviews(reviews, sentiment_dict, window_size=3, step_size=1): #Mus Code
+#Mus' code
+def analyse_individual_reviews(reviews, sentiment_dict, window_size=3, step_size=1):
     """
     Analyze each review individually to find most positive/negative content within each review.
     """
