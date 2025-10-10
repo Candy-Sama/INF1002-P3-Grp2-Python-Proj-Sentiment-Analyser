@@ -6,6 +6,17 @@ import sentiment_dict
 import pandas as pd
 from wordsegment import load, segment
 
+# Zacc's code
+def segment_sentence(sentence):
+    # Segmentation
+    listOfSegmentedResults = []
+    for word in sentence.split():
+        word = segment(word)
+        segmentResult = ' '.join(word)
+        listOfSegmentedResults.append(segmentResult)
+    combined_string = ' '.join(listOfSegmentedResults)
+    return combined_string
+
 # Prepare review for scoring (Zacc's code, edited by Mus)
 def format_review(review):
     load()
@@ -30,17 +41,6 @@ def format_review(review):
     for sentence in listOfCleanedSentences:
         finalResult.append(segment_sentence(sentence))
     return finalResult
-
-# Zacc's code
-def segment_sentence(sentence):
-    # Segmentation
-    listOfSegmentedResults = []
-    for word in sentence.split():
-        word = segment(word)
-        segmentResult = ' '.join(word)
-        listOfSegmentedResults.append(segmentResult)
-    combined_string = ' '.join(listOfSegmentedResults)
-    return combined_string
 
 # Mus' Code
 def permutations_of_sentences(review):
