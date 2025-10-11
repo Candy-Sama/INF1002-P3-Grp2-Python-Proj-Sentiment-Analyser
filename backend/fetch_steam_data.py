@@ -3,6 +3,10 @@ import pandas as pd
 from datetime import datetime
 import time
 
+# =============================================================================
+# UNUSED CODE - Complete file preserved for future use
+# =============================================================================
+
 def fetch_steam_reviews(app_id,
                         filter_by='all',
                         language='all',

@@ -12,6 +12,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import json
 
+# =============================================================================
+# UNUSED CODE - Complete file preserved for future use
+# =============================================================================
+
 def load_steam_reviews_data():
     """Load the Steam reviews data from Excel file"""
     try:

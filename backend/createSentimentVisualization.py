@@ -7,6 +7,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 
+# =============================================================================
+# ACTIVE CODE - Currently used functions
+# =============================================================================
+
 def create_sentiment_playtime_visualization(file_id):
     """Create comprehensive sentiment analysis visualization"""
     
@@ -142,6 +146,10 @@ def create_sentiment_playtime_visualization(file_id):
     
     # return output_path
     return output_path
+
+# =============================================================================
+# UNUSED CODE - Preserved for future use and reference
+# =============================================================================
 
 if __name__ == "__main__":
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
