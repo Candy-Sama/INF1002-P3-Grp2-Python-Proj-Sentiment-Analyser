@@ -5,8 +5,7 @@ Creates comprehensive visualizations showing sentiment flow based on playtime ho
 
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
-import seaborn as sns
+import os
 
 def create_sentiment_playtime_visualization(file_id):
     """Create comprehensive sentiment analysis visualization"""
@@ -14,9 +13,10 @@ def create_sentiment_playtime_visualization(file_id):
     # Read and prepare the data
     print("Loading Steam reviews data...")
     df = pd.read_excel(file_id)
+    # print(df['playtime_at_review_m'].head(5))
     
     # Convert playtime from minutes to hours
-    df['playtime_hours'] = df['playtime_at_review_m'] / 60
+    df['playtime_hours'] = df['playtime_at_review_h'] / 60
     df['sentiment_score'] = df['recommended'].astype(int)
     
     # Create playtime bins (in hours)
@@ -114,7 +114,7 @@ def create_sentiment_playtime_visualization(file_id):
     plt.tight_layout()
     
     # Save the visualization
-    output_path = 'output/sentiment_playtime_analysis.png'
+    output_path = 'frontend/static/css/sentiment_playtime_analysis.png'
     plt.savefig(output_path, dpi=300, bbox_inches='tight')
     print(f"Visualization saved to: {output_path}")
     
@@ -140,10 +140,16 @@ def create_sentiment_playtime_visualization(file_id):
     print("Peak satisfaction occurs in the 25-50h range")
     print("Long-term players (500h+) maintain high satisfaction")
     
+    # return output_path
     return output_path
 
 if __name__ == "__main__":
-    sentiment_data = create_sentiment_playtime_visualization('steam_reviews_315210.xlsx')
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    app_id = 315210
+    file_id = f'steam_reviews_{app_id}.xlsx'
+    file_path = os.path.join(BASE_DIR, "data", file_id)
+    print("THIS IS THE PATH FILE FOR STEAM DATA:\n",file_path)
+    sentiment_data = create_sentiment_playtime_visualization(file_path)
     
     # Show the plot
     plt.show()

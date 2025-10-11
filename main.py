@@ -6,28 +6,27 @@ import os
 import datetime
 import webbrowser
 from threading import Timer
-from unittest import result
-from flask import Flask, jsonify, render_template, request, g
+from flask import Flask, jsonify, render_template, request
+from logging import FileHandler,WARNING
 
 # -----------------------------
-# Add 'modules/' to Python path
+# Add 'backend/' to Python path
 # -----------------------------
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'modules')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'backend')))
 
-from modules import fetch_steam_data
-from modules import reviewMethods
-from modules import sentiment_dict
-from modules import additionalDataPoints
-from modules import createSentimentVisualization
-from modules import data_to_frontend
+from backend import reviewMethods
+from backend import createSentimentVisualization
+from backend import data_to_frontend
 
 # -----------------------------
 # Flask app initialization
 # -----------------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-template_dir = os.path.join(os.path.dirname(__file__), 'output')
-static_dir = os.path.join(os.path.dirname(__file__), 'output')
+template_dir = os.path.join(os.path.dirname(__file__), 'frontend', 'templates')
+static_dir = os.path.join(os.path.dirname(__file__), 'frontend', 'static')
 app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
+file_handler = FileHandler('errorlog.txt')
+file_handler.setLevel(WARNING)
 
 # -----------------------------
 # Routes
@@ -93,19 +92,27 @@ def returnReview():
         
         # Get Sentence Score
         sentence_to_score = result["review_text"]
-        print(f"DEBUG: Review text length: {len(sentence_to_score)}")
+        review_length = len(sentence_to_score)
+        print(f"DEBUG: Review text length: {review_length}")
         
+        # For extremely long reviews (>10000 chars), offer smart truncation
+        if review_length > 10000:
+            print(f"WARNING: Very long review detected ({review_length} chars). Consider truncation for speed.")
+            # Optionally truncate to first 8000 characters for speed
+            # sentence_to_score = sentence_to_score[:8000] + "... [truncated for performance]"
+        
+        # Use optimized analysis functions (original algorithms by Zacc, Ethel, and Mus - performance enhanced)
         try:
             sentence_score, sorted_sentence_score = reviewMethods.sentence_score_calculator(sentence_to_score)
-            print(f"DEBUG: Sentence analysis complete")
+            print(f"DEBUG: Optimized sentence analysis complete")
         except Exception as e:
             print(f"ERROR in sentence_score_calculator: {e}")
             return jsonify({"error": f"Sentence analysis failed: {str(e)}"}), 500
 
         try:
-            #Get Paragraph Score using Sliding Window
+            # Get Paragraph Score using optimized Sliding Window (Mus's algorithm, performance enhanced)
             scored_paragraphs = reviewMethods.score_paragraphs_SlidingWindow(sentence_to_score)
-            print(f"DEBUG: Paragraph analysis complete, found {len(scored_paragraphs)} paragraphs")
+            print(f"DEBUG: Optimized paragraph analysis complete, found {len(scored_paragraphs)} paragraphs")
         except Exception as e:
             print(f"ERROR in score_paragraphs_SlidingWindow: {e}")
             return jsonify({"error": f"Paragraph analysis failed: {str(e)}"}), 500
@@ -169,6 +176,7 @@ def get_reviewsMain():
 
 @app.route("/summaryVisualisation", methods=["GET"])
 def summaryVisualisation():
+    result = {"output": ""}
     # Extract app_id from query parameter
     app_id = request.args.get("app_id", type=int)
     if not app_id:
@@ -188,16 +196,16 @@ def summaryVisualisation():
         # output = data_to_frontend.get_reviews(file_path)
 
     # 8️⃣ Build JSON response
-    result = {
+    result = [{
         "output_path": output
+    }]
     #    "app_id": app_id,
     #    "total_reviews": len(output),
     #    "reviews": output,
     #    "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     #    "most_positive_paragraphs": positive,
     #    "most_negative_paragraphs": negative,
-    #    "visualization_path": "output/sentiment_playtime_analysis.png"
-    }
+    #    "visualization_path": "output/sentiment_playtime_analysis.png
 
     return jsonify(result)
 
