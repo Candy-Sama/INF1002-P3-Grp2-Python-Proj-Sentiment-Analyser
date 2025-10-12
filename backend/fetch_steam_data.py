@@ -4,7 +4,7 @@ from datetime import datetime
 import time
 
 # =============================================================================
-# UNUSED CODE - Complete file preserved for future use
+# ACTIVE CODE - Used to obtain review datasets
 # =============================================================================
 
 def fetch_steam_reviews(app_id,
