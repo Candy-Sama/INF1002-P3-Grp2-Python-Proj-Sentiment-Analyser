@@ -13,6 +13,7 @@ from wordsegment import load, segment
 # Zacc's code (Used by format_review)
 def segment_sentence(sentence):
     # Segmentation
+    # To determine if the possible outcomes of the scanned word are valid English words such "unlockable" -> "un lockable"
     listOfSegmentedResults = []
     for word in sentence.split():
         word = segment(word)
