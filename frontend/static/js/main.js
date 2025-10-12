@@ -1,4 +1,6 @@
-// Main JavaScript functions for Steam Review Sentiment Analysis
+// =============================================================================
+// ACTIVE CODE - Main JavaScript functions for Steam Review Sentiment Analysis
+// =============================================================================
 
 async function runGetReviews() {
     const status = document.getElementById('analysisStatus');
@@ -214,19 +216,6 @@ async function runSentimentAnalysis(reviewID, appID, elementID1, elementID2, ele
     }
 }
 
-// Function to update review analysis with timeout (Mus code)
-// function updateReviewAnalysis(elementID,elementID1,elementID2,elementID3, appID, reviewID, timeOut = 3000) {
-//     console.log(`Starting timeout for element: ${elementID}, app: ${appID}, review: ${reviewID}, delay: ${timeOut}ms`);
-
-//     const reviewAnalysisTimeout = setTimeout(() => { //Create a timeout and store its ID
-//         console.log(`Timeout fired! Calling runSentimentAnalysis...`);
-//         // call the method to update the review analysis - pass all 4 required parameters
-//         runSentimentAnalysis(elementID,elementID1,elementID2,elementID3, reviewID, appID);
-//     }, timeOut); // (default: 3000ms)
-    
-//     return reviewAnalysisTimeout; // Return timeout ID in case you need to clear it
-// }
-
 async function runSummarizeReviews() {
     const status = document.getElementById('analysisStatus');
     const resultsDiv = document.getElementById('liveResults');
@@ -287,3 +276,20 @@ async function runSummarizeReviews() {
         console.error(error);
     }
 }
+
+// =============================================================================
+// UNUSED CODE - Preserved for future use and reference  
+// =============================================================================
+
+// Function to update review analysis with timeout (Mus code)
+// function updateReviewAnalysis(elementID,elementID1,elementID2,elementID3, appID, reviewID, timeOut = 3000) {
+//     console.log(`Starting timeout for element: ${elementID}, app: ${appID}, review: ${reviewID}, delay: ${timeOut}ms`);
+
+//     const reviewAnalysisTimeout = setTimeout(() => { //Create a timeout and store its ID
+//         console.log(`Timeout fired! Calling runSentimentAnalysis...`);
+//         // call the method to update the review analysis - pass all 4 required parameters
+//         runSentimentAnalysis(elementID,elementID1,elementID2,elementID3, reviewID, appID);
+//     }, timeOut); // (default: 3000ms)
+    
+//     return reviewAnalysisTimeout; // Return timeout ID in case you need to clear it
+// }
