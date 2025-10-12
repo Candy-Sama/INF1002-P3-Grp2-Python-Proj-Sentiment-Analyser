@@ -7,6 +7,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 
+# =============================================================================
+# ACTIVE CODE - Currently used functions
+# =============================================================================
+
 def create_sentiment_playtime_visualization(file_id):
     """Create comprehensive sentiment analysis visualization"""
     
