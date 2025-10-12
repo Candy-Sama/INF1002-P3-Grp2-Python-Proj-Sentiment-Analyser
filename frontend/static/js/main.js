@@ -2,6 +2,10 @@
 // ACTIVE CODE - Main JavaScript functions for Steam Review Sentiment Analysis
 // =============================================================================
 
+// =============================================================================
+// INDEX.HTML FUNCTIONS - Main Dashboard Functions (Created by Ethel)
+// =============================================================================
+
 async function runGetReviews() {
     const status = document.getElementById('analysisStatus');
     const resultsDiv = document.getElementById('liveResults');
@@ -61,6 +65,9 @@ async function runGetReviews() {
     }
 }
 
+// =============================================================================
+// REVIEWANALYSER.HTML FUNCTIONS - Deep Analysis Functions (Created by Mus)
+// =============================================================================
 
 //Function to call from the json the review ID and display the results
 async function runSentimentAnalysis(reviewID, appID, elementID1, elementID2, elementID3, elementID4, elementID5, elementID6) { //Mus
@@ -215,6 +222,10 @@ async function runSentimentAnalysis(reviewID, appID, elementID1, elementID2, ele
         element1.innerHTML = `<p>❌ Error loading sentiment analysis</p>`;
     }
 }
+
+// =============================================================================
+// INDEX.HTML FUNCTIONS - Summary Visualization (Team Collaboration)
+// =============================================================================
 
 async function runSummarizeReviews() {
     const status = document.getElementById('analysisStatus');
