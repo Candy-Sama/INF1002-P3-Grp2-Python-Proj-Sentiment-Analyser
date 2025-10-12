@@ -6,7 +6,11 @@ import sentiment_dict
 import pandas as pd
 from wordsegment import load, segment
 
-# Zacc's code
+# =============================================================================
+# ACTIVE CODE - Currently used functions
+# =============================================================================
+
+# Zacc's code (Used by format_review)
 def segment_sentence(sentence):
     # Segmentation
     listOfSegmentedResults = []
@@ -17,7 +21,7 @@ def segment_sentence(sentence):
     combined_string = ' '.join(listOfSegmentedResults)
     return combined_string
 
-# Prepare review for scoring (Zacc's code, edited by Mus)
+# Prepare review for scoring (Zacc's code, edited by Mus) - Used by sentence_score_calculator and score_paragraphs_SlidingWindow
 def format_review(review):
     load()
     finalResult = []
@@ -42,25 +46,8 @@ def format_review(review):
         finalResult.append(segment_sentence(sentence))
     return finalResult
 
-# Mus' Code
-def permutations_of_sentences(review):
-    combinatorics = itertools.product([True, False], repeat=len(review) - 1)
-
-    solution = []
-    for combination in combinatorics:
-        i = 0
-        one_such_combination = [review[i]]
-        for slab in combination:
-            i += 1
-            if not slab: # there is a join
-                one_such_combination[-1] += review[i]
-            else:
-                one_such_combination += [review[i]]
-        solution.append(one_such_combination)
-    return solution
-
 # Function to calculate sentiment score of each sentence in a review 
-# (Zacc and Ethel's code - Optimized for performance)
+# (Zacc and Ethel's code - Optimized for performance) - Called in main.py
 def sentence_score_calculator(review_to_be_scored):
     # Cache the sentiment dictionary to avoid repeated calls
     word_scores = sentiment_dict.wordScores()
@@ -78,76 +65,7 @@ def sentence_score_calculator(review_to_be_scored):
     
     return results, sorted_results
 
-# ORIGINAL VERSION - Kept for reference and fallback
-def sentence_score_calculator_original(review_to_be_scored):
-    """
-    Original implementation by Zacc and Ethel - kept as backup
-    """
-    sentenceScore = []
-    results = []
-    cleanedSentence = format_review(review_to_be_scored)
-
-    for sentence in cleanedSentence:
-        score = 0
-        for word in sentence.split():
-            if word in sentiment_dict.wordScores().keys():
-                score += float(sentiment_dict.wordScores()[word])
-            else:
-                pass
-        sentenceScore.append(score)
-
-    for i in range(len(cleanedSentence)):
-        results.append([cleanedSentence[i],sentenceScore[i]])
-
-    sorted_results = sorted(results, key=lambda x: x[1], reverse=True)
-
-    return results, sorted_results
-
-# Code to check the length of reviews (Mus' code)
-def findReviewLengths(): # Get the PD dataframe of reviews
-
-    # Create a list to store the lengths of each review
-    review_lengths = []
-
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(BASE_DIR, "..", "data", "steam_reviews_315210.xlsx") # Path to the excel file
-    
-    # Edited by Ethel: Added error handling for file operations
-    try:
-        df = pd.read_excel(file_path)
-    except FileNotFoundError:
-        print(f"Error: Could not find file at {file_path}")
-        return []
-    except Exception as e:
-        print(f"Error reading Excel file: {e}")
-        return []
-
-    largest_review, smallest_review, largest_review_text, smallest_review_text = 0, 0, "", ""
-
-    # Add error handling for missing columns
-    if 'review_text' not in df.columns:
-        print("Error: 'review_text' column not found in the DataFrame")
-        return []
-
-    for eachReview in df['review_text'].dropna().head(10): # Loop through each review, skip NaN values
-        # Convert to string to handle any non-string data types
-        eachReview = str(eachReview)
-        review_word_count = len(eachReview.split())
-        
-        if (largest_review < review_word_count): # Check if the current review is larger than the largest review
-            largest_review = review_word_count # Update the largest review length
-            largest_review_text = eachReview # Update the largest review text
-
-        if (smallest_review > review_word_count) or (smallest_review == 0): # Check if the current review is smaller than the smallest review
-            smallest_review = review_word_count # Update the smallest review length
-            smallest_review_text = eachReview # Update the smallest review text
-
-    review_lengths.append({"length": largest_review, "text": largest_review_text})
-    review_lengths.append({"length": smallest_review, "text": smallest_review_text})
-
-    return review_lengths
-
-# Mus' code
+# Mus' code - Called in main.py
 def score_paragraphs_SlidingWindow(review, window_size=5, step_size=1):
     """
     Core sliding window function for sentiment analysis of paragraphs.
@@ -200,6 +118,96 @@ def score_paragraphs_SlidingWindow(review, window_size=5, step_size=1):
     scored_paragraphs_sorted = sorted(scored_paragraphs, key=lambda x: x["raw_score"], reverse=True)
     return scored_paragraphs_sorted
 
+# =============================================================================
+# UNUSED CODE - Preserved for future use and reference
+# =============================================================================
+
+# Mus' Code - Not called anywhere
+def permutations_of_sentences(review):
+    combinatorics = itertools.product([True, False], repeat=len(review) - 1)
+
+    solution = []
+    for combination in combinatorics:
+        i = 0
+        one_such_combination = [review[i]]
+        for slab in combination:
+            i += 1
+            if not slab: # there is a join
+                one_such_combination[-1] += review[i]
+            else:
+                one_such_combination += [review[i]]
+        solution.append(one_such_combination)
+    return solution
+
+# Code to check the length of reviews (Mus' code) - Not called anywhere
+def findReviewLengths(): # Get the PD dataframe of reviews
+
+    # Create a list to store the lengths of each review
+    review_lengths = []
+
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    file_path = os.path.join(BASE_DIR, "..", "data", "steam_reviews_315210.xlsx") # Path to the excel file
+    
+    # Edited by Ethel: Added error handling for file operations
+    try:
+        df = pd.read_excel(file_path)
+    except FileNotFoundError:
+        print(f"Error: Could not find file at {file_path}")
+        return []
+    except Exception as e:
+        print(f"Error reading Excel file: {e}")
+        return []
+
+    largest_review, smallest_review, largest_review_text, smallest_review_text = 0, 0, "", ""
+
+    # Add error handling for missing columns
+    if 'review_text' not in df.columns:
+        print("Error: 'review_text' column not found in the DataFrame")
+        return []
+
+    for eachReview in df['review_text'].dropna().head(10): # Loop through each review, skip NaN values
+        # Convert to string to handle any non-string data types
+        eachReview = str(eachReview)
+        review_word_count = len(eachReview.split())
+        
+        if (largest_review < review_word_count): # Check if the current review is larger than the largest review
+            largest_review = review_word_count # Update the largest review length
+            largest_review_text = eachReview # Update the largest review text
+
+        if (smallest_review > review_word_count) or (smallest_review == 0): # Check if the current review is smaller than the smallest review
+            smallest_review = review_word_count # Update the smallest review length
+            smallest_review_text = eachReview # Update the smallest review text
+
+    review_lengths.append({"length": largest_review, "text": largest_review_text})
+    review_lengths.append({"length": smallest_review, "text": smallest_review_text})
+
+    return review_lengths
+
+# ORIGINAL VERSION - Kept for reference and fallback
+def sentence_score_calculator_original(review_to_be_scored):
+    """
+    Original implementation by Zacc and Ethel - kept as backup
+    """
+    sentenceScore = []
+    results = []
+    cleanedSentence = format_review(review_to_be_scored)
+
+    for sentence in cleanedSentence:
+        score = 0
+        for word in sentence.split():
+            if word in sentiment_dict.wordScores().keys():
+                score += float(sentiment_dict.wordScores()[word])
+            else:
+                pass
+        sentenceScore.append(score)
+
+    for i in range(len(cleanedSentence)):
+        results.append([cleanedSentence[i],sentenceScore[i]])
+
+    sorted_results = sorted(results, key=lambda x: x[1], reverse=True)
+
+    return results, sorted_results
+
 # ORIGINAL VERSION - Kept for reference and fallback (Mus' code)
 def score_paragraphs_SlidingWindow_original(review, window_size=5, step_size=1):  #Mus code
     """
@@ -241,7 +249,7 @@ def score_paragraphs_SlidingWindow_original(review, window_size=5, step_size=1):
     scored_paragraphs_sorted = sorted(scored_paragraphs, key=lambda x: x["raw_score"], reverse=True)
     return scored_paragraphs_sorted
 
-#Mus' code
+#Mus' code - Not called anywhere
 def analyse_individual_reviews(reviews, sentiment_dict, window_size=3, step_size=1):
     """
     Analyze each review individually to find most positive/negative content within each review.

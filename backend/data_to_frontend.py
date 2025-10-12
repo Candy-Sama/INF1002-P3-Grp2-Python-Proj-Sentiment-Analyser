@@ -2,21 +2,13 @@ import pandas as pd
 import reviewMethods
 import re
 
+# =============================================================================
+# ACTIVE CODE - Currently used functions
+# =============================================================================
+
 currentDataframe = None
 
-# Get sentence and score of review (Zacc's Code)
-def get_sentence_scores(file_path):
-    df = pd.read_excel(file_path)
-    review_column = df['review_text'].head(10)
-    output = []
-
-    for review in review_column:
-        scores = reviewMethods.sentence_score_calculator(review)
-        output.append(scores)
-
-    return output
-    
-# Get raw review to display to users (Zacc's & Mus' Code)
+# Get raw review to display to users (Zacc's & Mus' Code) - Called in main.py
 def get_all_reviews(file_path):
     df = pd.read_excel(file_path)
     global currentDataframe 
@@ -38,7 +30,7 @@ def get_all_reviews(file_path):
 
     return outputList
 
-# Zacc's Code
+# Zacc's Code - Called in main.py
 def get_reviews():
     review_text_column = currentDataframe['review_text']
     review_ID_column = currentDataframe['review_id']
@@ -56,3 +48,19 @@ def get_reviews():
         })
     
     return output_list
+
+# =============================================================================
+# UNUSED CODE - Preserved for future use and reference
+# =============================================================================
+
+# Get sentence and score of review (Zacc's Code) - Not called anywhere
+def get_sentence_scores(file_path):
+    df = pd.read_excel(file_path)
+    review_column = df['review_text'].head(10)
+    output = []
+
+    for review in review_column:
+        scores = reviewMethods.sentence_score_calculator(review)
+        output.append(scores)
+
+    return output
