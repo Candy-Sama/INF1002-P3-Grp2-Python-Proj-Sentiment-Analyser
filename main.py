@@ -76,7 +76,7 @@ def returnReview():
         file_path = os.path.join(BASE_DIR, "data", file_id)
         print(f"DEBUG: Looking for file: {file_path}")
         
-        outputList = data_to_frontend.get_reviews(file_path)
+        outputList = data_to_frontend.get_reviews()
         print(f"DEBUG: Found {len(outputList)} reviews")
         print(f"DEBUG: First few review IDs: {[item['review_id'] for item in outputList[:3]]}")
 
@@ -157,7 +157,7 @@ def get_reviewsMain():
     else:
         file_id = f'steam_reviews_{app_id}.xlsx'
         file_path = os.path.join(BASE_DIR, "data", file_id)
-        reviewList = data_to_frontend.get_reviews(file_path)
+        reviewList = data_to_frontend.get_all_reviews(file_path)
 
     # Build JSON response
     result = {
