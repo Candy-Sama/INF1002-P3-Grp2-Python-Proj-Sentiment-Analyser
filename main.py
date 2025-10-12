@@ -55,7 +55,7 @@ def reviewAnalyser():
                            review_id=review_id,
                            app_id=app_id)
 
-@app.route("/returnReview", methods=["GET"])
+@app.route("/returnReview", methods=["GET"]) # Edited by Mus
 def returnReview():
     # Get parameters from request args
     review_id = request.args.get('review_id')

@@ -70,20 +70,20 @@ async function runGetReviews() {
 // =============================================================================
 
 //Function to call from the json the review ID and display the results
-async function runSentimentAnalysis(reviewID, appID, elementID1, elementID2, elementID3, elementID4, elementID5, elementID6) { //Mus
+async function runSentimentAnalysis(reviewID, appID, originalReviewSection, sentenceAnalysisSection, mostPositiveSentenceSection, mostNegativeSentenceSection, mostPositiveParagraphSection, mostNegativeParagraphSection) { //Mus
     // Get review ID from clicked element's data-value attribute
     const reviewId = reviewID;
-    console.log('Element ID:', elementID1, 'Review ID:', reviewId); //For debug
+    console.log('Original Review Section:', originalReviewSection, 'Review ID:', reviewId); //For debug
 
-    const element1 = document.getElementById(elementID1);
-    const element2 = document.getElementById(elementID2);
-    const element3 = document.getElementById(elementID3);
-    const element4 = document.getElementById(elementID4);
-    const element5 = document.getElementById(elementID5);
-    const element6 = document.getElementById(elementID6);
+    const originalReviewElement = document.getElementById(originalReviewSection);
+    const sentenceAnalysisElement = document.getElementById(sentenceAnalysisSection);
+    const mostPositiveSentenceElement = document.getElementById(mostPositiveSentenceSection);
+    const mostNegativeSentenceElement = document.getElementById(mostNegativeSentenceSection);
+    const mostPositiveParagraphElement = document.getElementById(mostPositiveParagraphSection);
+    const mostNegativeParagraphElement = document.getElementById(mostNegativeParagraphSection);
 
-    if (!element1) {
-        console.error(`Element with ID '${elementID1}' not found!`);
+    if (!originalReviewElement) {
+        console.error(`Original Review Element with ID '${originalReviewSection}' not found!`);
         return;
     }
     try {
@@ -94,7 +94,7 @@ async function runSentimentAnalysis(reviewID, appID, elementID1, elementID2, ele
         
         // Update the element with the received data
         if (data.error) {
-            element1.innerHTML = `<p>❌ Error: ${data.error}</p>`;
+            originalReviewElement.innerHTML = `<p>❌ Error: ${data.error}</p>`;
         } 
         else {
             // Display the sentiment analysis results
@@ -106,7 +106,7 @@ async function runSentimentAnalysis(reviewID, appID, elementID1, elementID2, ele
             let most_positive_paragraph_text = data.most_positive_paragraph_text
 
             // 1. Original Review Content Section
-            element1.innerHTML = `
+            originalReviewElement.innerHTML = `
                 <div class="analysis-complete-badge">
                     <span class="success-icon">✅</span>
                     <strong>Analysis Complete!</strong>
@@ -148,10 +148,10 @@ async function runSentimentAnalysis(reviewID, appID, elementID1, elementID2, ele
                 `;
             }
             sentenceListHTML += `</div>`;
-            element2.innerHTML = sentenceListHTML;
+            sentenceAnalysisElement.innerHTML = sentenceListHTML;
 
             // 3. Most Positive Sentence Section
-            element3.innerHTML = `
+            mostPositiveSentenceElement.innerHTML = `
                 <div class="extreme-sentiment-content">
                     <div class="sentiment-badge positive-badge">
                         <span class="badge-icon">🌟</span>
@@ -165,7 +165,7 @@ async function runSentimentAnalysis(reviewID, appID, elementID1, elementID2, ele
             `;
 
             // 4. Most Negative Sentence Section
-            element4.innerHTML = `
+            mostNegativeSentenceElement.innerHTML = `
                 <div class="extreme-sentiment-content">
                     <div class="sentiment-badge negative-badge">
                         <span class="badge-icon">💔</span>
@@ -179,7 +179,7 @@ async function runSentimentAnalysis(reviewID, appID, elementID1, elementID2, ele
             `;
 
             // 5. Most Positive Paragraph (Sliding Window) Section
-            element5.innerHTML = `
+            mostPositiveParagraphElement.innerHTML = `
                 <div class="paragraph-analysis-content">
                     <div class="analysis-method-badge">
                         <span class="method-icon">🎯</span>
@@ -198,7 +198,7 @@ async function runSentimentAnalysis(reviewID, appID, elementID1, elementID2, ele
             `;
 
             // 6. Most Negative Paragraph (Sliding Window) Section
-            element6.innerHTML = `
+            mostNegativeParagraphElement.innerHTML = `
                 <div class="paragraph-analysis-content">
                     <div class="analysis-method-badge">
                         <span class="method-icon">🎯</span>
@@ -219,7 +219,7 @@ async function runSentimentAnalysis(reviewID, appID, elementID1, elementID2, ele
         }
     } catch (error) {
         console.error('Fetch error:', error);
-        element1.innerHTML = `<p>❌ Error loading sentiment analysis</p>`;
+        originalReviewElement.innerHTML = `<p>❌ Error loading sentiment analysis</p>`;
     }
 }
 
