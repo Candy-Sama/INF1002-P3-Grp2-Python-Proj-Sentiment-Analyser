@@ -63,7 +63,7 @@ async function runGetReviews() {
 
 
 //Function to call from the json the review ID and display the results
-async function runSentimentAnalysis(reviewID, appID, elementID1, elementID2, elementID3, elementID4, elementID5, elementID6) { //Edited by Mus
+async function runSentimentAnalysis(reviewID, appID, elementID1, elementID2, elementID3, elementID4, elementID5, elementID6) { //Mus
     // Get review ID from clicked element's data-value attribute
     const reviewId = reviewID;
     console.log('Element ID:', elementID1, 'Review ID:', reviewId); //For debug
