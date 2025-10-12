@@ -17,7 +17,6 @@ def create_sentiment_playtime_visualization(file_id):
     # Read and prepare the data
     print("Loading Steam reviews data...")
     df = pd.read_excel(file_id)
-    # print(df['playtime_at_review_m'].head(5))
     
     # Convert playtime from minutes to hours
     df['playtime_hours'] = df['playtime_at_review_h'] / 60
@@ -44,8 +43,6 @@ def create_sentiment_playtime_visualization(file_id):
     # Create the visualization
     plt.style.use('default')
     fig, axes = plt.subplots(2, 2, figsize=(16, 12))
-    # fig.suptitle('Steam Reviews: Sentiment Analysis by Playtime Hours', 
-    #             fontsize=20, fontweight='bold', y=0.98)
     
     # Plot 1: Bar Chart - Recommended Ratio
     ax1 = axes[0, 0]
@@ -146,22 +143,3 @@ def create_sentiment_playtime_visualization(file_id):
     
     # return output_path
     return output_path
-
-# =============================================================================
-# UNUSED CODE - Preserved for future use and reference
-# =============================================================================
-
-if __name__ == "__main__":
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    app_id = 315210
-    file_id = f'steam_reviews_{app_id}.xlsx'
-    file_path = os.path.join(BASE_DIR, "data", file_id)
-    print("THIS IS THE PATH FILE FOR STEAM DATA:\n",file_path)
-    sentiment_data = create_sentiment_playtime_visualization(file_path)
-    
-    # Show the plot
-    plt.show()
-    
-    # Save detailed data
-    sentiment_data.to_csv('output/sentiment_by_playtime_detailed.csv', index=False)
-    print("\nDetailed data saved to: output/sentiment_by_playtime_detailed.csv")

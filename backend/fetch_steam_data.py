@@ -90,8 +90,8 @@ if __name__ == '__main__':
     raw = fetch_steam_reviews(
         app_id=app_id,
         filter_by='recent',     # recent, updated, or all
-        language='english',          # two-letter codes like 'en', or 'all'
-        day_range=180,           # up to 365 if filter='all'
+        language='english',     # two-letter codes like 'en', or 'all'
+        day_range=180,          # up to 365 if filter='all'
         review_type='all',      # all, positive, negative
         purchase_type='all',    # all, steam, non_steam_purchase
         num_per_page=100        # max 100
@@ -105,10 +105,6 @@ if __name__ == '__main__':
     print("Before store to excel")
     output_file = f'steam_reviews_{app_id}.xlsx'
 
-    # Usig the default openpyxl engine
-    # df.to_excel(output_file, index=False,)
-    # print(f"\nExported {len(df)} reviews to {output_file}")
-
     # Using the xlsxwriter engine and set a safe datetime format
     with pd.ExcelWriter(
         output_file,
@@ -121,21 +117,3 @@ if __name__ == '__main__':
     print(f"\nExported {len(df)} reviews to {output_file}")
 
     print("End of main")
-
-
-    # 5) Tweak pandas display options for terminal output
-    # pd.set_option('display.max_rows', None)        # show all rows
-    # pd.set_option('display.max_columns', None)     # show all columns
-    # pd.set_option('display.width', 120)            # wrap at 120 chars
-    # pd.set_option('display.colheader_justify', 'center')
-
-    # 6) Print the entire table to the console
-    # print(f"\nSteam Reviews for AppID {315210}  (Total: {len(df)})\n")
-    # print(df.to_string(index=False))
-
-    # Thorough check
-    # print("This is a thorough check")
-    # print(df.shape)          # Should be (9772, number_of_columns)
-    # print(df.head(3).T)      # First few rows, transposed
-    # print(df.tail(3).T)      # Last few rows, transposed
-    # # print(f"\nExported {len(df)} reviews to {output_file}")
