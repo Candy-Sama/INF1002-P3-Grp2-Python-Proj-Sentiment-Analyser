@@ -5,7 +5,11 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 file_path = os.path.join(BASE_DIR, "..", "data", "sentiment_dictionary.csv")
 
-# Zacc's Code
+# =============================================================================
+# ACTIVE CODE - Currently used functions
+# =============================================================================
+
+# Zacc's Code - Called by reviewMethods functions
 def wordScores():
     # Always initialize sentimentDict, so it exists even if file fails
     sentimentDict = {}

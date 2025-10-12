@@ -63,7 +63,7 @@ def reviews_to_dataframe(raw_reviews):
             'steam_id':               r.get('author', {}).get('steamid'),
             'num_games_owned':        r.get('author', {}).get('num_games_owned'),
             'num_reviews_by_user':    r.get('author', {}).get('num_reviews'),
-            'playtime_at_review_h':   r.get('author', {}).get('playtime_at_review'),
+            'playtime_at_review_m':   r.get('author', {}).get('playtime_at_review'),
             'language':               r.get('language'),
             'date_of_review':         created,
             'recommended':            r.get('voted_up'),

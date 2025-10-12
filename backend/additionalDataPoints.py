@@ -8,6 +8,10 @@ Analyzes reviewer characteristics and their impact on sentiment:
 - Whether game was purchased or received for free (steam_purchase, received_for_free)
 """
 
+# =============================================================================
+# UNUSED CODE - Complete file preserved for future use
+# =============================================================================
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import json

@@ -147,6 +147,10 @@ def create_sentiment_playtime_visualization(file_id):
     # return output_path
     return output_path
 
+# =============================================================================
+# UNUSED CODE - Preserved for future use and reference
+# =============================================================================
+
 if __name__ == "__main__":
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     app_id = 315210
